@@ -20,6 +20,7 @@
     <mvc:resources mapping="/js/**" location="/WEB-INF/js/"/>
     <mvc:annotation-driven/>
     <context:annotation-config />
+    
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
     <mvc:annotation-driven />
