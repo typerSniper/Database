@@ -5,6 +5,9 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/home', {
             templateUrl : 'views/home'
         })
+        .when('/', {
+        		redirectTo: '/login'
+        	})
         .when('/login', {
             templateUrl : 'views/login',
             controller : 'LoginController'
