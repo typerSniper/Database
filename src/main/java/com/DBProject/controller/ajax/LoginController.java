@@ -1,4 +1,4 @@
-package com.DBProject.controller;
+package com.DBProject.controller.ajax;
 
 
 import lombok.AllArgsConstructor;
