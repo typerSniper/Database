@@ -1,17 +1,20 @@
-var app = angular.module('pt-cell', ['ngRoute', ]);
+var app = angular.module('pt-cell', ['ngRoute', 'ngCookies', ]);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
-        .when('/home', {
-            templateUrl : 'views/home'
-        })
         .when('/', {
-        		redirectTo: '/login'
-        	})
-        .when('/login', {
-            templateUrl : 'views/login',
-            controller : 'LoginController'
+            templateUrl : 'views/app_home',
         })
+        .when('/student/login', {
+            templateUrl : 'views/student_login',
+            controller : 'StudentLoginController'
+         })
+         .when('/ic/login', {
+            templateUrl : 'views/ic_login',
+         })
+         .when('/student/home', {
+            templateUrl : 'views/student_home',
+         })
         .when('/404', {
             templateUrl : 'views/404',
         })
