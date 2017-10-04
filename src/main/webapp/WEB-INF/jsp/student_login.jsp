@@ -4,7 +4,7 @@
     <div class="col-xs-4"></div>
     <div class="col-xs-4 well well-lg">
         <div style="text-align:center;">
-            <h3><strong>Placement Cell</strong></h3>
+            <h3><strong>Placemet Cell</strong></h3>
             <h3><strong>Student Login</strong></h3>
         </div>
         <hr>
