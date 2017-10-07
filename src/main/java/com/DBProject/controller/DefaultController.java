@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class DefaultController {
-    @RequestMapping(value="/*", method = {RequestMethod.GET})
+    @RequestMapping(value={"/*", "/student/*", "/ic/*"}, method = {RequestMethod.GET})
     public ModelAndView getModelView(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         return new ModelAndView("index");
     }
