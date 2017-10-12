@@ -1,4 +1,4 @@
-package com.DBProject.controller.ajax;
+package com.DBProject.Controller.ajax;
 
 
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ public class LoginController {
     @SneakyThrows
     @RequestMapping(value = "/app/login", method = RequestMethod.POST)
     @ResponseBody
-    public LoginResponse getHomeJSON(@RequestBody final LoginRequest request) {
+    public LoginResponse validateCredentials(@RequestBody final LoginRequest request) {
         return new LoginResponse(true);
     }
 

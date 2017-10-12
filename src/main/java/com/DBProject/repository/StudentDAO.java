@@ -1,6 +1,6 @@
-package repository;
+package com.DBProject.repository;
 
-import domain.Student;
+import com.DBProject.domain.Student;
 
 import java.util.List;
 
