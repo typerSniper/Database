@@ -54,6 +54,7 @@ public class StudentDAOImpl  implements StudentDAO  {
             while(resultSet.next()) {
                 student = studentMapper(resultSet);
             }
+            System.out.println(student);
             return student;
         }
         catch (Exception e) {
