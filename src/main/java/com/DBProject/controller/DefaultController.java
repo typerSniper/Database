@@ -10,10 +10,26 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class DefaultController {
-    @RequestMapping(value={"/*", "/student/*", "/ic/*"}, method = {RequestMethod.GET})
+    @RequestMapping(value="/*", method = {RequestMethod.GET})
     public ModelAndView getModelView(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         return new ModelAndView("index");
     }
+
+    @RequestMapping(value={"/student*", "/student/*"}, method = {RequestMethod.GET})
+    public ModelAndView getModelViewStudent(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+        return new ModelAndView("student_index");
+    }
+
+    @RequestMapping(value={"/ic*", "/ic/*"}, method = {RequestMethod.GET})
+    public ModelAndView getModelViewIc(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+        return new ModelAndView("ic_index");
+    }
+
+    @RequestMapping(value={"/company*", "/company/*"}, method = {RequestMethod.GET})
+    public ModelAndView getModelViewCompany(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+        return new ModelAndView("company_index");
+    }
+
     @RequestMapping(value="views/*", method = {RequestMethod.GET})
     public ModelAndView getPage(final HttpServletRequest request, final HttpServletResponse response) {
         String servletPath = request.getServletPath();
