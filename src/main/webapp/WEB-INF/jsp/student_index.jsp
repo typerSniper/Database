@@ -11,6 +11,8 @@
         <script type="text/javascript" src="/js/student_login.js"></script>
         <script type="text/javascript" src="/js/student_home.js"></script>
 
+        <link rel="stylesheet" type="text/css" href="/css/progress.css">
+
         <base href = "/">
     </head>
     <body>
