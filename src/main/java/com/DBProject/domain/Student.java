@@ -13,9 +13,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student implements Serializable {
-
-    private String id;
+    private String username;
     private String name;
     private String deptName;
     private int totalCredits;
+    private int stage;
 }

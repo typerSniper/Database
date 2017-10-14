@@ -1,6 +1,7 @@
 package com.DBProject.repository;
 
 import com.DBProject.domain.Student;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
@@ -30,21 +31,41 @@ public class StudentDAOImpl  implements StudentDAO  {
 
 
     public static Student studentMapper(ResultSet rs) throws SQLException {
-        return new Student(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+        return new Student(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
     }
 
 
     public void saveStudent(Student student) {
         String insertQuery = "insert into table student values (?, ?, ?, ?);";
-//        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-//        jdbcTemplate.update(insertQuery, new Object[]{student.getId(), student.getName(), student.getDeptName(), student.getTotalCredits()});
+    }
+
+
+    public Student getStudent(String username, String password) {
+        if(StringUtils.isBlank(username)||StringUtils.isBlank(password)) {
+            return null;
+        }
+        try(Connection connection = dataSource.getConnection()) {
+            String sql = "select * from student as S natural join password as P where S.id = ? and P.password = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Student student  = null;
+            while(resultSet.next()) {
+                student = studentMapper(resultSet);
+            }
+            return student;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     public List<Student> getStudents() {
         String sql  = "select * from student";
         try(Connection connection = dataSource.getConnection()) {
-            System.out.println("got connection");
-            System.out.println(dataSource);
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             System.out.println("got connection");
             ResultSet resultSet = preparedStatement.executeQuery();
