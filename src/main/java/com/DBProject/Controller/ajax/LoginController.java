@@ -22,6 +22,7 @@ public class LoginController {
     @ResponseBody
     public LoginResponse validateCredentials(@RequestBody final LoginRequest request) {
         if (request.getType().equals("Student")) {
+            System.out.println(request.getUsername() + " " + request.getPassword());
             Student student = studentDAO.getStudent(request.getUsername(), request.getPassword());
             if (student != null) {
                 return new LoginResponse(true, student.getStage());

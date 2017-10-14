@@ -24,7 +24,7 @@
 
         <!-- <a href = "/student/login">Student Login {Login using Ldap}</a>
         <br>
-        <a href = "/ic/login">IC Login {Login using Ldap}</a> -->
+        <a href = "/ic/®">IC Login {Login using Ldap}</a> -->
 
     </body>
 </html>
