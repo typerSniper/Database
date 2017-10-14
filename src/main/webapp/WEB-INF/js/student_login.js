@@ -5,8 +5,11 @@ app.controller('StudentLoginController', function($scope, $http, $rootScope, $lo
         $http.post(url, params)
             .success(function(response) {
                 if(response.authenticated) {
+                    $rootScope.stage = response.stage;
+                    $rootScope.username = response.username;
                     $location.path('/student/home');
-                    $cookieStore.put("loggedIn", true);
+
+                    // $cookieStore.put("loggedIn", true);
                 }
                 else
                      $scope.errorMessage = "Invalid username or password.";

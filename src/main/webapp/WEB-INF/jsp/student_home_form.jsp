@@ -88,16 +88,17 @@
 
 Welcome
 <!-- Progress Tracker v2 -->
+<footer>
 <ol class="progress" data-steps="5">
-    <li class="done">
-        <span class="name">Foo</span>
+    <li class="active">
+        <span class="name">Fill Details</span>
         <span class="step"><span>1</span></span>
     </li>
-    <li class="done">
+    <li>
         <span class="name">Bar</span>
         <span class="step"><span>2</span></span>
     </li>
-    <li class="active">
+    <li>
         <span class="name">Baz</span>
         <span class="step"><span>3</span></span>
     </li>
@@ -110,3 +111,4 @@ Welcome
         <span class="step"><span>4</span></span>
     </li>
 </ol>
+</footer>

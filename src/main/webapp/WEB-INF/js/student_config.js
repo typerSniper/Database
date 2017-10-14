@@ -3,7 +3,7 @@ var app = angular.module('student', ['ngRoute', 'ngCookies', ]);
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/student',{
-            templateUrl: 'views/student_login',
+            templateUrl : 'views/student'
         })
         .when('/student/home', {
             templateUrl : 'views/student_home',
@@ -16,6 +16,18 @@ app.config(function($routeProvider, $locationProvider) {
         });
         $locationProvider.html5Mode(true);
 });
+
+app.run( function($rootScope, $location) {
+    $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+        if(next.templateUrl == "views/student_home"){
+            next.templateUrl = "views/student_home_form"
+            if($rootScope.stage == 1){
+                next.templateUrl = "views/student_home_form"
+            }
+            
+        }
+    });
+ });
 
 app.directive('loading', function ($http){
     return {
