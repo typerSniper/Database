@@ -10,6 +10,8 @@
         <script type="text/javascript" src="/js/student_config.js"></script>
         <script type="text/javascript" src="/js/student_login.js"></script>
 
+        <link rel="stylesheet" type="text/css" href="/css/progress.css">
+
         <base href = "/">
     </head>
     <body>
