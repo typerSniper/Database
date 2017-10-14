@@ -3,7 +3,7 @@ var app = angular.module('student', ['ngRoute', 'ngCookies', ]);
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/student',{
-            templateUrl : 'views/student'
+            templateUrl : 'views/student_login'
         })
         .when('/student/home', {
             templateUrl : 'views/student_home',

@@ -6,7 +6,7 @@ app.controller('StudentLoginController', function($scope, $http, $rootScope, $lo
             .success(function(response) {
                 if(response.authenticated) {
                     $rootScope.stage = response.stage;
-                    $rootScope.username = response.username;
+                    $rootScope.username = $scope.username;
                     $location.path('/student/home');
 
                     // $cookieStore.put("loggedIn", true);
