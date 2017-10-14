@@ -9,6 +9,7 @@
 
         <script type="text/javascript" src="/js/student_config.js"></script>
         <script type="text/javascript" src="/js/student_login.js"></script>
+        <script type="text/javascript" src="/js/student_home.js"></script>
 
         <base href = "/">
     </head>
