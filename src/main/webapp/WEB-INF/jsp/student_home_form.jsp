@@ -58,7 +58,7 @@
 		  <tr>
 		    <td><b>Permanent Address Details</b></td>
 		  </tr>
-		  <tr2
+		  <tr>
 		    <td>Locality</td>
 		    <td><input ng-model="input.locality" type="text" /></td>
 		  </tr>
@@ -85,4 +85,4 @@
 	</div>
 	</form>
 </div>
-<progress-bar0 active='2'></progress-bar0>
+<progress-bar0 active='1'></progress-bar0>

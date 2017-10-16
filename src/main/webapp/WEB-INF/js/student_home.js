@@ -1,4 +1,4 @@
-app.controller('StudentHomeController', function($http, $scope) {
+app.controller('StudentHomeController', function($http, $scope, $rootScope, $route) {
     
     $scope.input={name:'',
                   dob:'',
@@ -48,7 +48,9 @@ app.controller('StudentHomeController', function($http, $scope) {
 
     $scope.submit = function(){
         console.log($scope.input);
-    }    
+        $rootScope.stage = 2;
+        $route.reload();
+    };
 
     // $scope.login = function() {
     //     var url = '/app/login';

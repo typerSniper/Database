@@ -24,6 +24,9 @@ app.run( function($rootScope, $location) {
             if($rootScope.stage == 1){
                 next.templateUrl = "views/student_home_form"
             }
+            if($rootScope.stage == 2){
+                next.templateUrl = "views/student_home_fee"
+            }
         }
     });
  });
@@ -35,7 +38,6 @@ app.directive('loading', function ($http){
         link: function (scope, elm, attrs)
         {
             scope.isLoading = function () {
-                console.log($http.pendingRequests);
                 return $http.pendingRequests.length > 0;
             };
             scope.$watch(scope.isLoading, function (v) {
