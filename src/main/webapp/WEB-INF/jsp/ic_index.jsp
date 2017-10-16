@@ -1,4 +1,4 @@
-<html ng-app="student">
+<html ng-app="ic">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>PtCell</title>
@@ -6,11 +6,11 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular-route.min.js"></script>
 
-        <script type="text/javascript" src="/js/student_config.js"></script>
-        <script type="text/javascript" src="/js/student_login.js"></script>
+        <script type="text/javascript" src="/js/ic_config.js"></script>
+       <!--  <script type="text/javascript" src="/js/student_login.js"></script>
         <script type="text/javascript" src="/js/student_home.js"></script>
 
-        <link rel="stylesheet" type="text/css" href="/css/progress.css">
+        <link rel="stylesheet" type="text/css" href="/css/progress.css"> -->
 
         <base href = "/">
     </head>

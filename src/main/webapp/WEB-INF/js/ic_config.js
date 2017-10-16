@@ -1,13 +1,13 @@
-var app = angular.module('student', ['ngRoute', ]);
+var app = angular.module('ic', ['ngRoute', ]);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
-        .when('/student',{
-            templateUrl : 'views/student_login'
+        .when('/ic',{
+            templateUrl : 'views/ic_login'
         })
-        .when('/student/home', {
-            templateUrl : 'views/student_home',
-        })
+        // .when('/ic/home', {
+        //     templateUrl : 'views/student_home',
+        // })
         .when('/404', {
             templateUrl : 'views/404',
         })
@@ -16,18 +16,6 @@ app.config(function($routeProvider, $locationProvider) {
         });
         $locationProvider.html5Mode(true);
 });
-
-app.run( function($rootScope, $location) {
-    $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-        if(next.templateUrl == "views/student_home"){
-            next.templateUrl = "views/student_home_form"
-            if($rootScope.stage == 1){
-                next.templateUrl = "views/student_home_form"
-            }
-            
-        }
-    });
- });
 
 app.directive('loading', function ($http){
     return {
