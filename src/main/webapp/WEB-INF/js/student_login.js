@@ -1,4 +1,4 @@
-app.controller('StudentLoginController', function($scope, $http, $rootScope, $location, $cookieStore) {
+app.controller('StudentLoginController', function($scope, $http, $rootScope, $location) {
     $scope.login = function() {
         var url = '/app/login';
         var params = {username :$scope.username, password : $scope.password, type : "Student"}

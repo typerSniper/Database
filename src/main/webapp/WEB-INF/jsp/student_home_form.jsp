@@ -58,7 +58,7 @@
 		  <tr>
 		    <td><b>Permanent Address Details</b></td>
 		  </tr>
-		  <tr>
+		  <tr2
 		    <td>Locality</td>
 		    <td><input ng-model="input.locality" type="text" /></td>
 		  </tr>
@@ -85,30 +85,4 @@
 	</div>
 	</form>
 </div>
-
-Welcome
-<!-- Progress Tracker v2 -->
-<footer>
-<ol class="progress" data-steps="5">
-    <li class="active">
-        <span class="name">Fill Details</span>
-        <span class="step"><span>1</span></span>
-    </li>
-    <li>
-        <span class="name">Bar</span>
-        <span class="step"><span>2</span></span>
-    </li>
-    <li>
-        <span class="name">Baz</span>
-        <span class="step"><span>3</span></span>
-    </li>
-    <li>
-        <span class="name">Quux</span>
-        <span class="step"><span>4</span></span>
-    </li>
-    <li>
-        <span class="name">Quux</span>
-        <span class="step"><span>4</span></span>
-    </li>
-</ol>
-</footer>
+<progress-bar0 active='2'></progress-bar0>

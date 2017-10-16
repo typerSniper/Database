@@ -24,7 +24,6 @@ app.run( function($rootScope, $location) {
             if($rootScope.stage == 1){
                 next.templateUrl = "views/student_home_form"
             }
-            
         }
     });
  });
@@ -48,6 +47,16 @@ app.directive('loading', function ($http){
                 }
             });
         }
+    };
+});
+
+app.directive('progressBar0', function(){
+    return {
+        restrict: 'E',
+        scope: {
+            currentActive: '=active'
+        },
+        templateUrl: 'views/progressBar'
     };
 });
 
