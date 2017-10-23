@@ -1,4 +1,4 @@
-var app = angular.module('student', ['ngRoute', ]);
+var app = angular.module('student', ['ngRoute', 'ui.bootstrap']);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
@@ -20,12 +20,19 @@ app.config(function($routeProvider, $locationProvider) {
 app.run( function($rootScope, $location) {
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
         if(next.templateUrl == "views/student_home"){
-            next.templateUrl = "views/student_home_form"
+            if($rootScope.stage == null){
+                $rootScope.stage=1;
+                //send request and get stage
+            }
+            // next.templateUrl = "views/student_home_form"
             if($rootScope.stage == 1){
                 next.templateUrl = "views/student_home_form"
             }
             if($rootScope.stage == 2){
                 next.templateUrl = "views/student_home_fee"
+            }
+            if($rootScope.stage == 3){
+                next.templateUrl = "views/student_home_resume"
             }
         }
     });
@@ -61,4 +68,3 @@ app.directive('progressBar0', function(){
         templateUrl: 'views/progressBar'
     };
 });
-

@@ -1,14 +1,14 @@
 <div ng-controller="StudentHomeController">
 	<form ng-submit="submit()">
 		<div align="center">
-		<table style="width:50%">
+		<table style="width:70%" class="table table-striped">
 		  <tr>
 		    <td>Name</td>
-		    <td><input ng-model="input.name" type="text" required/></td>
+		    <td><input ng-model="input.name" type="text" /></td>
 		  </tr>
 		  <tr>
 		    <td>Date Of Birth</td>
-		    <td><input ng-model="input.dob" type="date" required/></td>
+		    <td><input ng-model="input.dob" type="date" /></td>
 		  </tr>
 		  <tr>
 		    <td>Sex</td>
@@ -45,15 +45,15 @@
 		  </tr>
 		  <tr>
 		    <td>Contact</td>
-		    <td><input ng-model="input.contact1" type="tel" /></td>
+		    <td><input ng-model="input.contact1" type="number" /></td>
 		  </tr>
 		  <tr>
 		    <td>Alternate Contact</td>
-		    <td><input ng-model="input.contact2" type="tel" /></td>
+		    <td><input ng-model="input.contact2" type="number" /></td>
 		  </tr>
 		  <tr>
 		    <td>Home Contact</td>
-		    <td><input ng-model="input.homecontact" type="tel" /></td>
+		    <td><input ng-model="input.homecontact" type="number" /></td>
 		  </tr>
 		  <tr>
 		    <td><b>Permanent Address Details</b></td>

@@ -1,4 +1,4 @@
-<ol class="progress" data-steps="5">
+<ol class="myprogress" data-steps="5">
     <li ng-class="{'active': currentActive==1, 'done': currentActive>1}">
         <span class="name">Fill Details</span>
         <span class="step"><span>1</span></span>

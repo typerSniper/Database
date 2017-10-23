@@ -1,14 +1,14 @@
 /* Progress Tracker v2 */
-ol.progress[data-steps="2"] li { width: 49%; }
-ol.progress[data-steps="3"] li { width: 33%; }
-ol.progress[data-steps="4"] li { width: 24%; }
-ol.progress[data-steps="5"] li { width: 19%; }
-ol.progress[data-steps="6"] li { width: 16%; }
-ol.progress[data-steps="7"] li { width: 14%; }
-ol.progress[data-steps="8"] li { width: 12%; }
-ol.progress[data-steps="9"] li { width: 11%; }
+ol.myprogress[data-steps="2"] li { width: 49%; }
+ol.myprogress[data-steps="3"] li { width: 33%; }
+ol.myprogress[data-steps="4"] li { width: 24%; }
+ol.myprogress[data-steps="5"] li { width: 19%; }
+ol.myprogress[data-steps="6"] li { width: 16%; }
+ol.myprogress[data-steps="7"] li { width: 14%; }
+ol.myprogress[data-steps="8"] li { width: 12%; }
+ol.myprogress[data-steps="9"] li { width: 11%; }
 
-.progress {
+.myprogress {
     width: 100%;
     list-style: none;
     list-style-image: none;
@@ -16,13 +16,13 @@ ol.progress[data-steps="9"] li { width: 11%; }
     padding: 0;
 }
 
-.progress li {
+.myprogress li {
     float: left;
     text-align: center;
     position: relative;
 }
 
-.progress .name {
+.myprogress .name {
     display: block;
     vertical-align: bottom;
     text-align: center;
@@ -31,7 +31,7 @@ ol.progress[data-steps="9"] li { width: 11%; }
     opacity: 0.3;
 }
 
-.progress .step {
+.myprogress .step {
     color: black;
     border: 3px solid silver;
     background-color: silver;
@@ -43,16 +43,16 @@ ol.progress[data-steps="9"] li { width: 11%; }
     z-index: 0;
 }
 
-.progress .step span {
+.myprogress .step span {
     opacity: 0.3;
 }
 
-.progress .active .name,
-.progress .active .step span {
+.myprogress .active .name,
+.myprogress .active .step span {
     opacity: 1;
 }
 
-.progress .step:before {
+.myprogress .step:before {
     content: "";
     display: block;
     background-color: silver;
@@ -64,7 +64,7 @@ ol.progress[data-steps="9"] li { width: 11%; }
     z-index: -1;
 }
 
-.progress .step:after {
+.myprogress .step:after {
     content: "";
     display: block;
     background-color: silver;
@@ -76,24 +76,24 @@ ol.progress[data-steps="9"] li { width: 11%; }
     z-index: -1;
 }
 
-.progress li:first-of-type .step:before {
+.myprogress li:first-of-type .step:before {
     display: none;
 }
 
-.progress li:last-of-type .step:after {
+.myprogress li:last-of-type .step:after {
     display: none;
 }
 
-.progress .done .step,
-.progress .done .step:before,
-.progress .done .step:after,
-.progress .active .step,
-.progress .active .step:before {
+.myprogress .done .step,
+.myprogress .done .step:before,
+.myprogress .done .step:after,
+.myprogress .active .step,
+.myprogress .active .step:before {
     background-color: yellowgreen;
 }
 
-.progress .done .step,
-.progress .active .step {
+.myprogress .done .step,
+.myprogress .active .step {
     border: 3px solid yellowgreen;
 }
 
