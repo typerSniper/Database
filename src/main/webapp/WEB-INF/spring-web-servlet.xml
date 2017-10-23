@@ -18,7 +18,7 @@
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="org.postgresql.Driver" />
-    <property name="url" value="jdbc:postgresql://192.168.0.104:5432/twitter_mimic" />
+    <property name="url" value="jdbc:postgresql://192.168.100.118:5432/twitter_mimic" />
     <property name="username" value="Jatin" />
     <property name="password" value="" />
     </bean>

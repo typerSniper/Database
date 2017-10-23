@@ -3,9 +3,6 @@ package com.DBProject.repository;
 import com.DBProject.domain.Student;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -36,7 +33,19 @@ public class StudentDAOImpl  implements StudentDAO  {
 
 
     public void saveStudent(Student student) {
-        String insertQuery = "insert into table student values (?, ?, ?, ?);";
+        try(Connection connection = dataSource.getConnection()) {
+            String sql = "insert into table student values (?, ?, ?, ?, ?);";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, student.getUsername());
+            preparedStatement.setString(2, student.getName());
+            preparedStatement.setString(3, student.getDeptName());
+            preparedStatement.setInt(4, student.getTotalCredits());
+            preparedStatement.setInt(5, student.getStage());
+            preparedStatement.executeUpdate();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -62,6 +71,20 @@ public class StudentDAOImpl  implements StudentDAO  {
             return null;
         }
 
+    }
+    
+    public void saveResume(Student student, String unicode, String type) {
+    	try(Connection connection = dataSource.getConnection()) {
+            String sql = "insert into table resume values (?, ?, ?);";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, student.getUsername());
+            preparedStatement.setString(2, unicode);
+            preparedStatement.setString(3, type);
+            preparedStatement.executeUpdate();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Student> getStudents() {
