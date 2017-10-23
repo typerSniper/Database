@@ -13,7 +13,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student implements Serializable {
-    private String username;
+	private static final long serialVersionUID = 1L;
+	private String username;
     private String name;
     private String deptName;
     private int totalCredits;

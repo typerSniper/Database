@@ -9,5 +9,7 @@ import java.util.List;
  */
 public interface StudentDAO {
     public List<Student> getStudents();
+    public Student getStudent(String username, String password);
     public void saveStudent(Student student);
+    public void saveResume(Student student, String unicode, String type);
 }
