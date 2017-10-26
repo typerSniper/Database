@@ -7,6 +7,7 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular-route.min.js"></script>
 
         <script type="text/javascript" src="/js/ic_config.js"></script>
+        <script type="text/javascript" src="/js/ic_login.js"></script>
        <!--  <script type="text/javascript" src="/js/student_login.js"></script>
         <script type="text/javascript" src="/js/student_home.js"></script>
 

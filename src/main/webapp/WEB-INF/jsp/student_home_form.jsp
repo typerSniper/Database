@@ -81,8 +81,9 @@
 		</table>
 
 		
-		<button type="submit">Submit</button>
+		<button type="submit" class="btn btn-success">Submit</button>
 	</div>
 	</form>
 </div>
+<br><br><br><br>
 <progress-bar0 active='1'></progress-bar0>

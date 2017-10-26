@@ -21,10 +21,9 @@ app.run( function($rootScope, $location) {
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
         if(next.templateUrl == "views/student_home"){
             if($rootScope.stage == null){
-                $rootScope.stage=1;
+                $rootScope.stage=3;
                 //send request and get stage
             }
-            // next.templateUrl = "views/student_home_form"
             if($rootScope.stage == 1){
                 next.templateUrl = "views/student_home_form"
             }
@@ -38,26 +37,7 @@ app.run( function($rootScope, $location) {
     });
  });
 
-app.directive('loading', function ($http){
-    return {
-        restrict: 'E',
-        template: '<div class="loader"></div><div class="overlay"></div>',
-        link: function (scope, elm, attrs)
-        {
-            scope.isLoading = function () {
-                return $http.pendingRequests.length > 0;
-            };
-            scope.$watch(scope.isLoading, function (v) {
-                if (v) {
-                    elm.show();
-                }
-                else {
-                    elm.hide();
-                }
-            });
-        }
-    };
-});
+
 
 app.directive('progressBar0', function(){
     return {
@@ -66,5 +46,42 @@ app.directive('progressBar0', function(){
             currentActive: '=active'
         },
         templateUrl: 'views/progressBar'
+    };
+});
+
+app.directive('countdown', function (Util, $interval) {
+    return {
+        restrict: 'A',
+        scope: { date: '@' },
+        link: function (scope, element) {
+            var future;
+            future = new Date(scope.date);
+            $interval(function () {
+                var diff;
+                diff = Math.floor((future.getTime() - new Date().getTime()) / 1000);
+                return element.text(Util.dhms(diff));
+            }, 1000);
+        }
+    };
+});
+
+app.factory('Util', function () {
+    return {
+        dhms: function (t) {
+            var days, hours, minutes, seconds;
+            days = Math.floor(t / 86400);
+            t -= days * 86400;
+            hours = Math.floor(t / 3600) % 24;
+            t -= hours * 3600;
+            minutes = Math.floor(t / 60) % 60;
+            t -= minutes * 60;
+            seconds = t % 60;
+            return [
+                days + 'd',
+                hours + 'h',
+                minutes + 'm',
+                seconds + 's'
+            ].join(' ');
+        }
     };
 });

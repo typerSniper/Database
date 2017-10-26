@@ -14,6 +14,10 @@ ol.myprogress[data-steps="9"] li { width: 11%; }
     list-style-image: none;
     margin: 20px 0 20px 0;
     padding: 0;
+   position:fixed;
+   bottom:0;
+   overflow: hidden;
+   background-color: white;
 }
 
 .myprogress li {
