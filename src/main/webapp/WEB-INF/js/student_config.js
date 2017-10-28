@@ -17,9 +17,17 @@ app.config(function($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
 });
 
-app.run( function($rootScope, $location) {
+app.run( function($rootScope, $location, $http) {
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-        if(next.templateUrl == "views/student_home"){
+        if(next.templateUrl == "views/student_login") {
+            $http.get("/is_authenticated").success(function(response) {
+                if(response.authenticated) {
+                    $location.path("/student/home");
+                }
+            });
+        }
+        if(next.templateUrl == "views/student_home" || t === 1){
+            console.log("here");
             if($rootScope.stage == null){
                 $rootScope.stage=1;
                 //send request and get stage

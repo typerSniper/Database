@@ -23,6 +23,7 @@ public class ResumeController {
     public ResumeSaveResponse validateCredentials(@RequestBody final ResumeSave request) {
         System.out.println(request.getUsername() + " " + request.getPassword());
         Student student = studentDAO.getStudent(request.getUsername(), request.getPassword());
+
         if (student != null) {
         	studentDAO.saveResume(student, request.getResumeData(), request.getType());
             return new ResumeSaveResponse(true, student.getStage());
