@@ -17,23 +17,32 @@ public class DefaultController {
 
     @RequestMapping(value={"/student*", "/student/*"}, method = {RequestMethod.GET})
     public ModelAndView getModelViewStudent(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-        return new ModelAndView("student_index");
+        return new ModelAndView("student/student_index");
     }
 
     @RequestMapping(value={"/ic*", "/ic/*"}, method = {RequestMethod.GET})
     public ModelAndView getModelViewIc(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-        return new ModelAndView("ic_index");
+        return new ModelAndView("ic/ic_index");
     }
 
     @RequestMapping(value={"/company*", "/company/*"}, method = {RequestMethod.GET})
     public ModelAndView getModelViewCompany(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-        return new ModelAndView("company_index");
+        return new ModelAndView("company/company_index");
     }
 
     @RequestMapping(value="views/*", method = {RequestMethod.GET})
     public ModelAndView getPage(final HttpServletRequest request, final HttpServletResponse response) {
         String servletPath = request.getServletPath();
         String page = servletPath.substring(servletPath.lastIndexOf("/") + 1);
+        System.out.println(page);
         return new ModelAndView(page);
+    }
+
+    @RequestMapping(value="views/student/*", method = {RequestMethod.GET})
+    public ModelAndView getPageStudent(final HttpServletRequest request, final HttpServletResponse response) {
+        String servletPath = request.getServletPath();
+        String page = servletPath.substring(servletPath.lastIndexOf("/") + 1);
+        System.out.println(page);
+        return new ModelAndView("student/"+page);
     }
 }

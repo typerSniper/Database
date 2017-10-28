@@ -3,10 +3,10 @@ var app = angular.module('student', ['ngRoute', 'ui.bootstrap']);
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/student',{
-            templateUrl : 'views/student_login'
+            templateUrl : 'views/student/student_login'
         })
         .when('/student/home', {
-            templateUrl : 'views/student_home',
+            templateUrl : 'views/student/student_home',
         })
         .when('/404', {
             templateUrl : 'views/404',
@@ -19,19 +19,19 @@ app.config(function($routeProvider, $locationProvider) {
 
 app.run( function($rootScope, $location) {
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-        if(next.templateUrl == "views/student_home"){
+        if(next.templateUrl == "views/student/student_home"){
             if($rootScope.stage == null){
                 $rootScope.stage=1;
                 //send request and get stage
             }
             if($rootScope.stage == 1){
-                next.templateUrl = "views/student_home_form"
+                next.templateUrl = "views/student/student_home_form"
             }
             if($rootScope.stage == 2){
-                next.templateUrl = "views/student_home_fee"
+                next.templateUrl = "views/student/student_home_fee"
             }
             if($rootScope.stage == 3){
-                next.templateUrl = "views/student_home_resume"
+                next.templateUrl = "views/student/student_home_resume_upload"
             }
         }
     });
@@ -45,7 +45,7 @@ app.directive('progressBar0', function(){
         scope: {
             currentActive: '=active'
         },
-        templateUrl: 'views/progressBar'
+        templateUrl: 'views/student/progressBar'
     };
 });
 

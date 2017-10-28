@@ -16,11 +16,11 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
         <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
-        <script type="text/javascript" src="/js/student_config.js"></script>
-        <script type="text/javascript" src="/js/student_login.js"></script>
-        <script type="text/javascript" src="/js/student_home.js"></script>
-        <script type="text/javascript" src="/js/student_home_fee.js"></script>
-        <script type="text/javascript" src="/js/student_home_resume.js"></script>
+        <script type="text/javascript" src="/js/student/student_config.js"></script>
+        <script type="text/javascript" src="/js/student/student_login.js"></script>
+        <script type="text/javascript" src="/js/student/student_home_form.js"></script>
+        <script type="text/javascript" src="/js/student/student_home_fee.js"></script>
+        <script type="text/javascript" src="/js/student/student_home_resume_upload.js"></script>
         <script type="text/javascript" src="/js/directives.js"></script>
 
 

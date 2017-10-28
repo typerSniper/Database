@@ -1,4 +1,4 @@
-<div ng-controller="StudentResumeController">
+<div ng-controller="StudentResumeUploadController">
     <div align="center">
         <table style="width:50%" class="table table-striped">
             <tr>
@@ -7,44 +7,44 @@
 
                 </th>
                 <td>
-                    <input type="file" accept="application/pdf" id="file" name="file"/>
+                    <input type="file" accept="application/pdf" id="res0" name="file"/>
                 </td>
                 <td>
-                    <button ng-click="submitResume()" class="btn btn-success">Upload</button>
+                    <button ng-click="submitResume(0)" class="btn btn-success">Upload</button>
                 </td>
             </tr>
             <tr>
                 <th>
-                    Resume 1(tech)
+                    Resume 1(2 page, Tech)
                 </th>
                <td>
-                    <input type="file" accept="application/pdf" id="file" name="file"/>
+                    <input type="file" accept="application/pdf" id="res1" name="file"/>
                 </td>
                 <td>
-                    <button ng-click="submitResume()" class="btn btn-success">Upload</button>
+                    <button ng-click="submitResume(1)" class="btn btn-success">Upload</button>
                 </td>
             </tr>
             <tr>
                 <th>
-                    Resume 2(tech)
+                    Resume 2(2 page, Tech)
                 </th>
                 <td>
-                    <input type="file" accept="application/pdf" id="file" name="file"/>
+                    <input type="file" accept="application/pdf" id="res2" name="file"/>
                 </td>
                 <td>
-                    <button ng-click="submitResume()" class="btn btn-success">Upload</button>
+                    <button ng-click="submitResume(2)" class="btn btn-success">Upload</button>
                 </td>
                 
             </tr>
             <tr>
                 <th>
-                    Resume 3(non-tech)
+                    Resume 3(2 page, Non-Tech)
                 </th>
                <td>
-                    <input type="file" accept="application/pdf" id="file" name="file"/>
+                    <input type="file" accept="application/pdf" id="res3" name="file"/>
                 </td>
                 <td>
-                    <button ng-click="submitResume()" class="btn btn-success">Upload</button>
+                    <button ng-click="submitResume(3)" class="btn btn-success">Upload</button>
                 </td>
                 
             </tr>
