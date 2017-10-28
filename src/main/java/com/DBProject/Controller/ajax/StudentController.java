@@ -39,38 +39,39 @@ public class StudentController {
     }
 
     @Data
+    @AllArgsConstructor
     public class SaveDetailsRequest {
         private String name;
-        private String dob;
-        private String sex;
-        private String category;
-        private String nationality;
-        private String univemail;
-        private String peremail;
-        private String hosteladdress;
-        private String contact1;
-        private String contact2;
-        private String homecontact;
-        private String homeaddress;
-        private String state;
-        private String city;
-        private String pin;
-        private String locality;
-        private String country;
-        private String skypeid;
-        private CollegeDetails details10th;
-        private CollegeDetails details12th;
-        private CollegeDetails collegeDetails;
-        private CollegeDetails other;
+        // private String dob;
+        // private String sex;
+        // private String category;
+        // private String nationality;
+        // private String univemail;
+        // private String peremail;
+        // private String hosteladdress;
+        // private String contact1;
+        // private String contact2;
+        // private String homecontact;
+        // private String homeaddress;
+        // private String state;
+        // private String city;
+        // private String pin;
+        // private String locality;
+        // private String country;
+        // private String skypeid;
+        // private CollegeDetails details10th;
+        // private CollegeDetails details12th;
+        // private CollegeDetails collegeDetails;
+        // private CollegeDetails other;
      }
 
-    @Data
-    public class CollegeDetails {
-        private String university;
-        private String institute;
-        private String year;
-        private String cpi;
-    }
+    // @Data
+    // public class CollegeDetails {
+    //     private String university;
+    //     private String institute;
+    //     private String year;
+    //     private String cpi;
+    // }
 
 
 }

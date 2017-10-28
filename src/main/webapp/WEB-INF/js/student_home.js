@@ -47,8 +47,8 @@ app.controller('StudentHomeController', function($http, $scope, $rootScope, $rou
     $scope.categories =["Gen","SC","ST","OBC","PH"];
 
     $scope.submit = function(){
-        var url = '/student/set_details';
-        $http.post(url, $scope.input)
+        var url = '/student/save_details';
+        $http.post(url, {name: $scope.input.name})
             .success(function(response) {
                 console.log(response);
                 $rootScope.stage = 2; //change this
