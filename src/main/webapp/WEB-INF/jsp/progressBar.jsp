@@ -1,22 +1,21 @@
-<ol class="myprogress" data-steps="5">
-    <li ng-class="{'active': currentActive==1, 'done': currentActive>1}">
-        <span class="name">Fill Details</span>
-        <span class="step"><span>1</span></span>
-    </li>
-    <li ng-class="{'active': currentActive==2, 'done': currentActive>2}">
-        <span class="name">Fee Payment</span>
-        <span class="step"><span>2</span></span>
-    </li>
-    <li ng-class="{'active': currentActive==3, 'done': currentActive>3}">
-        <span class="name">Resume Upload</span>
-        <span class="step"><span>3</span></span>
-    </li>
-    <li ng-class="{'active': currentActive==4, 'done': currentActive>4}">
-        <span class="name">Resume Verification</span>
-        <span class="step"><span>4</span></span>
-    </li>
-    <li ng-class="{'active': currentActive==5, 'done': currentActive>5}">
-        <span class="name">Done</span>
-        <span class="step"><span>4</span></span>
-    </li>
-</ol>
+<div class="container progress-container">
+    <div class="row">
+        <ul class="breadcrumb">
+            <li ng-class="{'active': currentActive==1, 'completed': currentActive>1}">
+                <a>Fill Details</a>
+            </li>
+            <li ng-class="{'active': currentActive==2, 'completed': currentActive>2}">
+                <a>Fee Payment</a>
+            </li>
+            <li ng-class="{'active': currentActive==3, 'completed': currentActive>3}">
+                <a>Resume Upload</a>
+            </li>
+            <li ng-class="{'active': currentActive==4, 'completed': currentActive>4}">
+                <a>Resume Verification</a>
+            </li>
+            <li ng-class="{'active': currentActive==5, 'completed': currentActive>5}">
+                <a>Done</a>
+            </li>
+        </ul>
+    </div>
+</div>

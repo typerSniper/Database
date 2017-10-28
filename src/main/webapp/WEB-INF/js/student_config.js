@@ -21,7 +21,7 @@ app.run( function($rootScope, $location) {
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
         if(next.templateUrl == "views/student_home"){
             if($rootScope.stage == null){
-                $rootScope.stage=3;
+                $rootScope.stage=1;
                 //send request and get stage
             }
             if($rootScope.stage == 1){
