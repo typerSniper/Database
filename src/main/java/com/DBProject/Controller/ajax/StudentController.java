@@ -44,8 +44,6 @@ public class StudentController {
         private boolean success;
     }
 
-
-
     @Data
     @AllArgsConstructor
     public static class SaveDetailsRequest {
