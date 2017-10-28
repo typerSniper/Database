@@ -1,5 +1,7 @@
 package com.DBProject.Controller;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -51,4 +53,15 @@ public class DefaultController {
         return SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ANONYMOUS"));
     }
 
+
+    public static String getUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class StageUpdateResponse {
+        private int stage;
+        private boolean success;
+    }
 }
