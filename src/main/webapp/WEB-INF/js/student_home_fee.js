@@ -4,5 +4,4 @@ app.controller('StudentFeeController', function($http, $scope, $rootScope, $rout
         $rootScope.stage = 3;
         $route.reload();
     }
-    
 });

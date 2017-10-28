@@ -20,7 +20,6 @@
   		  </tr>
   			<tr>
 		    <td>Category</td>
-
 		    <td><select ng-model="input.category"
 		    	ng-init = "input.category=categories[0]"
 		    	ng-options="x for x in categories">
