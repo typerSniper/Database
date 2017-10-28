@@ -23,16 +23,27 @@ public class UserServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String username) {
-        List<GrantedAuthority> authorities = buildUserAuthority();
-        return buildUserForAuthentication(authorities);
+        List<GrantedAuthority> authorities;
+        if(username.equals("Student")) {
+            authorities = buildUserAuthority("ROLE_"+"STUDENT");
+            return new User (username, "student@123", authorities);
+
+        }
+        else if(username.equals("Coordinator")) {
+            authorities = buildUserAuthority("ROLE_"+"COORDINATOR");
+            return new User (username, "coordinator@123", authorities);
+        }
+        else {
+            return new User ("Jatin", "jatina", null);
+        }
     }
 
     private User buildUserForAuthentication(final List<GrantedAuthority> authorities) {
         return new User("Student", "student@123", authorities);
     }
 
-    private List<GrantedAuthority> buildUserAuthority() {
-        String roleString ="ROLE_"+ "ADMIN"; //get role of a known user
+    private List<GrantedAuthority> buildUserAuthority(String roleString) {
+//        String roleString ="ROLE_"+ "ADMIN"; //get role of a known user
         return Lists.newArrayList(new SimpleGrantedAuthority(roleString));
     }
 }
