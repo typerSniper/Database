@@ -47,8 +47,9 @@ app.controller('StudentHomeController', function($http, $scope, $rootScope, $rou
     $scope.categories =["Gen","SC","ST","OBC","PH"];
 
     $scope.submit = function(){
-        var url = '/student/set_details';
-        $http.post(url, $scope.input)
+        var url = '/student/save_details';
+        var params = $rootScope.copyObject($scope.input);
+        $http.post(url, params)
             .success(function(response) {
                 console.log(response);
                 $rootScope.stage = 2; //change this
@@ -58,22 +59,5 @@ app.controller('StudentHomeController', function($http, $scope, $rootScope, $rou
                 $scope.errorMessage = "Cannot Connect";
             });
     };
-
-    // $scope.login = function() {
-    //     var url = '/app/login';
-    //     var params = {username :$scope.username, password : $scope.password, type : "Student"}
-    //     $http.post(url, params)
-    //         .success(function(response) {
-    //             if(response.authenticated) {
-    //                 $location.path('/student/home');
-    //                 $cookieStore.put("loggedIn", true);
-    //             }
-    //             else
-    //                  $scope.errorMessage = "Invalid username or password.";
-    //         })
-    //         .error(function(response) {
-    //             $scope.errorMessage = "Cannot Connect";
-    //         });
-    // };
 
 });

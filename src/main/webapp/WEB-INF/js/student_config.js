@@ -18,6 +18,10 @@ app.config(function($routeProvider, $locationProvider) {
 });
 
 app.run( function($rootScope, $location, $http) {
+    $rootScope.copyObject = function(object) {
+        return JSON.parse(JSON.stringify(object));
+    }
+
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
         if(next.templateUrl == "views/student_login") {
             $http.get("/is_authenticated").success(function(response) {
