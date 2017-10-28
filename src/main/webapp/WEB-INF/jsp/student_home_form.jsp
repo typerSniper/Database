@@ -59,23 +59,23 @@
 		  </tr>
 		  <tr>
 		    <td>Locality</td>
-		    <td><input ng-model="input.locality" type="text" /></td>
+		    <td><input ng-model="input.homeaddress.locality" type="text" /></td>
 		  </tr>
 		  <tr>
 		    <td>City</td>
-		    <td><input ng-model="input.city" type="text" /></td>
+		    <td><input ng-model="input.homeaddress.city" type="text" /></td>
 		  </tr>
 		  <tr>
 		    <td>Pin</td>
-		    <td><input ng-model="input.pin" type="number" /></td>
+		    <td><input ng-model="input.homeaddress.pin" type="number" /></td>
 		  </tr>
 		  <tr>
 		    <td>State</td>
-		    <td><input ng-model="input.state" type="text" /></td>
+		    <td><input ng-model="input.homeaddress.state" type="text" /></td>
 		  </tr>
 		  <tr>
 		    <td>Country</td>
-		    <td><input ng-model="input.country" type="text" /></td>
+		    <td><input ng-model="input.homeaddress.country" type="text" /></td>
 		  </tr>
 		</table>
 
