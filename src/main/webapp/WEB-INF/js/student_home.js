@@ -48,19 +48,18 @@ app.controller('StudentHomeController', function($http, $scope, $rootScope, $rou
 
     $scope.submit = function(){
         var url = '/student/save_details';
-<<<<<<< HEAD
-        $http.post(url, {name: $scope.input.name})
-=======
         var params = $rootScope.copyObject($scope.input);
         $http.post(url, params)
->>>>>>> c23970044770ddce43b7f201f3cafffd4c039fa0
             .success(function(response) {
-                console.log(response);
-                $rootScope.stage = 2; //change this
-                $route.reload();
+                if(response.success){
+                    console.log(response);
+                    $rootScope.stage = 2; //change this
+                    // $rootScope.stage = response.stage;
+                    $route.reload();
+                }
             })
             .error(function(response) {
-                $scope.errorMessage = "Cannot Connect";
+                // $scope.errorMessage = "Cannot Connect";
             });
     };
 

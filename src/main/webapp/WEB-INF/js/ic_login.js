@@ -1,18 +1,16 @@
 app.controller('ICLoginController', function($scope, $http, $rootScope, $location) {
     $scope.login = function() {
-        var url = '/app/login';
-        var params = {username :$scope.username, password : $scope.password, type : "IC"}
-        $http.post(url, params)
+        var username = 'username=' + $scope.username;
+        var password = 'password=' + $scope.password;
+        var url = '/app/login?' +username + '&' +password;
+        $http.post(url)
             .success(function(response) {
+            console.log(response);
                 if(response.authenticated) {
-                    $rootScope.stage = response.stage;
-                    $rootScope.username = $scope.username;
-                    $location.path('/IC/home');
-
-                    // $cookieStore.put("loggedIn", true);
+                    $location.path('/coordinator/home');
                 }
                 else
-                     $scope.errorMessage = "Invalid username or password.";
+                    $scope.errorMessage = "Invalid username or password.";
             })
             .error(function(response) {
                 $scope.errorMessage = "Cannot Connect";

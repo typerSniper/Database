@@ -1,13 +1,16 @@
-var app = angular.module('ic', ['ngRoute', ]);
+var app = angular.module('ic', ['ngRoute', 'ui.bootstrap']);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
-        .when('/ic',{
+        .when('/coordinator',{
             templateUrl : 'views/ic_login'
         })
-        // .when('/ic/home', {
-        //     templateUrl : 'views/student_home',
-        // })
+        .when('/coordinator/home', {
+            templateUrl : 'views/ic_home',
+        })
+        .when('/coordinator/fee', {
+            templateUrl : 'views/ic_home_fee',
+        })
         .when('/404', {
             templateUrl : 'views/404',
         })
