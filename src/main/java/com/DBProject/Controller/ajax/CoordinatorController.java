@@ -1,7 +1,5 @@
 package com.DBProject.Controller.ajax;
 
-import com.DBProject.Controller.DefaultController;
-import com.DBProject.domain.Student;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,18 +31,14 @@ public class CoordinatorController {
         return new GetFeeStudents(Lists.newArrayList("Student"));
     }
 
-
-
     @SneakyThrows
     @RequestMapping(value = "/student/ic_advance_fee", method = RequestMethod.POST)
     @ResponseBody
     public StageUpdateResponse advanceFeeStudents(@RequestBody AdvanceFeeStudent advanceFeeStudent) {
         final String coordinatorName = getUsername();
-        //TODO: Get pending students for this IC from DB and send.
+        //TODO: Update stage in DB and send.
         return new StageUpdateResponse(4, true);
     }
-
-
 
     @Data
     @AllArgsConstructor
