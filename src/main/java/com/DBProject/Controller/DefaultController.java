@@ -45,10 +45,7 @@ public class DefaultController {
         return new ModelAndView(page);
     }
 
-
-
     public static boolean isAnonymous() {
         return SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ANONYMOUS"));
     }
-
 }
