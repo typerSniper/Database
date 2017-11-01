@@ -28,7 +28,7 @@ public class ResumeController {
         	studentDAO.saveResume(student, request.getResumeData(), request.getType());
             return new ResumeSaveResponse(true, student.getStage());
         } else {
-        	return new ResumeSaveResponse(false, -1);
+        	return new ResumeSaveResponse(false, String.valueOf(-1));
         }
     }
 
@@ -36,7 +36,7 @@ public class ResumeController {
     @AllArgsConstructor
     public static class ResumeSaveResponse {
         private boolean authenticated;
-        private int stage;
+        private String stage;
     }
 
     @Data

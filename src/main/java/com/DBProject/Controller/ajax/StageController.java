@@ -27,7 +27,7 @@ public class StageController {
         if (student != null) {
             return new StageResponse(true, student.getStage());
         }else {
-        	return new StageResponse(false, -1);
+        	return new StageResponse(false, String.valueOf(-1));
         }
     }
 
@@ -35,7 +35,7 @@ public class StageController {
     @AllArgsConstructor
     public static class StageResponse {
         private boolean authenticated;
-        private int stage;
+        private String stage;
     }
 
 

@@ -9,12 +9,8 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student implements Serializable {
+public class Ic implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String username;
+	private String ic_id; // primary key
     private String name;
-    private String deptId;
-    private String progId;
-    private String cpi;
-    private String stage;
 }
