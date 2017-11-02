@@ -1,7 +1,7 @@
 package com.DBProject.repository;
 
 import javax.sql.DataSource;
-import com.DBProject.domain.Ic;
+import com.DBProject.domain.Coordinator;
 import com.DBProject.domain.Student;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Repository
 
-public class IcDAOImpl implements IcDAO {
+public class CoordinatorDAOImpl implements CoordinatorDAO {
 	@Autowired
 	private DataSource dataSource;
 	
@@ -24,12 +24,12 @@ public class IcDAOImpl implements IcDAO {
         this.dataSource = dataSource;
     }
 	
-	public static Ic icMapper(ResultSet rs) throws SQLException {
-        return new Ic(rs.getString(1), rs.getString(2));
+	public static Coordinator icMapper(ResultSet rs) throws SQLException {
+        return new Coordinator(rs.getString(1), rs.getString(2));
     }
 
 	@Override
-	public Ic getAFreeIc() {
+	public Coordinator getAFreeIc() {
 		String sql = "select ic.ic_id, count(ic_student.sid) as c\r\n" + 
 				"from ic LEFT OUTER JOIN ic_student\r\n" + 
 				"on ic.ic_id = ic_student.ic_id\r\n" + 
@@ -42,7 +42,6 @@ public class IcDAOImpl implements IcDAO {
 			return icMapper(rs);
 		}
 		catch(Exception e) {
-			System.out.println(e);
 			e.printStackTrace();
 			return null;
 		}
@@ -66,7 +65,6 @@ public class IcDAOImpl implements IcDAO {
 			return ret;
 		}
 		catch(Exception e) {
-			System.out.println(e);
 			e.printStackTrace();
 			return null;
 		}
@@ -86,7 +84,6 @@ public class IcDAOImpl implements IcDAO {
 			preparedStatement.executeUpdate();
 		}
 		catch(Exception e) {
-			System.out.println(e);
 			e.printStackTrace();
 		}
 	}

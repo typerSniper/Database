@@ -1,7 +1,7 @@
 package com.DBProject.repository;
 
 import com.DBProject.Controller.ajax.StudentController.SaveDetailsRequest;
-import com.DBProject.domain.Ic;
+import com.DBProject.domain.Coordinator;
 import com.DBProject.domain.Student;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.List;
 public class StudentDAOImpl  implements StudentDAO  {
     @Autowired
     private DataSource dataSource;
-    private IcDAO icDAO;
+    private CoordinatorDAO icDAO;
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -50,28 +50,26 @@ public class StudentDAOImpl  implements StudentDAO  {
     }
 
 
-    public Student getStudent(String username, String password) {
-        if(StringUtils.isBlank(username)||StringUtils.isBlank(password)) {
+    public Student getStudent(String username) {
+        if(StringUtils.isBlank(username)) {
+        	System.out.println("Username Can't Be Empty");
             return null;
         }
         try(Connection connection = dataSource.getConnection()) {
-            String sql = "select * from student as S natural join password as P where S.id = ? and P.password = ?";
+            String sql = "select * from student where student.id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
             Student student  = null;
             while(resultSet.next()) {
                 student = studentMapper(resultSet);
             }
-            System.out.println(student);
             return student;
         }
         catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-
     }
     
     public void saveResume(Student student, String unicode, String type) {
@@ -101,7 +99,6 @@ public class StudentDAOImpl  implements StudentDAO  {
             return students;
         }
         catch (Exception e) {
-            System.out.println(e);
             e.printStackTrace();
             return null;
         }
@@ -179,9 +176,7 @@ public class StudentDAOImpl  implements StudentDAO  {
 			preparedStatement_details.executeUpdate();
 		}
 		catch (Exception e) {
-			System.out.println(e);
 			e.printStackTrace();
-			return;
 		}
 	}
 
@@ -196,15 +191,13 @@ public class StudentDAOImpl  implements StudentDAO  {
 			preparedStatement.executeUpdate();
 		}
 		catch(Exception e) {
-			System.out.println(e);
 			e.printStackTrace();
-			return;
 		}
 	}
 
 	@Override
-	public Ic allocateIc(String username) {
-		Ic freeIc = icDAO.getAFreeIc();
+	public Coordinator allocateIc(String username) {
+		Coordinator freeIc = icDAO.getAFreeIc();
 		String sql = "insert into ic_student(ic_id, sid)\n" + 
 				"values (?,?);";
 		try(Connection connection = dataSource.getConnection()) {
@@ -214,7 +207,6 @@ public class StudentDAOImpl  implements StudentDAO  {
 			preparedStatement.executeUpdate();
 		}
 		catch(Exception e) {
-			System.out.println(e);
 			e.printStackTrace();
 		}
 		return freeIc;

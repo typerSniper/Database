@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserDetailsService {
             return new User (username, "coordinator@123", authorities);
         }
         else {
-            return new User ("Jatin", "jatina", null);
+            return new User ("Jatin", "jatina", buildUserAuthority("ROLE_ANONYMOUS"));
         }
     }
 

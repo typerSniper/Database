@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Ic implements Serializable {
+public class Coordinator implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String ic_id; // primary key
     private String name;

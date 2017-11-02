@@ -2,12 +2,12 @@ package com.DBProject.repository;
 
 import java.util.List;
 
-import com.DBProject.domain.Ic;
+import com.DBProject.domain.Coordinator;
 import com.DBProject.domain.Student;
 
-public interface IcDAO {
-	public Ic getAFreeIc();
+public interface CoordinatorDAO {
+	 Coordinator getAFreeIc();
 	// Danger! The stage comparison is done as strings. That is, '10' < '2'!
-	public List<Student> getHerStudentsLessThanAStage(String ic_id, String stage);
-	public void advanceHerStudents(String ic_id, String stage);
+	 List<Student> getHerStudentsLessThanAStage(String ic_id, String stage);
+	 void advanceHerStudents(String ic_id, String stage);
 }
