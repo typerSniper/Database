@@ -43,21 +43,4 @@ public class LoginController {
     public static class validateRepsonse{
         boolean authenticated;
     }
-
-    @Data
-    @AllArgsConstructor
-    public static class LoginResponse {
-        private boolean authenticated;
-        private int stage;
-    }
-
-    @Data
-    @AllArgsConstructor
-    public static class LoginRequest {
-        private String username;
-        private String password;
-        private String type;
-    }
-
-
 }

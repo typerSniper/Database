@@ -1,6 +1,7 @@
 package com.DBProject.Controller.ajax;
 
 import com.DBProject.Controller.DefaultController;
+import com.DBProject.domain.Student;
 import com.DBProject.repository.StudentDAOImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
@@ -46,7 +47,7 @@ public class StudentController {
     @SneakyThrows
     @RequestMapping(value = "/student/fee_payment", method = RequestMethod.GET)
     @ResponseBody
-    public StageUpdateResponse FeePayment() {
+    public StageUpdateResponse feePayment() {
         //TODO: Update the stage of student to fee verification. Allocate to a Coordinator
         return new StageUpdateResponse(3, true);
     }

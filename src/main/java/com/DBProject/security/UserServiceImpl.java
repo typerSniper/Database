@@ -1,6 +1,7 @@
 package com.DBProject.security;
 
-import com.DBProject.repository.StudentDAOImpl;
+import com.DBProject.domain.Password;
+import com.DBProject.repository.PasswordDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import com.google.common.collect.Lists;
 
 import java.util.List;
+import java.util.UUID;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,31 +22,31 @@ import org.springframework.stereotype.Component;
 public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
-    StudentDAOImpl studentDAO;
+    PasswordDAOImpl passwordDAO;
 
     @Override
     public UserDetails loadUserByUsername(final String username) {
         List<GrantedAuthority> authorities;
         if(username.equals("Student")) {
-            authorities = buildUserAuthority("ROLE_"+"STUDENT");
+            authorities = buildUserAuthority("STUDENT");
             return new User (username, "student@123", authorities);
 
         }
         else if(username.equals("Coordinator")) {
-            authorities = buildUserAuthority("ROLE_"+"COORDINATOR");
+            authorities = buildUserAuthority("COORDINATOR");
             return new User (username, "coordinator@123", authorities);
         }
         else {
-            return new User ("Jatin", "jatina", null);
+            Password password  = passwordDAO.getByUsername(username);
+            if(password!=null)
+                return new User (username, password.getPassword(), buildUserAuthority(password.getRole()));
+            return new User(username, UUID.randomUUID().toString(), buildUserAuthority("ANONYMOUS"));
+            //                return new User("Anonymous", "Anonymous",buildUserAuthority( "ANONYMOUS"));
         }
-    }
-
-    private User buildUserForAuthentication(final List<GrantedAuthority> authorities) {
-        return new User("Student", "student@123", authorities);
     }
 
     private List<GrantedAuthority> buildUserAuthority(String roleString) {
 //        String roleString ="ROLE_"+ "ADMIN"; //get role of a known user
-        return Lists.newArrayList(new SimpleGrantedAuthority(roleString));
+        return Lists.newArrayList(new SimpleGrantedAuthority("ROLE_" + roleString));
     }
 }
