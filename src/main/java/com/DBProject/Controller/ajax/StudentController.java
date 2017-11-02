@@ -1,25 +1,15 @@
 package com.DBProject.Controller.ajax;
 
 import com.DBProject.repository.StudentDAOImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-import static com.DBProject.Controller.DefaultController.isAnonymous;
-
-/**
- * Created by Jatin on 28/10/17.
- */
-
+import static com.DBProject.Controller.DefaultController.getUsername;
+import static com.DBProject.Controller.DefaultController.StageUpdateResponse;
 
 @Lazy
 @RestController
@@ -27,24 +17,29 @@ public class StudentController {
     @Autowired
     private StudentDAOImpl studentDAO;
 
-
     @SneakyThrows
     @RequestMapping(value = "/student/save_details", method = RequestMethod.POST)
     @ResponseBody
-    public SaveDetailsResponse saveDetails(@RequestBody final SaveDetailsRequest saveDetailsRequest) {
-        //TODO: save those details to the database and check it before sending;
+    public StageUpdateResponse saveDetails(@RequestBody final SaveDetailsRequest saveDetailsRequest) {
+        final String username = getUsername();
+        studentDAO.saveDetails(username, saveDetailsRequest, String.valueOf(2));
+        // ASSUMPTION: '2' stands for the stage FEE PENDING
         System.out.println(saveDetailsRequest);
-        return new SaveDetailsResponse(2, true);
+        return new StageUpdateResponse(2, true);
     }
 
-    @Data
-    @AllArgsConstructor
-    public static class SaveDetailsResponse {
-        private int stage;
-        private boolean success;
+    @SneakyThrows
+    @RequestMapping(value = "/student/fee_payment", method = RequestMethod.GET)
+    @ResponseBody
+    public StageUpdateResponse FeePayment() {
+    	// PROBLEM: which student???
+    	String username = "null";
+    	// precondition: username variable has the username of the concerned student.
+    	studentDAO.updateStage(username, String.valueOf(3));
+    	studentDAO.allocateIc(username);
+    	// ASSUMPTION: '3' stands for the stage FEE VERIFICATION
+        return new StageUpdateResponse(3, true);
     }
-
-
 
     @Data
     @AllArgsConstructor
@@ -76,7 +71,7 @@ public class StudentController {
         private String year;
         private String cpi;
     }
-
+    
     @Data
     @AllArgsConstructor
     public static class HomeAddress {

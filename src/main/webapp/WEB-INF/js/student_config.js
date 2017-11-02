@@ -33,7 +33,7 @@ app.run( function($rootScope, $location, $http) {
         if(next.templateUrl == "views/student_home" || t === 1){
             console.log("here");
             if($rootScope.stage == null){
-                $rootScope.stage=1;
+                $rootScope.stage=2;
                 //send request and get stage
             }
             if($rootScope.stage == 1){
@@ -43,6 +43,9 @@ app.run( function($rootScope, $location, $http) {
                 next.templateUrl = "views/student_home_fee"
             }
             if($rootScope.stage == 3){
+                next.templateUrl = "views/student_home_fee"
+            }
+            if($rootScope.stage == 4){
                 next.templateUrl = "views/student_home_resume"
             }
         }

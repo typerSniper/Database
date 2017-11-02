@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/", "/student/", "/logout").permitAll();
+        http.authorizeRequests().antMatchers("/", "/student/", "/ic/","/logout").permitAll();
         http.exceptionHandling().authenticationEntryPoint(restUnauthorisedEntryPoint);
         http.formLogin()
                 .loginProcessingUrl("/app/login")
@@ -43,7 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
         http.logout().logoutUrl("/logout").deleteCookies("JSESSIONID");
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/student/home").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/student/home").access("hasRole('ROLE_STUDENT')");
+        http.authorizeRequests().antMatchers("/ic/home").access("hasRole('ROLE_COORDINATOR')");
     }
 
     @Autowired

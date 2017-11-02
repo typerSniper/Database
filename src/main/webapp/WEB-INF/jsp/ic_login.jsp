@@ -1,11 +1,9 @@
-
-
 <div ng-controller="ICLoginController">
     <div class="col-xs-4"></div>
     <div class="col-xs-4 well well-lg">
         <div style="text-align:center;">
             <h3><strong>Placement Cell</strong></h3>
-            <h3><strong>IC Login</strong></h3>
+            <h3><strong>Coordinator Login</strong></h3>
         </div>
         <hr>
         <form ng-submit="login()" name="loginForm" class="form" >
