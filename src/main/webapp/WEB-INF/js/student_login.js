@@ -1,15 +1,13 @@
 app.controller('StudentLoginController', function($scope, $http, $rootScope, $location) {
     $scope.login = function() {
-        var url = '/app/login';
-        var params = {username :$scope.username, password : $scope.password, type : "Student"}
-        $http.post(url, params)
+        var username = 'username=' + $scope.username;
+        var password = 'password=' + $scope.password;
+        var url = '/app/login?' +username + '&' +password + "&type=student";
+        $http.post(url)
             .success(function(response) {
+            console.log(response);
                 if(response.authenticated) {
-                    $rootScope.stage = response.stage;
-                    $rootScope.username = $scope.username;
                     $location.path('/student/home');
-
-                    // $cookieStore.put("loggedIn", true);
                 }
                 else
                      $scope.errorMessage = "Invalid username or password.";

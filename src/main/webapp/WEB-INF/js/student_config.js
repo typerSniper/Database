@@ -17,14 +17,42 @@ app.config(function($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
 });
 
-app.run( function($rootScope, $location) {
+app.run( function($rootScope, $location, $http, $route) {
+    $rootScope.copyObject = function(object) {
+        return JSON.parse(JSON.stringify(object));
+    }
+
+    $rootScope.logout = function(){
+        $rootScope.loggedIn = false;
+        $http.get("/logout").success(function(response) {
+            $location.path("/student/");
+        });
+    }
+
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+        if(next.templateUrl == "views/student_login") {
+            $rootScope.loggedIn = false;
+            $http.get("/is_authenticated").success(function(response) {
+                if(response.authenticated) {
+                    $rootScope.loggedIn = true;
+                    $location.path("/student/home");
+                }
+            });
+        }
         if(next.templateUrl == "views/student_home"){
+
             if($rootScope.stage == null){
-                $rootScope.stage=1;
-                //send request and get stage
+                 console.log("here");
+                 $http.get("/student/stage").success(function(response){
+                     if(response.authenticated){
+                     $rootScope.loggedIn = true;
+                     console.log(response.stage);
+                         $rootScope.stage = response.stage;
+                         $location.path("/student/home");
+                         $route.reload();
+                     }
+                 });
             }
-            // next.templateUrl = "views/student_home_form"
             if($rootScope.stage == 1){
                 next.templateUrl = "views/student_home_form"
             }
@@ -32,32 +60,16 @@ app.run( function($rootScope, $location) {
                 next.templateUrl = "views/student_home_fee"
             }
             if($rootScope.stage == 3){
+                next.templateUrl = "views/student_home_fee"
+            }
+            if($rootScope.stage == 4){
                 next.templateUrl = "views/student_home_resume"
             }
         }
     });
  });
 
-app.directive('loading', function ($http){
-    return {
-        restrict: 'E',
-        template: '<div class="loader"></div><div class="overlay"></div>',
-        link: function (scope, elm, attrs)
-        {
-            scope.isLoading = function () {
-                return $http.pendingRequests.length > 0;
-            };
-            scope.$watch(scope.isLoading, function (v) {
-                if (v) {
-                    elm.show();
-                }
-                else {
-                    elm.hide();
-                }
-            });
-        }
-    };
-});
+
 
 app.directive('progressBar0', function(){
     return {
@@ -66,5 +78,46 @@ app.directive('progressBar0', function(){
             currentActive: '=active'
         },
         templateUrl: 'views/progressBar'
+    };
+});
+
+app.directive('countdown', function (Util, $interval, $rootScope) {
+    return {
+        restrict: 'A',
+        scope: { date: '@' },
+        link: function (scope, element) {
+            var future;
+            future = new Date(scope.date);
+            $interval(function () {
+                var diff;
+                diff = Math.floor((future.getTime() - new Date().getTime()) / 1000);
+                if(diff <= 0){
+                    $rootScope.resumeDeadlinePassed = true;
+                    return element.text("Deadline Passed");
+                }
+                return element.text(Util.dhms(diff));
+            }, 1000);
+        }
+    };
+});
+
+app.factory('Util', function () {
+    return {
+        dhms: function (t) {
+            var days, hours, minutes, seconds;
+            days = Math.floor(t / 86400);
+            t -= days * 86400;
+            hours = Math.floor(t / 3600) % 24;
+            t -= hours * 3600;
+            minutes = Math.floor(t / 60) % 60;
+            t -= minutes * 60;
+            seconds = t % 60;
+            return [
+                days + 'd',
+                hours + 'h',
+                minutes + 'm',
+                seconds + 's'
+            ].join(' ');
+        }
     };
 });

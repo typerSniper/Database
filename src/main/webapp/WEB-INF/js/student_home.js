@@ -37,29 +37,25 @@ app.controller('StudentHomeController', function($http, $scope, $rootScope, $rou
                     cpi:'',
                   }
               };
+
     $scope.categories =["Gen","SC","ST","OBC","PH"];
 
     $scope.submit = function(){
-        console.log($scope.input);
-        $rootScope.stage = 2;
-        $route.reload();
+        var url = '/student/save_details';
+        var params = $rootScope.copyObject($scope.input);
+        console.log(params);
+        $http.post(url, params)
+            .success(function(response) {
+                if(response.success){
+                    console.log(response);
+                    $rootScope.stage = 2; //change this
+                    // $rootScope.stage = response.stage;
+                    $route.reload();
+                }
+            })
+            .error(function(response) {
+                // $scope.errorMessage = "Cannot Connect";
+            });
     };
-
-    // $scope.login = function() {
-    //     var url = '/app/login';
-    //     var params = {username :$scope.username, password : $scope.password, type : "Student"}
-    //     $http.post(url, params)
-    //         .success(function(response) {
-    //             if(response.authenticated) {
-    //                 $location.path('/student/home');
-    //                 $cookieStore.put("loggedIn", true);
-    //             }
-    //             else
-    //                  $scope.errorMessage = "Invalid username or password.";
-    //         })
-    //         .error(function(response) {
-    //             $scope.errorMessage = "Cannot Connect";
-    //         });
-    // };
 
 });
