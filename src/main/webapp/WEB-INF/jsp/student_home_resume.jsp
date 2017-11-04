@@ -1,5 +1,5 @@
 <div ng-controller="StudentResumeController">
-    <div align="center">
+    <div align="center" ng-hide="resumeDeadlinePassed">
         <table style="width:50%" class="table table-striped">
             <tr>
                 <th>
@@ -53,7 +53,7 @@
     <div align="center" class="jumbotron">
         <h3>Time to deadline</h3>
         <div class='time-to'>
-            <span countdown='' date='January 1, 2018 12:00:00'>&nbsp;</span>
+            <span countdown='' date='November 4, 2017 12:00:00'>&nbsp;</span>
         </div>
     </div>
 </div>

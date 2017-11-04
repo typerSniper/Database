@@ -1,4 +1,4 @@
-app.controller('StudentResumeController', function($http, $scope){
+app.controller('StudentResumeController', function($http, $scope, $interval){
     $scope.submitResume = function() {
         var f = document.getElementById('file').files[0];
         $scope.selectedFile = document.getElementById('file').value;
