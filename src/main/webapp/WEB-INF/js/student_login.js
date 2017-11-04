@@ -2,7 +2,7 @@ app.controller('StudentLoginController', function($scope, $http, $rootScope, $lo
     $scope.login = function() {
         var username = 'username=' + $scope.username;
         var password = 'password=' + $scope.password;
-        var url = '/app/login?' +username + '&' +password;
+        var url = '/app/login?' +username + '&' +password + "&type=student";
         $http.post(url)
             .success(function(response) {
             console.log(response);

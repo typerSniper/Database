@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.DBProject.repository.CoordinatorDAOImpl.icMapper;
+
 @Repository
 
 public class StudentDAOImpl  implements StudentDAO  {
@@ -208,11 +210,28 @@ public class StudentDAOImpl  implements StudentDAO  {
 		}
 	}
 
+	@Override
+	public Coordinator getAllocatedIc(String username) {
+    	try (Connection connection = dataSource.getConnection()) {
+			String sql = "select ic_id, name,phone_number from ic_student natural join ic where ic_student.sid = ?;";
+    		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    		preparedStatement.setString(1, username);
+    		ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				Coordinator coordinator = icMapper(resultSet);
+				return coordinator;
+			}
+    	}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
 	public Coordinator allocateIc(String username, String stage) {
 		Coordinator freeIc = icDAO.getAFreeIc();
-		String sql = "insert into ic_student(ic_id, sid)\n" + 
+	 	String sql = "insert into ic_student(ic_id, sid)\n" +
 				"values (?,?);";
 		try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
