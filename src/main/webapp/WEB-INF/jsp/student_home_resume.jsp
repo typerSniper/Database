@@ -7,10 +7,10 @@
 
                 </th>
                 <td>
-                    <input type="file" accept="application/pdf" id="file" name="file"/>
+                    <input type="file" accept="application/pdf" id="res0" name="file"/>
                 </td>
                 <td>
-                    <button ng-click="submitResume()" class="btn btn-success">Upload</button>
+                    <button ng-click="submitResume(0)" class="btn btn-success">Upload</button>
                 </td>
             </tr>
             <tr>
@@ -18,10 +18,10 @@
                     Resume 1(tech)
                 </th>
                <td>
-                    <input type="file" accept="application/pdf" id="file" name="file"/>
+                    <input type="file" accept="application/pdf" id="res1" name="file"/>
                 </td>
                 <td>
-                    <button ng-click="submitResume()" class="btn btn-success">Upload</button>
+                    <button ng-click="submitResume(1)" class="btn btn-success">Upload</button>
                 </td>
             </tr>
             <tr>
@@ -29,10 +29,10 @@
                     Resume 2(tech)
                 </th>
                 <td>
-                    <input type="file" accept="application/pdf" id="file" name="file"/>
+                    <input type="file" accept="application/pdf" id="res2" name="file"/>
                 </td>
                 <td>
-                    <button ng-click="submitResume()" class="btn btn-success">Upload</button>
+                    <button ng-click="submitResume(2)" class="btn btn-success">Upload</button>
                 </td>
                 
             </tr>
@@ -41,10 +41,10 @@
                     Resume 3(non-tech)
                 </th>
                <td>
-                    <input type="file" accept="application/pdf" id="file" name="file"/>
+                    <input type="file" accept="application/pdf" id="res3" name="file"/>
                 </td>
                 <td>
-                    <button ng-click="submitResume()" class="btn btn-success">Upload</button>
+                    <button ng-click="submitResume(3)" class="btn btn-success">Upload</button>
                 </td>
                 
             </tr>

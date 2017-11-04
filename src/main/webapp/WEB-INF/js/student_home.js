@@ -49,6 +49,7 @@ app.controller('StudentHomeController', function($http, $scope, $rootScope, $rou
     $scope.submit = function(){
         var url = '/student/save_details';
         var params = $rootScope.copyObject($scope.input);
+        console.log(params);
         $http.post(url, params)
             .success(function(response) {
                 if(response.success){

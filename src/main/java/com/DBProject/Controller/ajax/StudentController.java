@@ -27,6 +27,7 @@ public class StudentController {
     @RequestMapping(value = "/student/save_details", method = RequestMethod.POST)
     @ResponseBody
     public StageUpdateResponse saveDetails(@RequestBody final SaveDetailsRequest saveDetailsRequest) {
+        System.out.println(saveDetailsRequest);
         Student student = studentDAO.getStudent(getUsername());
         String currentStage = student.getStage();
         if(!currentStage.toLowerCase().equals("registered")) {

@@ -77,13 +77,14 @@ public class StudentDAOImpl  implements StudentDAO  {
             return null;
         }
     }
-    
+
     public boolean saveResume(Student student, String unicode, String type, String stage) {
     	try(Connection connection = dataSource.getConnection()) {
-            String sql = "insert into table resume values (?, ?, ?);";
+            String sql = "insert into resume(sid, resume, rtype) values (?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            byte[] resume = unicode.getBytes();
             preparedStatement.setString(1, student.getUsername());
-            preparedStatement.setString(2, unicode);
+            preparedStatement.setBytes(2, resume);
             preparedStatement.setString(3, type);
             preparedStatement.executeUpdate();
 			preparedStatement.close();
