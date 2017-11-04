@@ -1,7 +1,6 @@
 app.controller('StudentHomeController', function($http, $scope, $rootScope, $route) {
     
-    $scope.input={name:'',
-                  dob:'',
+    $scope.input={dob:'',
                   sex:'',
                   category:'',
                   nationality:'',
@@ -19,12 +18,6 @@ app.controller('StudentHomeController', function($http, $scope, $rootScope, $rou
                     country:'',
                   },
                   skypeid:'',
-                  collegedetails:{
-                    university:'',
-                    institute:'',
-                    year:'',
-                    cpi:'',
-                  },
                   detail12th:{
                     university:'',
                     institute:'',

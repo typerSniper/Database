@@ -36,7 +36,7 @@
                 <li class="active" style="background: transparent"><a href="">Home</a></li>
                 <li class="dropdown">
                   <a  class="dropdown-toggle" data-toggle="dropdown">Why Recruit <b class="caret"></b></a>
-                  <ul class="dropdown-menu" style="background: transparent">
+                  <ul class="dropdown-menu" >
                     <li><a href="/recruit/">About IITB</a></li>
                     <li class="divider"></li>
                     <li><a href="/recruit/#b">Students</a></li>
@@ -66,24 +66,28 @@
         </nav>
         </div>
 </div>
-               <div class="row " style=" margin: 250px; font-size:20px">
+    <div class="container">
+        <h1>Procedures</h1>
+<h2>Structure:</h2>
+<p style="font-size:20px">
+The Practical Training Cell, IIT Bombay (PT Cell) comprises of Internship Coordinators (ICs) and a Head of the PT Cell working directly under Dean - Academic Program and General Secretary Academic Affairs. Our enthusiastic team strives for effectively striking a match between recruiter/researcher expectations and student aspirations. The companies, universites and NGOs are encouraged to contact the PT Cell for initial discussions and for confirming all schedules and all official communication.
+</p>
 
-            <div class="col-sm-5 col-sm-offset-1 " >
-                  <a href = "/student/">Student Login</a>
-               
-            
-            </div>
-            <br>
-            <div class="col-sm-5 col-sm-offset-1" >
-                        <a href = "/ic/">IC Login</a>
-                  
-                
-            
-            </div>
-        </div>
-         
-</div>
-<br><br><br><br>
+<h2>Working:</h2>
+<p style="font-size:20px">
+To support the internship process, the PT Cell has an effective online system in place. The procedure for internships follows the following plan:
+The PT Cell sends invitations to companies and organizations along with relevant information.
+Login at our website: http://placements.iitb.ac.in/training/
+Organisations can fill the IAF (Internship Announcement Form) online or can email it to PT Cell, IIT Bombay (traininig@iitb.ac.in).
+If the company/organization is willing to conduct a Pre-Internship Talk (PIT) they can send a request along with the preferred dates.
+IAF with relevant details is made available to students. Interested and eligible (as per the criteria specified) students show their willingness by signing its IAF online.
+Companies/Organisations/Universities can view resumes of interested students and short- list students using their online account or sent via email.
+Recruitment Procedure may include Statement of Purpose, Group Discussions, Telephonic/Personal Interview.
+Final Offers must be produced at the earliest after the completion of internship procedure.
+</p>
+        
+    </div>
+    <br><br><br><br>
 <div class="fixed-bottom">
 <div class="jumbotron " style="">
     <div class="container" >

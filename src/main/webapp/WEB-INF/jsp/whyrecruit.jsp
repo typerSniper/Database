@@ -24,8 +24,6 @@
         <div >
               <div ng-view></div>
         </div> 
-
-           
         <div class="jumbotron">
              <div class="container">
 
@@ -37,7 +35,7 @@
                 <li class="dropdown">
                   <a  class="dropdown-toggle" data-toggle="dropdown">Why Recruit <b class="caret"></b></a>
                   <ul class="dropdown-menu" style="background: transparent">
-                    <li><a href="/recruit/">About IITB</a></li>
+                    <li><a href="/recruit/#a">About IITB</a></li>
                     <li class="divider"></li>
                     <li><a href="/recruit/#b">Students</a></li>
                     <li class="divider"></li>
@@ -66,24 +64,33 @@
         </nav>
         </div>
 </div>
-               <div class="row " style=" margin: 250px; font-size:20px">
-
-            <div class="col-sm-5 col-sm-offset-1 " >
-                  <a href = "/student/">Student Login</a>
-               
-            
-            </div>
-            <br>
-            <div class="col-sm-5 col-sm-offset-1" >
-                        <a href = "/ic/">IC Login</a>
-                  
-                
-            
-            </div>
-        </div>
-         
-</div>
-<br><br><br><br>
+      <div class="jumbotron">
+      <h1 id="a">About IITB</h1>
+      <p></p>
+    </div>
+    <div class="jumbotron">
+      <h1 id="b">Students</h1>
+      <p></p>
+    </div>
+    <div class="jumbotron">
+      <h1 id="c">Academics</h1>
+      <p></p>
+    </div>
+    <div class="jumbotron" >
+      <h1 id="d">Our Recruiters</h1>
+      <p></p>
+      <h1>Past Year Selections</h1>
+      <p></p>
+    </div>
+    <div class="jumbotron">
+      <h1 id="e">Our Alumni</h1>
+      <p></p>
+    </div>
+    <div class="jumbotron" >
+      <h1 id="f">Reasearch And Development</h1>
+      <p></p>
+    </div>
+    
 <div class="fixed-bottom">
 <div class="jumbotron " style="">
     <div class="container" >

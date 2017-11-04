@@ -26,7 +26,7 @@
         </div> 
 
            
-        <div class="jumbotron">
+      <div class="jumbotron">
              <div class="container">
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -66,25 +66,30 @@
         </nav>
         </div>
 </div>
-               <div class="row " style=" margin: 250px; font-size:20px">
-
-            <div class="col-sm-5 col-sm-offset-1 " >
-                  <a href = "/student/">Student Login</a>
-               
-            
-            </div>
-            <br>
-            <div class="col-sm-5 col-sm-offset-1" >
-                        <a href = "/ic/">IC Login</a>
-                  
-                
-            
-            </div>
-        </div>
-         
-</div>
-<br><br><br><br>
-<div class="fixed-bottom">
+   <div class="container">
+     <h1>About Us</h1>
+   <div class="container">
+     <h2>Technical Team</h2>
+    <div class="container">
+       <h3>
+      Jatin Arora
+    </h3>
+    <h3>
+      Shraddeya Shendre
+    </h3>
+    <h3>
+      Akshat Gupta    
+    </h3>
+    <h3>
+      Kshitij Jain
+    </h3>
+    </div>
+    
+    </div>
+   </div>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+    </body>
+    <div class="fixed-bottom">
 <div class="jumbotron " style="">
     <div class="container" >
             <table style="width:50%">
@@ -127,5 +132,5 @@
         </div>
     </div>
 </div>
-    </body>
 </html>
+
