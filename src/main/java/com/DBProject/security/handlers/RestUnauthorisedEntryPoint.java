@@ -31,17 +31,20 @@ public class RestUnauthorisedEntryPoint implements AuthenticationEntryPoint {
 
         AccessDeniedResponse response = new AccessDeniedResponse(status, "Access Denied.", exception.getMessage());
         if(httpServletRequest.getContextPath().contains("student"))
-                httpServletResponse.sendRedirect("/student");
+            httpServletResponse.sendRedirect("/student");
         else if(httpServletRequest.getContextPath().contains("ic"))
-                httpServletResponse.sendRedirect("/ic");
+            httpServletResponse.sendRedirect("/ic");
         else if(httpServletRequest.getContextPath().contains("company"))
-                httpServletResponse.sendRedirect("/company");
+            httpServletResponse.sendRedirect("/company");
         else {
             String jsonResponse = new ObjectMapper().writeValueAsString(response);
             writer.write(jsonResponse);
             writer.flush();
             writer.close();
         }
+        //        writer.write(jsonResponse);
+        //        writer.flush();
+        //        writer.close();
     }
 
     @Data

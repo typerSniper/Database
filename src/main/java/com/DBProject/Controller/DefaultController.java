@@ -30,7 +30,7 @@ public class DefaultController {
         return new ModelAndView("student_index");
     }
 
-    @RequestMapping(value={"/ic*", "/ic/*"}, method = {RequestMethod.GET})
+    @RequestMapping(value={"/coordinator*", "/coordinator/*"}, method = {RequestMethod.GET})
     public ModelAndView getModelViewIc(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         return new ModelAndView("ic_index");
     }
@@ -54,12 +54,5 @@ public class DefaultController {
 
     public static String getUsername() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
-
-    @Data
-    @AllArgsConstructor
-    public static class StageUpdateResponse {
-        private int stage;
-        private boolean success;
     }
 }

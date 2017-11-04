@@ -30,11 +30,15 @@ app.run( function($rootScope, $location, $http) {
                 }
             });
         }
-        if(next.templateUrl == "views/student_home" || t === 1){
+        if(next.templateUrl == "views/student_home"){
             console.log("here");
             if($rootScope.stage == null){
-                $rootScope.stage=2;
-                //send request and get stage
+                $rootScope.stage = 4;
+                // $http.get("/student/stage").success(function(response){
+                //     if(response.status){
+                //         $rootScope.stage = response.stage;
+                //     }
+                // });
             }
             if($rootScope.stage == 1){
                 next.templateUrl = "views/student_home_form"
@@ -64,7 +68,7 @@ app.directive('progressBar0', function(){
     };
 });
 
-app.directive('countdown', function (Util, $interval) {
+app.directive('countdown', function (Util, $interval, $rootScope) {
     return {
         restrict: 'A',
         scope: { date: '@' },
@@ -74,6 +78,10 @@ app.directive('countdown', function (Util, $interval) {
             $interval(function () {
                 var diff;
                 diff = Math.floor((future.getTime() - new Date().getTime()) / 1000);
+                if(diff <= 0){
+                    $rootScope.resumeDeadlinePassed = true;
+                    return element.text("Deadline Passed");
+                }
                 return element.text(Util.dhms(diff));
             }, 1000);
         }
