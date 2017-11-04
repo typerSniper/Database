@@ -20,6 +20,7 @@
         <base href = "/">
     </head>
     <body>
+        <div ng-show="loggedIn"> <button ng-click="logout()">Log Out</button></div>
         <loading></loading>
 
         <div id="container">

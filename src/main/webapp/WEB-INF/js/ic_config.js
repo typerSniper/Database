@@ -20,4 +20,18 @@ app.config(function($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
 });
 
+app.run( function($rootScope, $location, $http, $route) {
+    $rootScope.copyObject = function(object) {
+        return JSON.parse(JSON.stringify(object));
+    }
+
+    $rootScope.logout = function(){
+        $rootScope.loggedIn = false;
+        $http.get("/logout").success(function(response) {
+            $location.path("/coordinator/");
+        });
+    }
+ });
+
+
 

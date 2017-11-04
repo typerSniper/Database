@@ -8,16 +8,20 @@ import lombok.Data;
 import lombok.SneakyThrows;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static com.DBProject.Controller.ajax.StudentController.StageUpdateResponse;
 import java.util.List;
 
 import static com.DBProject.Controller.DefaultController.getUsername;
 
+@Controller
 public class CoordinatorController {
 	@Autowired
     private CoordinatorDAOImpl coordinatorDAO;
@@ -30,23 +34,26 @@ public class CoordinatorController {
     @ResponseBody
     public GetFeeStudents getFeeStudents() {
         final String coordinatorName = getUsername();
-        return new GetFeeStudents(coordinatorDAO.getStudentsWithStage(coordinatorName, "feeverificationpending"));
+        System.out.println(coordinatorName);
+        return new GetFeeStudents(coordinatorDAO.getStudentsWithStage(coordinatorName, "feeverification"));
     }
 
     @SneakyThrows
     @RequestMapping(value = "/ic/advance_fee", method = RequestMethod.POST)
     @ResponseBody
-    public StageUpdateResponse advanceFeeStudents(@RequestBody AdvanceFeeStudent advanceFeeStudent) {
+    public StageUpdateResponse advanceFeeStudents(@RequestBody final AdvanceFeeStudent advanceFeeStudent) {
         final String coordinatorName = getUsername();
         String nextStage = "resumepending";
-        boolean success = coordinatorDAO.advanceHerStudents(coordinatorName, nextStage);
+        boolean success = coordinatorDAO.advanceHerStudents(coordinatorName, nextStage, advanceFeeStudent.getStudents());
         return new StageUpdateResponse(stageManager.getCurrentStage(nextStage), success);
+//                return new StageUpdateResponse(-1, false);
+
     }
 
     @Data
     @AllArgsConstructor
-    public class AdvanceFeeStudent {
-        private String student;
+    public static class AdvanceFeeStudent {
+        List<Student> students;
     }
     @Data
     @AllArgsConstructor

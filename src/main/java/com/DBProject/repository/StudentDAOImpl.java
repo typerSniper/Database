@@ -20,6 +20,8 @@ import java.util.List;
 public class StudentDAOImpl  implements StudentDAO  {
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
     private CoordinatorDAO icDAO;
 
     public void setDataSource(DataSource dataSource) {
@@ -145,7 +147,7 @@ public class StudentDAOImpl  implements StudentDAO  {
 			System.out.println("saving these details" + username + " : stage " + stage + " \n" + saveDetailsRequest);
 			preparedStatement.setString(1, stage);
 			preparedStatement.setString(2, username);
-
+			//TODO: Don't store "null", store null and saveDetailsRequest.getDetails12th() may itself be null, so check that too otherwise exception.
 			preparedStatement_details.setString(1, getValueOrDefault(saveDetailsRequest.getUnivemail(), "null"));
 			preparedStatement_details.setString(2, getValueOrDefault(saveDetailsRequest.getPeremail(), "null"));
 			preparedStatement_details.setString(3, getValueOrDefault(saveDetailsRequest.getDob(), "null"));

@@ -1,27 +1,46 @@
 app.controller('ICFeeController', function($scope, $http, $rootScope, $location) {
-    $scope.studentList = {};
-    $scope.selectedStudentList = {};
+    $scope.studentList = [];
+    $scope.selectedStudentList = [];
     $scope.getFeeRequests = function(){
-        // var url = "/ic_fee_students";
-        // $http.get(url)
-        //     .success(function(response){
-        //         $scope.studentList = $rootScope.copyObject(response.students);
-        //     })
-        //     .error(function(response) {
-        //     });
+         var url = "/ic/fee_students";
+         $http.get(url)
+             .success(function(response){
+             console.log(response);
+                 $scope.studentList = $rootScope.copyObject(response.students);
+             })
+             .error(function(response) {
+             });
     };
 
+    $scope.isSelected = function(student){
+        const index = $scope.selectedStudentList.indexOf(student);
+        if(index != -1){
+            $scope.selectedStudentList.splice(index, 1);
+        }
+        else{
+            $scope.selectedStudentList.push(student);
+        }
+    }
+
+
+
     $scope.sendFeeVerifications = function(){ //TODO
-        // var url = "/ic_advance_fee";
-        // for(){
-        //     var params = {name: "pop"}
-        //     $http.post(url, params)
-        //         .success(function(response){
+//        console.log({students: $scope.selectedStudentList});
+         var url = "/ic/advance_fee";
+         params = $rootScope.copyObject({students: $scope.selectedStudentList});
+//                 params = $rootScope.copyObject({students: "pop"});
 
-        //         })
-        //         .error(function(response){
-
-        //         });
-        // }
+         console.log(params);
+         $http.post(url, params)
+              .success(function(response) {
+                    if(response.success){
+                        console.log("Done");
+                        $scope.studentList = [];
+                        $scope.selectedStudentList = [];
+                        $scope.getFeeRequests();
+                    }
+              })
+              .error(function(response) {
+              });
     };
 });

@@ -16,9 +16,9 @@ public class StudentStageManager {
             new ImmutableMap.Builder<String, Integer>()
                     .put("registered", 1)
                     .put("feepending", 2)
-                    .put("feeverificationpending", 3)
+                    .put("feeverification", 3)
                     .put("resumepending", 4)
-                    .put("resumeverificationpending", 5)
+                    .put("resumeverification", 5)
                     .put("jafeligible", 6)
                     .build();
 

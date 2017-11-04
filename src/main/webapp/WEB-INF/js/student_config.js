@@ -17,25 +17,39 @@ app.config(function($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
 });
 
-app.run( function($rootScope, $location, $http) {
+app.run( function($rootScope, $location, $http, $route) {
     $rootScope.copyObject = function(object) {
         return JSON.parse(JSON.stringify(object));
     }
 
+    $rootScope.logout = function(){
+        $rootScope.loggedIn = false;
+        $http.get("/logout").success(function(response) {
+            $location.path("/student/");
+        });
+    }
+
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
         if(next.templateUrl == "views/student_login") {
+            $rootScope.loggedIn = false;
             $http.get("/is_authenticated").success(function(response) {
                 if(response.authenticated) {
+                    $rootScope.loggedIn = true;
                     $location.path("/student/home");
                 }
             });
         }
         if(next.templateUrl == "views/student_home"){
-            console.log("here");
+
             if($rootScope.stage == null){
+                 console.log("here");
                  $http.get("/student/stage").success(function(response){
                      if(response.authenticated){
+                     $rootScope.loggedIn = true;
+                     console.log(response.stage);
                          $rootScope.stage = response.stage;
+                         $location.path("/student/home");
+                         $route.reload();
                      }
                  });
             }

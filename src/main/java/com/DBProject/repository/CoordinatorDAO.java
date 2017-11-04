@@ -8,5 +8,5 @@ import com.DBProject.domain.Student;
 public interface CoordinatorDAO {
 	 Coordinator getAFreeIc();
 	 List<Student> getStudentsWithStage(String ic_id, String stage);
-	 boolean advanceHerStudents(String ic_id, String stage);
+	 boolean advanceHerStudents(String ic_id, String stage, List<Student> students);
 }

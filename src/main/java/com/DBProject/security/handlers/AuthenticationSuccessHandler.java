@@ -27,10 +27,8 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
         int status = HttpServletResponse.SC_OK;
         servletResponse.setStatus(status);
         PrintWriter writer = servletResponse.getWriter();
-
         AuthenticationSuccessResponse response = new AuthenticationSuccessResponse(status, "Authentication success.", true);
         String jsonResponse = new ObjectMapper().writeValueAsString(response);
-
         writer.write(jsonResponse);
         writer.flush();
         writer.close();

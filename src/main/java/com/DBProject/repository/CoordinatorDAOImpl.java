@@ -30,25 +30,29 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 
 	@Override
 	public Coordinator getAFreeIc() {
-		String sql = "select ic.ic_id, count(ic_student.sid) as c\r\n" + 
-				"from ic LEFT OUTER JOIN ic_student\r\n" + 
-				"on ic.ic_id = ic_student.ic_id\r\n" + 
-				"group by ic.ic_id\r\n" + 
-				"order by c\r\n" + 
-				"limit 1";
+		//TODO: Is giving null for some reason.
+//		String sql = "select ic.ic_id, count(ic_student.sid) as c\r\n" +
+//				"from ic LEFT OUTER JOIN ic_student\r\n" +
+//				"on ic.ic_id = ic_student.ic_id\r\n" +
+//				"group by ic.ic_id\r\n" +
+//				"order by c\r\n" +
+//				"limit 1";
+		String sql = "select * from ic where ic_id ='coordinator1';";
 		try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet rs = preparedStatement.executeQuery();
-			return icMapper(rs);
+			while(rs.next())
+				return icMapper(rs);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			return null;
 		}
+		return null;
 	}
 
 	@Override
 	public List<Student> getStudentsWithStage(String ic_id, String stage) {
+	    System.out.println(ic_id+ stage);
 		String sql = "select sid, name, did, pid, cpi, stage\r\n" + 
 				"from student NATURAL JOIN ic_student\r\n" + 
 				"where ic_student.ic_id=? and\r\n" + 
@@ -72,17 +76,17 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 	}
 
 	@Override
-	public boolean advanceHerStudents(String ic_id, String stage) {
-		String sql = "update student\r\n" + 
-				"set stage = ?\r\n" + 
-				"from ic_student\r\n" + 
-				"where student.sid=ic_student.sid and\r\n" + 
-				"ic_student.ic_id = ?";
+	public boolean advanceHerStudents(String ic_id, String stage, List<Student> students) {
+		String sql ="update student set stage = ? where sid =? ;";
 		try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, stage);
-			preparedStatement.setString(2, ic_id);
-			preparedStatement.executeUpdate();
+			for(int j=0;j<students.size();j++) {
+				preparedStatement.setString(1, stage);
+				preparedStatement.setString(2, students.get(j).getUsername());
+				preparedStatement.addBatch();
+			}
+			if(students.size()!=0)
+				preparedStatement.executeBatch();
 			preparedStatement.close();
 			return true;
 		}

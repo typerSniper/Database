@@ -53,7 +53,7 @@ public class StudentController {
             return new FeePayment(-1, false, null, null);
         }
         String nextStage = stageManager.getNextStage(currentStage);
-        Coordinator coordinator = studentDAO.allocateIc(username, nextStage);
+         Coordinator coordinator = studentDAO.allocateIc(username, nextStage);
         if(coordinator==null) {
             System.out.println("We are in trouble, coordinator not allocated");
             return new FeePayment(-1, false, null, null);
