@@ -16,7 +16,7 @@
                 <input type="password" class="form-control" ng-model="password" placeholder="password" required/>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-success">Login</button>
+                <button type="submit" class="btn btn-large btn-continue">Login</button>
             </div>
             <div class="form-group" style="color: red">
                  {{errorMessage}}
