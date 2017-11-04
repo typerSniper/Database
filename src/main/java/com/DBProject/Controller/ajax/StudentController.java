@@ -85,6 +85,23 @@ public class StudentController {
         return new ResumeSaveResponse(success, stageManager.getCurrentStage(nextStage));
     }
 
+//    @SneakyThrows
+//    @RequestMapping(value = "/student/allocated_ic", method = RequestMethod.GET)
+//    @ResponseBody
+//    public AllocatedIcResponse getAlloactedIc() {
+//        String username = getUsername();
+//        Coordinator coordinator = studentDAO.getAllocatedIc("username");
+//        if(coordinator!=null)
+//            return new AllocatedIcResponse(coordinator.ge(), coordinator.getContactNumber());
+//    }
+
+    @Data
+    @AllArgsConstructor
+    public static class AllocatedIcResponse {
+        private String coordinatorName;
+        private String phoneNumber;
+    }
+
     @Data
     @AllArgsConstructor
     public static class SaveDetailsRequest {

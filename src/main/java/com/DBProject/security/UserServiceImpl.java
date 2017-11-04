@@ -38,8 +38,9 @@ public class UserServiceImpl implements UserDetailsService {
         }
         else {
             Password password  = passwordDAO.getByUsername(username);
-            if(password!=null)
-                return new User (username, password.getPassword(), buildUserAuthority(password.getRole()));
+            if(password!=null) {
+                return new User(username, password.getPassword(), buildUserAuthority(password.getRole()));
+            }
             return new User(username, UUID.randomUUID().toString(), buildUserAuthority("ANONYMOUS"));
         }
     }

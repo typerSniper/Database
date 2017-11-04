@@ -15,4 +15,5 @@ public interface StudentDAO {
      boolean saveDetails(String username, SaveDetailsRequest saveDetailsRequest, String stage);
      void updateStage(Connection conn, String stage, String username);
      Coordinator allocateIc(String username, String stage);
+     Coordinator getAllocatedIc(String username);
 }
