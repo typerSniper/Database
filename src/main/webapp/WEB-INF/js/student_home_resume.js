@@ -9,15 +9,16 @@ app.controller('StudentResumeController', function($http, $scope, $interval){
             var data = e.target.result;
             var url = "/student/save_resume";
             var params = {type: index, resumeData: data};
-            $http.post(url, params)
-                .success(function(response) {
-                if(response.success){
-                    console.log("Done");
-                }
-            })
-            .error(function(response) {
-                // $scope.errorMessage = "Cannot Connect";
-            });
+            // $http.post(url, params)
+            //     .success(function(response) {
+            //     if(response.success){
+            //         console.log("Done");
+            //     }
+            // })
+            // .error(function(response) {
+            //     // $scope.errorMessage = "Cannot Connect";
+            // });
+            $scope.resumeString = data;
             // console.log(data);
         }
         r.readAsDataURL(f);
