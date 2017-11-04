@@ -1,7 +1,5 @@
 package com.DBProject.Controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,7 +24,7 @@ public class DefaultController {
 
     @RequestMapping(value={"/student*", "/student/*"}, method = {RequestMethod.GET})
     public ModelAndView getModelViewStudent(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-        final String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+//        final String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         return new ModelAndView("student_index");
     }
 

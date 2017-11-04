@@ -1,7 +1,6 @@
 package com.DBProject.Controller.ajax;
 
 
-import com.DBProject.domain.Student;
 import com.DBProject.repository.StudentDAOImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;

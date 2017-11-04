@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
 import static com.DBProject.Controller.DefaultController.getUsername;
-import static com.DBProject.Controller.DefaultController.isAnonymous;
 
 @Lazy
 @RestController

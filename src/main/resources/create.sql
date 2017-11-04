@@ -53,7 +53,7 @@ CREATE TABLE studentDetails(
 	homeaddress			address,
 	collegedetails			details,
 	detail12th			details,
-	detail20th			details,
+	detail10th			details,
 	others				details,
 	PRIMARY KEY (sid),
 	FOREIGN KEY (sid) REFERENCES student(sid) ON DELETE CASCADE ON UPDATE CASCADE
