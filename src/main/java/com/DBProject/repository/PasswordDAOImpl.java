@@ -3,6 +3,7 @@ package com.DBProject.repository;
 import com.DBProject.domain.Password;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -12,6 +13,8 @@ import java.sql.ResultSet;
 /**
  * Created by Jatin on 01/11/17.
  */
+@Repository
+
 public class PasswordDAOImpl implements PasswordDAO {
     @Autowired
     private DataSource dataSource;
@@ -28,14 +31,14 @@ public class PasswordDAOImpl implements PasswordDAO {
     @Override
     public Password getByUsername(String username) {
         try(Connection connection = dataSource.getConnection()) {
-            String sql = "select * from password where username = ?;";
+            String sql = "select * from password where id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
             Password password = null;
             while(resultSet.next()) {
                 password = passwordMapper(resultSet);
             }
-            System.out.println(password);
             return password;
         }
         catch (Exception e) {

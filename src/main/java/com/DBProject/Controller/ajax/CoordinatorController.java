@@ -26,7 +26,7 @@ public class CoordinatorController {
     private StudentStageManager stageManager;
 
     @SneakyThrows
-    @RequestMapping(value = "/student/ic_fee_students", method = RequestMethod.GET)
+    @RequestMapping(value = "/ic/fee_students", method = RequestMethod.GET)
     @ResponseBody
     public GetFeeStudents getFeeStudents() {
         final String coordinatorName = getUsername();
@@ -34,7 +34,7 @@ public class CoordinatorController {
     }
 
     @SneakyThrows
-    @RequestMapping(value = "/student/ic_advance_fee", method = RequestMethod.POST)
+    @RequestMapping(value = "/ic/advance_fee", method = RequestMethod.POST)
     @ResponseBody
     public StageUpdateResponse advanceFeeStudents(@RequestBody AdvanceFeeStudent advanceFeeStudent) {
         final String coordinatorName = getUsername();

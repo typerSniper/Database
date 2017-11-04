@@ -57,7 +57,7 @@ public class StudentDAOImpl  implements StudentDAO  {
             return null;
         }
         try(Connection connection = dataSource.getConnection()) {
-            String sql = "select * from student where student.id = ?";
+            String sql = "select * from student where sid = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();

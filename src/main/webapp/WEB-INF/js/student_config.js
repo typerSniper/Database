@@ -33,12 +33,11 @@ app.run( function($rootScope, $location, $http) {
         if(next.templateUrl == "views/student_home"){
             console.log("here");
             if($rootScope.stage == null){
-                $rootScope.stage = 4;
-                // $http.get("/student/stage").success(function(response){
-                //     if(response.status){
-                //         $rootScope.stage = response.stage;
-                //     }
-                // });
+                 $http.get("/student/stage").success(function(response){
+                     if(response.authenticated){
+                         $rootScope.stage = response.stage;
+                     }
+                 });
             }
             if($rootScope.stage == 1){
                 next.templateUrl = "views/student_home_form"

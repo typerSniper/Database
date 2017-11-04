@@ -41,7 +41,6 @@ public class UserServiceImpl implements UserDetailsService {
             if(password!=null)
                 return new User (username, password.getPassword(), buildUserAuthority(password.getRole()));
             return new User(username, UUID.randomUUID().toString(), buildUserAuthority("ANONYMOUS"));
-            //                return new User("Anonymous", "Anonymous",buildUserAuthority( "ANONYMOUS"));
         }
     }
 
