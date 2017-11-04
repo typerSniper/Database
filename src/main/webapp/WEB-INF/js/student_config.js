@@ -23,8 +23,8 @@ app.run( function($rootScope, $location, $http, $route) {
     }
 
     $rootScope.logout = function(){
-        $rootScope.loggedIn = false;
         $http.get("/logout").success(function(response) {
+            $rootScope.loggedIn = false;
             $location.path("/student/");
         });
     }
@@ -40,18 +40,23 @@ app.run( function($rootScope, $location, $http, $route) {
             });
         }
         if(next.templateUrl == "views/student_home"){
-
             if($rootScope.stage == null){
-                 console.log("here");
-                 $http.get("/student/stage").success(function(response){
-                     if(response.authenticated){
-                     $rootScope.loggedIn = true;
-                     console.log(response.stage);
-                         $rootScope.stage = response.stage;
-                         $location.path("/student/home");
-                         $route.reload();
-                     }
-                 });
+                $http.get("/student/stage").success(function(response){
+                    if(response.authenticated){
+                        $rootScope.loggedIn = true;
+                        console.log(response.stage);
+                        $rootScope.stage = response.stage;
+                        $location.path("/student/home");
+                        $route.reload();
+                    }
+                    else{
+                        $rootScope.loggedIn = false;
+                        $location.path("/student");
+                    }
+                });
+            }
+            else{
+                $rootScope.loggedIn = true;
             }
             if($rootScope.stage == 1){
                 next.templateUrl = "views/student_home_form"

@@ -26,8 +26,8 @@ app.run( function($rootScope, $location, $http, $route) {
     }
 
     $rootScope.logout = function(){
-        $rootScope.loggedIn = false;
         $http.get("/logout").success(function(response) {
+            $rootScope.loggedIn = false;
             $location.path("/coordinator/");
         });
     }
@@ -42,16 +42,11 @@ app.run( function($rootScope, $location, $http, $route) {
                 }
             });
         }
-        if(next.templateUrl == "views/ic_home"){
-             $rootScope.loggedIn = true;
+        else{
+            $rootScope.loggedIn = true;
         }
-        if(next.templateUrl == "views/ic_home_fee"){
-                     $rootScope.loggedIn = true;
-                }
     });
-
-
- });
+});
 
 
 
