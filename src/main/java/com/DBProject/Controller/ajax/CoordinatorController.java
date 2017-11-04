@@ -2,6 +2,7 @@ package com.DBProject.Controller.ajax;
 
 import com.DBProject.domain.Student;
 import com.DBProject.repository.CoordinatorDAOImpl;
+import com.DBProject.service.StudentStageManager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.SneakyThrows;
@@ -21,12 +22,15 @@ public class CoordinatorController {
 	@Autowired
     private CoordinatorDAOImpl coordinatorDAO;
 
+	@Autowired
+    private StudentStageManager stageManager;
+
     @SneakyThrows
     @RequestMapping(value = "/student/ic_fee_students", method = RequestMethod.GET)
     @ResponseBody
     public GetFeeStudents getFeeStudents() {
         final String coordinatorName = getUsername();
-        return new GetFeeStudents(coordinatorDAO.getHerStudentsLessThanAStage(coordinatorName, String.valueOf(3)));
+        return new GetFeeStudents(coordinatorDAO.getStudentsWithStage(coordinatorName, "feeverificationpending"));
     }
 
     @SneakyThrows
@@ -34,8 +38,9 @@ public class CoordinatorController {
     @ResponseBody
     public StageUpdateResponse advanceFeeStudents(@RequestBody AdvanceFeeStudent advanceFeeStudent) {
         final String coordinatorName = getUsername();
-        coordinatorDAO.advanceHerStudents(coordinatorName, String.valueOf(4));
-        return new StageUpdateResponse(4, true);
+        String nextStage = "resumepending";
+        boolean success = coordinatorDAO.advanceHerStudents(coordinatorName, nextStage);
+        return new StageUpdateResponse(stageManager.getCurrentStage(nextStage), success);
     }
 
     @Data

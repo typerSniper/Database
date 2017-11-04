@@ -25,7 +25,7 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
     }
 	
 	public static Coordinator icMapper(ResultSet rs) throws SQLException {
-        return new Coordinator(rs.getString(1), rs.getString(2));
+        return new Coordinator(rs.getString(1), rs.getString(2), rs.getString(3));
     }
 
 	@Override
@@ -48,11 +48,11 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 	}
 
 	@Override
-	public List<Student> getHerStudentsLessThanAStage(String ic_id, String stage) {
+	public List<Student> getStudentsWithStage(String ic_id, String stage) {
 		String sql = "select sid, name, did, pid, cpi, stage\r\n" + 
 				"from student NATURAL JOIN ic_student\r\n" + 
 				"where ic_student.ic_id=? and\r\n" + 
-				"student.stage < ?";
+				"student.stage = ? ";
 		try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, ic_id);
@@ -62,6 +62,7 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 			while(rs.next()) {
 				ret.add(new Student(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
 			}
+			preparedStatement.close();
 			return ret;
 		}
 		catch(Exception e) {
@@ -71,7 +72,7 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 	}
 
 	@Override
-	public void advanceHerStudents(String ic_id, String stage) {
+	public boolean advanceHerStudents(String ic_id, String stage) {
 		String sql = "update student\r\n" + 
 				"set stage = ?\r\n" + 
 				"from ic_student\r\n" + 
@@ -82,9 +83,12 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 			preparedStatement.setString(1, stage);
 			preparedStatement.setString(2, ic_id);
 			preparedStatement.executeUpdate();
+			preparedStatement.close();
+			return true;
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 }

@@ -13,4 +13,5 @@ public class Coordinator implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String ic_id; // primary key
     private String name;
+    private String contactNumber;
 }

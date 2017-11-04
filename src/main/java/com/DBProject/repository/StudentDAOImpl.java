@@ -43,7 +43,8 @@ public class StudentDAOImpl  implements StudentDAO  {
             preparedStatement.setString(5, student.getCpi());
             preparedStatement.setString(6, student.getStage());
             preparedStatement.executeUpdate();
-        }
+			preparedStatement.close();
+		}
         catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,7 +65,8 @@ public class StudentDAOImpl  implements StudentDAO  {
             while(resultSet.next()) {
                 student = studentMapper(resultSet);
             }
-            return student;
+			preparedStatement.close();
+			return student;
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -72,7 +74,7 @@ public class StudentDAOImpl  implements StudentDAO  {
         }
     }
     
-    public void saveResume(Student student, String unicode, String type) {
+    public boolean saveResume(Student student, String unicode, String type, String stage) {
     	try(Connection connection = dataSource.getConnection()) {
             String sql = "insert into table resume values (?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -80,10 +82,14 @@ public class StudentDAOImpl  implements StudentDAO  {
             preparedStatement.setString(2, unicode);
             preparedStatement.setString(3, type);
             preparedStatement.executeUpdate();
-        }
+			preparedStatement.close();
+			updateStage(connection, stage, student.getUsername());
+			return true;
+		}
         catch (Exception e) {
             e.printStackTrace();
         }
+    	return false;
     }
 
     public List<Student> getStudents() {
@@ -96,7 +102,8 @@ public class StudentDAOImpl  implements StudentDAO  {
             while(resultSet.next()) {
                 students.add(studentMapper(resultSet));
             }
-            return students;
+			preparedStatement.close();
+			return students;
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +120,7 @@ public class StudentDAOImpl  implements StudentDAO  {
     }
     
 	@Override
-	public void saveDetails(String username, SaveDetailsRequest saveDetailsRequest, String stage) {
+	public boolean saveDetails(String username, SaveDetailsRequest saveDetailsRequest, String stage) {
 		String sql = "update student set stage = ? where sid=?";
 		String sql_details = "update studentDetails set "
 				+ "univemail=?,"
@@ -174,29 +181,34 @@ public class StudentDAOImpl  implements StudentDAO  {
 			
 			preparedStatement.executeUpdate();
 			preparedStatement_details.executeUpdate();
+			preparedStatement.close();
+			return true;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 
 	@Override
-	public void updateStage(String username, String stage) {
+	public void updateStage(Connection conn, String stage, String username) {
 		String sql = "update student set stage = ? where sid = ?";
-		try(Connection connection = dataSource.getConnection()) {
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, stage);
 			preparedStatement.setString(2, username);
 			preparedStatement.executeUpdate();
+			preparedStatement.close();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+
 	@Override
-	public Coordinator allocateIc(String username) {
+	public Coordinator allocateIc(String username, String stage) {
 		Coordinator freeIc = icDAO.getAFreeIc();
 		String sql = "insert into ic_student(ic_id, sid)\n" + 
 				"values (?,?);";
@@ -205,11 +217,14 @@ public class StudentDAOImpl  implements StudentDAO  {
 			preparedStatement.setString(1, freeIc.getIc_id());
 			preparedStatement.setString(2, username);
 			preparedStatement.executeUpdate();
+			preparedStatement.close();
+			updateStage(connection, stage, username);
+			return freeIc;
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		return freeIc;
+		return null;
 	}
 
 }

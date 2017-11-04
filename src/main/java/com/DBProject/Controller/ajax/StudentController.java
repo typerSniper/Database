@@ -1,5 +1,6 @@
 package com.DBProject.Controller.ajax;
 
+import com.DBProject.domain.Coordinator;
 import com.DBProject.domain.Student;
 import com.DBProject.repository.StudentDAOImpl;
 import com.DBProject.service.StudentStageManager;
@@ -26,35 +27,44 @@ public class StudentController {
     @RequestMapping(value = "/student/save_details", method = RequestMethod.POST)
     @ResponseBody
     public StageUpdateResponse saveDetails(@RequestBody final SaveDetailsRequest saveDetailsRequest) {
-        final String username = getUsername();
-        int nextStage = stageManager.getNextStage(1);
-        //TODO: Don't update stage inside this studentDAO.saveDetails function
-        // Use the existing update Stage in the StudentDAOImpl and call it here explicitly
-        //This is because all stage related logic should be either here or there,
-        //Also take a look at StudentStageManager, we will save those strings in database instead of 1, 2, 3, 4 so that its recoverable
-        studentDAO.saveDetails(username, saveDetailsRequest, stageManager.getCurrentRep(nextStage));
-        System.out.println(saveDetailsRequest);
-        return new StageUpdateResponse(nextStage, true);
+        Student student = studentDAO.getStudent(getUsername());
+        String currentStage = student.getStage();
+        if(!currentStage.toLowerCase().equals("registered")) {
+            return new StageUpdateResponse(-1, false);
+        }
+        String nextStage = stageManager.getNextStage(currentStage);
+        if(nextStage!=null){
+            boolean success = studentDAO.saveDetails(student.getUsername(), saveDetailsRequest, nextStage);
+            return new StageUpdateResponse(stageManager.getCurrentStage(nextStage), success);
+        }
+        else {
+            return new StageUpdateResponse(-1, false);
+        }
     }
 
     @SneakyThrows
     @RequestMapping(value = "/student/fee_payment", method = RequestMethod.GET)
     @ResponseBody
-    public StageUpdateResponse FeePayment() {
+    public FeePayment FeePayment() {
     	String username = getUsername();
-    	int nextStage = stageManager.getNextStage(4);
-    	studentDAO.updateStage(username, stageManager.getCurrentRep(nextStage));
-    	studentDAO.allocateIc(username);
-        return new StageUpdateResponse(nextStage, true);
+        Student student = studentDAO.getStudent(getUsername());
+        String currentStage = student.getStage();
+        if(!currentStage.toLowerCase().equals("feepending")){
+            return new FeePayment(-1, false, null, null);
+        }
+        String nextStage = stageManager.getNextStage(currentStage);
+        Coordinator coordinator = studentDAO.allocateIc(username, nextStage);
+        if(coordinator==null) {
+            System.out.println("We are in trouble, coordinator not allocated");
+            return new FeePayment(-1, false, null, null);
+        }
+        return new FeePayment(stageManager.getCurrentStage(nextStage), true, coordinator.getName(),coordinator.getContactNumber());
     }
 
-
-
-    //TODO: Logic of why I did this  is unclear.
     @SneakyThrows
-    @RequestMapping(value = "/student/stage", method = RequestMethod.POST)
+    @RequestMapping(value = "/student/stage", method = RequestMethod.GET)
     @ResponseBody
-    public StageResponse getStage(@RequestBody final LoginController.LoginRequest request) {
+    public StageResponse getStage() {
         Student student = studentDAO.getStudent(getUsername());
         if(student!= null)
             return new StageResponse(true, stageManager.getCurrentStage(student.getStage()));
@@ -65,16 +75,14 @@ public class StudentController {
     @RequestMapping(value = "/student/save_resume", method = RequestMethod.POST)
     @ResponseBody
     public ResumeSaveResponse saveResume(@RequestBody final ResumeSave request) {
-        if(!isAnonymous()) {
-            Student student = studentDAO.getStudent(getUsername());
-            if (student != null) { //Don't need this check in principle
-                studentDAO.saveResume(student, request.getResumeData(), request.getType());
-                int nextStage = stageManager.getNextStage(2);
-                //TODO: save this next stage into DB
-                return new ResumeSaveResponse(true, nextStage);
-            }
+        Student student = studentDAO.getStudent(getUsername());
+        String currentStage = student.getStage();
+        if(!currentStage.toLowerCase().equals("resumepending")) {
+            return new ResumeSaveResponse(false, -1);
         }
-        return new ResumeSaveResponse(false, -1);
+        String nextStage = stageManager.getNextStage(currentStage);
+        boolean success = studentDAO.saveResume(student, request.getResumeData(), request.getType(), nextStage);
+        return new ResumeSaveResponse(success, stageManager.getCurrentStage(nextStage));
     }
 
     @Data
@@ -135,7 +143,7 @@ public class StudentController {
     @Data
     @AllArgsConstructor
     public static class ResumeSaveResponse {
-        private boolean authenticated;
+        private boolean success;
         private int stage;
     }
 
@@ -144,6 +152,15 @@ public class StudentController {
     public static class ResumeSave {
         private String type;
         private String resumeData;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class FeePayment {
+        private int stage;
+        private boolean success;
+        private String coordinatorName;
+        private String phoneNumber;
     }
 
 }

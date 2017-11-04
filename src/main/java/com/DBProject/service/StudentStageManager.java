@@ -15,21 +15,22 @@ public class StudentStageManager {
     public static final ImmutableMap<String, Integer> stageMap =
             new ImmutableMap.Builder<String, Integer>()
                     .put("registered", 1)
-                    .put("resumepending", 2)
-                    .put("resumeverificationpending", 3)
-                    .put("feepending", 4)
-                    .put("feeverificationpending", 5)
+                    .put("feepending", 2)
+                    .put("feeverificationpending", 3)
+                    .put("resumepending", 4)
+                    .put("resumeverificationpending", 5)
                     .put("jafeligible", 6)
                     .build();
 
-    public int getNextStage(int stage) {
+    public String getNextStage(String currentStage) {
+        int stage = getCurrentStage(currentStage);
         if(stage==stageMap.size()) {
-            return stage;
+            return getCurrentRep(stage);
         }
         else if(stageMap.containsValue(stage))
-            return stage+1;
+            return getCurrentRep(stage+1);
         else
-            return -1;
+            return null;
     }
 
     public int getCurrentStage(String stage) {
