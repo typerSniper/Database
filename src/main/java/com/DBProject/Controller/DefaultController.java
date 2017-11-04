@@ -35,6 +35,7 @@ public class DefaultController {
     @RequestMapping(value={"/aboutus*", "/aboutus/*"}, method = {RequestMethod.GET})
     public ModelAndView getModelViewAboutUs(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         return new ModelAndView("aboutus");
+    }
 
     @RequestMapping(value = "/404", method = {RequestMethod.GET})
     public ModelAndView send404 (final HttpServletRequest request) {
