@@ -42,9 +42,12 @@ app.run( function($rootScope, $location, $http, $route) {
                 }
             });
         }
-        if(next.templateUrl == "views/student_home"){
-
+        if(next.templateUrl == "views/ic_home"){
+             $rootScope.loggedIn = true;
         }
+        if(next.templateUrl == "views/ic_home_fee"){
+                     $rootScope.loggedIn = true;
+                }
     });
 
 

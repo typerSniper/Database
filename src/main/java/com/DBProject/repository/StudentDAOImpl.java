@@ -8,11 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import static com.DBProject.repository.CoordinatorDAOImpl.icMapper;
@@ -82,8 +87,16 @@ public class StudentDAOImpl  implements StudentDAO  {
     	try(Connection connection = dataSource.getConnection()) {
             String sql = "insert into resume(sid, resume, rtype) values (?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            byte[] resume = unicode.getBytes();
-            preparedStatement.setString(1, student.getUsername());
+            if(StringUtils.isEmpty(unicode))
+            	return false;
+			String partSeparator = ",";
+			String encodedImg = unicode.split(partSeparator)[1];
+
+			byte[] resume = Base64.getDecoder().decode(encodedImg.getBytes(StandardCharsets.UTF_8));
+//			Path destinationFile = Paths.get(".", "myImage.pdf");
+//			Files.write(destinationFile, resume);
+
+			preparedStatement.setString(1, student.getUsername());
             preparedStatement.setBytes(2, resume);
             preparedStatement.setString(3, type);
             preparedStatement.executeUpdate();

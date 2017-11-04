@@ -1,7 +1,9 @@
 package com.DBProject.Controller.ajax;
 
+import com.DBProject.domain.Resume;
 import com.DBProject.domain.Student;
 import com.DBProject.repository.CoordinatorDAOImpl;
+import com.DBProject.repository.ResumeDAOImpl;
 import com.DBProject.service.StudentStageManager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +30,9 @@ public class CoordinatorController {
 	@Autowired
     private StudentStageManager stageManager;
 
+	@Autowired
+    private ResumeDAOImpl resumeDAO;
+
     @SneakyThrows
     @RequestMapping(value = "/ic/fee_students", method = RequestMethod.GET)
     @ResponseBody
@@ -49,6 +54,14 @@ public class CoordinatorController {
 
     }
 
+    @SneakyThrows
+    @RequestMapping(value = "/ic/get_resume", method = RequestMethod.POST)
+    @ResponseBody
+    public  GetResumeResponse getResume(@RequestBody final GetResumeRequest getResumeRequest) {
+        System.out.println("here");
+        return new GetResumeResponse(resumeDAO.getByUsername(getResumeRequest.getUsername()));
+    }
+
     @Data
     @AllArgsConstructor
     public static class AdvanceFeeStudent {
@@ -56,7 +69,19 @@ public class CoordinatorController {
     }
     @Data
     @AllArgsConstructor
-    public class GetFeeStudents {
+    public static class GetFeeStudents {
         List<Student> students;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class GetResumeResponse {
+        private List<Resume> resume;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class GetResumeRequest {
+        private String username;
     }
 }

@@ -7,6 +7,7 @@ import com.DBProject.service.StudentStageManager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.SneakyThrows;
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
@@ -126,7 +127,7 @@ public class StudentController {
 
     @Data
     @AllArgsConstructor
-    public class CollegeDetails {
+    public static class CollegeDetails {
         private String university;
         private String institute;
         private String year;
