@@ -47,8 +47,6 @@ public class DefaultController {
         return new ModelAndView(page);
     }
 
-
-
     public static boolean isAnonymous() {
         return SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ANONYMOUS"));
     }
@@ -56,12 +54,5 @@ public class DefaultController {
 
     public static String getUsername() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
-
-    @Data
-    @AllArgsConstructor
-    public static class StageUpdateResponse {
-        private int stage;
-        private boolean success;
     }
 }

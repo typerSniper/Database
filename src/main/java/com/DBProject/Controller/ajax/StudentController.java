@@ -1,29 +1,18 @@
 package com.DBProject.Controller.ajax;
 
-import com.DBProject.Controller.DefaultController;
+import com.DBProject.domain.Coordinator;
+import com.DBProject.domain.Student;
 import com.DBProject.repository.StudentDAOImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Lists;
+import com.DBProject.service.StudentStageManager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static com.DBProject.Controller.DefaultController.getUsername;
-import static com.DBProject.Controller.DefaultController.StageUpdateResponse;
-
-
-/**
- * Created by Jatin on 28/10/17.
- */
-
+import static com.DBProject.Controller.DefaultController.isAnonymous;
 
 @Lazy
 @RestController
@@ -31,24 +20,69 @@ public class StudentController {
     @Autowired
     private StudentDAOImpl studentDAO;
 
-
+    @Autowired
+    StudentStageManager stageManager;
 
     @SneakyThrows
     @RequestMapping(value = "/student/save_details", method = RequestMethod.POST)
     @ResponseBody
     public StageUpdateResponse saveDetails(@RequestBody final SaveDetailsRequest saveDetailsRequest) {
-        final String username = getUsername();
-        //TODO: save those details to the database and check it before sending; Use username. Stage to fee pending
-        System.out.println(saveDetailsRequest);
-        return new StageUpdateResponse(2, true);
+        Student student = studentDAO.getStudent(getUsername());
+        String currentStage = student.getStage();
+        if(!currentStage.toLowerCase().equals("registered")) {
+            return new StageUpdateResponse(-1, false);
+        }
+        String nextStage = stageManager.getNextStage(currentStage);
+        if(nextStage!=null){
+            boolean success = studentDAO.saveDetails(student.getUsername(), saveDetailsRequest, nextStage);
+            return new StageUpdateResponse(stageManager.getCurrentStage(nextStage), success);
+        }
+        else {
+            return new StageUpdateResponse(-1, false);
+        }
     }
 
     @SneakyThrows
     @RequestMapping(value = "/student/fee_payment", method = RequestMethod.GET)
     @ResponseBody
-    public StageUpdateResponse FeePayment() {
-        //TODO: Update the stage of student to fee verification. Allocate to a Coordinator
-        return new StageUpdateResponse(3, true);
+    public FeePayment FeePayment() {
+    	String username = getUsername();
+        Student student = studentDAO.getStudent(getUsername());
+        String currentStage = student.getStage();
+        if(!currentStage.toLowerCase().equals("feepending")){
+            return new FeePayment(-1, false, null, null);
+        }
+        String nextStage = stageManager.getNextStage(currentStage);
+        Coordinator coordinator = studentDAO.allocateIc(username, nextStage);
+        if(coordinator==null) {
+            System.out.println("We are in trouble, coordinator not allocated");
+            return new FeePayment(-1, false, null, null);
+        }
+        return new FeePayment(stageManager.getCurrentStage(nextStage), true, coordinator.getName(),coordinator.getContactNumber());
+    }
+
+    @SneakyThrows
+    @RequestMapping(value = "/student/stage", method = RequestMethod.GET)
+    @ResponseBody
+    public StageResponse getStage() {
+        Student student = studentDAO.getStudent(getUsername());
+        if(student!= null)
+            return new StageResponse(true, stageManager.getCurrentStage(student.getStage()));
+        return new StageResponse(false, -1);
+    }
+
+    @SneakyThrows
+    @RequestMapping(value = "/student/save_resume", method = RequestMethod.POST)
+    @ResponseBody
+    public ResumeSaveResponse saveResume(@RequestBody final ResumeSave request) {
+        Student student = studentDAO.getStudent(getUsername());
+        String currentStage = student.getStage();
+        if(!currentStage.toLowerCase().equals("resumepending")) {
+            return new ResumeSaveResponse(false, -1);
+        }
+        String nextStage = stageManager.getNextStage(currentStage);
+        boolean success = studentDAO.saveResume(student, request.getResumeData(), request.getType(), nextStage);
+        return new ResumeSaveResponse(success, stageManager.getCurrentStage(nextStage));
     }
 
     @Data
@@ -92,5 +126,41 @@ public class StudentController {
         private String country;
     }
 
+    @Data
+    @AllArgsConstructor
+    public static class StageUpdateResponse {
+        private int stage;
+        private boolean success;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class StageResponse {
+        private boolean authenticated;
+        private int stage;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class ResumeSaveResponse {
+        private boolean success;
+        private int stage;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class ResumeSave {
+        private String type;
+        private String resumeData;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class FeePayment {
+        private int stage;
+        private boolean success;
+        private String coordinatorName;
+        private String phoneNumber;
+    }
 
 }
