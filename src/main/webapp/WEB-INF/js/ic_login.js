@@ -7,6 +7,7 @@ app.controller('ICLoginController', function($scope, $http, $rootScope, $locatio
             .success(function(response) {
             console.log(response);
                 if(response.authenticated) {
+                    $rootScope.loggedIn = true;
                     $location.path('/coordinator/home');
                 }
                 else

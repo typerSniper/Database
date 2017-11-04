@@ -1,7 +1,7 @@
 app.controller('StudentFeeController', function($http, $scope, $rootScope, $route){
     $scope.ic = {
-        name: 'Kshitij',
-        number: '+91-9340985671'
+        name: '',
+        number: ''
     };
     $scope.submit = function(){
         var url = '/student/fee_payment';
@@ -19,5 +19,15 @@ app.controller('StudentFeeController', function($http, $scope, $rootScope, $rout
             .error(function(response) {
                 // $scope.errorMessage = "Cannot Connect";
             });
-    }
+    };
+
+    $scope.getIC = function(){
+        // console.log("pop");
+        var url = "/student/get_ic";
+        $http.get(url)
+            .success(function(response){
+                $scope.ic.name = response.name;
+                $scope.ic.number = response.number;
+            });
+    };
 });

@@ -31,6 +31,23 @@ app.run( function($rootScope, $location, $http, $route) {
             $location.path("/coordinator/");
         });
     }
+
+    $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+        if(next.templateUrl == "views/ic_login") {
+            $rootScope.loggedIn = false;
+            $http.get("/is_authenticated").success(function(response) {
+                if(response.authenticated) {
+                    $rootScope.loggedIn = true;
+                    $location.path("/coordinator/home");
+                }
+            });
+        }
+        if(next.templateUrl == "views/student_home"){
+
+        }
+    });
+
+
  });
 
 

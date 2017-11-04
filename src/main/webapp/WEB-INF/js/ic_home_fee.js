@@ -12,9 +12,9 @@ app.controller('ICFeeController', function($scope, $http, $rootScope, $location)
              });
     };
 
-    $scope.isSelected = function(student){
-        const index = $scope.selectedStudentList.indexOf(student);
-        if(index != -1){
+    $scope.selectStudent = function(student){
+        if($scope.isSelected(student)){
+            var index = $scope.selectedStudentList.indexOf(student);
             $scope.selectedStudentList.splice(index, 1);
         }
         else{
@@ -22,7 +22,13 @@ app.controller('ICFeeController', function($scope, $http, $rootScope, $location)
         }
     }
 
-
+    $scope.isSelected = function(student){
+        var index = $scope.selectedStudentList.indexOf(student);
+        if(index == -1){
+            return false;
+        }
+        return true;
+    }
 
     $scope.sendFeeVerifications = function(){ //TODO
 //        console.log({students: $scope.selectedStudentList});
