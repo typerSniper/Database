@@ -17,24 +17,17 @@ public class DefaultController {
         return new ModelAndView("index");
     }
 
-    @RequestMapping(value={"/recruit*", "/recruit/*"}, method = {RequestMethod.GET})
-    public ModelAndView getModelViewRecruit(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-        return new ModelAndView("whyrecruit");
+    @RequestMapping(value={"/site/*", "/site/**"}, method = {RequestMethod.GET})
+    public ModelAndView getModelViewSite(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+        String servletPath = request.getServletPath();
+        String page = servletPath.split("/")[2];
+        return new ModelAndView(page);
     }
 
-    @RequestMapping(value={"/procedure*", "/procedure/*"}, method = {RequestMethod.GET})
-    public ModelAndView getModelViewProcedure(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-        return new ModelAndView("procedures");
-    }
-
-    @RequestMapping(value={"/department*", "/department/*"}, method = {RequestMethod.GET})
-    public ModelAndView getModelViewDepartments(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-        return new ModelAndView("departments");
-    }
-
-    @RequestMapping(value={"/aboutus*", "/aboutus/*"}, method = {RequestMethod.GET})
-    public ModelAndView getModelViewAboutUs(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-        return new ModelAndView("aboutus");
+    @RequestMapping(value={"/site", "/site/"}, method = {RequestMethod.GET})
+    public ModelAndView getViewSite(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+        response.sendRedirect("/");
+        return null;
     }
 
     @RequestMapping(value = "/404", method = {RequestMethod.GET})
