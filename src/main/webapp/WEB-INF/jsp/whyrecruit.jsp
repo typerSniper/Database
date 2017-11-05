@@ -8,6 +8,9 @@
 
         <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <script type="text/javascript" src="/js/whyrecruit.js"></script>
+
         <link rel="stylesheet" type="text/css" href="/css/home.css">
 
     </head>
@@ -19,8 +22,14 @@
       <p></p>
     </div>
     <div class="jumbotron">
-      <h1 id="b">Students</h1>
-      <p></p>
+      <h3 id="b">Students</h3>
+        <p>
+            <div id="overallChart" style="height: 370px; width: 100%;"></div>
+            <div id="btechChart" style="height: 370px; width: 100%;"></div>
+           <!--  <div id="ddChart" style="height: 370px; width: 100%;"></div>
+            <div id="mtechChart" style="height: 370px; width: 100%;"></div>
+            <div id="mscChart" style="height: 370px; width: 100%;"></div> -->
+        </p>
     </div>
     <div class="jumbotron">
       <h1 id="c">Academics</h1>
