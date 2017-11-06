@@ -5,7 +5,7 @@
 		  
 		  <tr>
 		    <td>Date Of Birth</td>
-		    <td><input ng-model="date" type="date" /></td>
+		    <td><input ng-model="input.dob" type="date" /></td>
 		    <td><b>Permanent Address Details</b></td>
 		    <td></td>
 		  </tr>
