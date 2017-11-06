@@ -35,6 +35,13 @@ app.run( function($rootScope, $location, $http, $route, $window) {
         });
     }
 
+    $rootScope.isCurrentPage = function(str){
+        if($location.path() === str){
+            return true;
+        }
+        return false;
+    }
+
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
         if(next.templateUrl == "/"){
             $window.location.reload();

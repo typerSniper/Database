@@ -1,5 +1,3 @@
-
-
 <div ng-controller="StudentLoginController">
     <div class="col-xs-4"></div>
     <div class="col-xs-4 well well-lg">
