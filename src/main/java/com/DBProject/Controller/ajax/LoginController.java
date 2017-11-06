@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
-import static com.DBProject.Controller.DefaultController.isAnonymous;
+import static com.DBProject.Controller.DefaultController.isRoleValid;
 
 @Lazy
 @RestController
@@ -32,9 +32,9 @@ public class LoginController {
     @SneakyThrows
     @RequestMapping(value = "/is_authenticated", method = RequestMethod.GET)
     @ResponseBody
-    public validateRepsonse validateCredentials() {
-        System.out.println(isAnonymous());
-        return new validateRepsonse(!isAnonymous());
+    public validateRepsonse validateCredentials(@RequestParam ("type") String type) {
+        boolean valid = isRoleValid("ROLE_"+type.toUpperCase());
+        return new validateRepsonse(valid);
     }
 
     @Data
