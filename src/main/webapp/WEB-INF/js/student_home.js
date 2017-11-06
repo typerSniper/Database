@@ -1,5 +1,6 @@
-app.controller('StudentHomeController', function($http, $scope, $rootScope, $route) {
-    $scope.input={dob:'',
+app.controller('StudentHomeController', function($http, $scope, $rootScope, $route, $filter) {
+    $scope.date = '';
+    $scope.input={dob: '',
                   sex:'',
                   category:'',
                   nationality:'',
@@ -40,6 +41,7 @@ app.controller('StudentHomeController', function($http, $scope, $rootScope, $rou
     $scope.categories =["Gen","SC","ST","OBC","PH"];
 
     $scope.submit = function(){
+      $scope.input.dob = $filter('date')($scope.date, 'dd-MM-yyyy')
         var url = '/student/save_details';
         var params = $rootScope.copyObject($scope.input);
         console.log(params);
