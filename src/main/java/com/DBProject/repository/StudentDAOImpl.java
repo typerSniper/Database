@@ -139,9 +139,8 @@ public class StudentDAOImpl  implements StudentDAO  {
     
 	@Override
 	public boolean saveDetails(String username, SaveDetailsRequest saveDetailsRequest, String stage) {
-		String sql = "update student set stage = ? where sid = ?";
 		String sql_details = "insert into studentdetails(univemail, peremail, dob, sex, category, nationality, hosteladdress,"
-				+ "contact1, contact2, skypeid, homeaddress, collegedetails, detail12th, detail10th, others, sid) "
+				+ "contact1, contact2, skypeid, homeaddress, detail12th, detail10th, others, sid) "
 				+ "values ("
 				+ "?,"
 				+ "?,"
@@ -157,14 +156,9 @@ public class StudentDAOImpl  implements StudentDAO  {
 				+ "(?, ?, ?, ?),"
 				+ "(?, ?, ?, ?),"
 				+ "(?, ?, ?, ?),"
-				+ "(?, ?, ?, ?),"
 				+ "?)";
 		try(Connection connection = dataSource.getConnection()) {
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			PreparedStatement preparedStatement_details = connection.prepareStatement(sql_details);
-			System.out.println("saving these details " + username + " : stage " + stage + " \n" + saveDetailsRequest);
-			preparedStatement.setString(1, stage);
-			preparedStatement.setString(2, username);
 			preparedStatement_details.setString(1, getValueOrDefault(saveDetailsRequest.getUnivemail(), null));
 			preparedStatement_details.setString(2, getValueOrDefault(saveDetailsRequest.getPeremail(), null));
 			preparedStatement_details.setString(3, getValueOrDefault(saveDetailsRequest.getDob(), null));
@@ -180,27 +174,23 @@ public class StudentDAOImpl  implements StudentDAO  {
 			preparedStatement_details.setString(13, getValueOrDefault(saveDetailsRequest.getHomeaddress()!=null ? saveDetailsRequest.getHomeaddress().getPin() : null, null));
 			preparedStatement_details.setString(14, getValueOrDefault(saveDetailsRequest.getHomeaddress()!=null ? saveDetailsRequest.getHomeaddress().getLocality() : null, null));
 			preparedStatement_details.setString(15, getValueOrDefault(saveDetailsRequest.getHomeaddress()!=null ? saveDetailsRequest.getHomeaddress().getCountry() : null, null));
-			preparedStatement_details.setString(16, getValueOrDefault(saveDetailsRequest.getCollegeDetails()!=null ? saveDetailsRequest.getCollegeDetails().getUniversity() : null, null));
-			preparedStatement_details.setString(17, getValueOrDefault(saveDetailsRequest.getCollegeDetails()!=null ? saveDetailsRequest.getCollegeDetails().getInstitute() : null, null));
-			preparedStatement_details.setString(18, getValueOrDefault(saveDetailsRequest.getCollegeDetails()!=null ? saveDetailsRequest.getCollegeDetails().getYear() : null, null));
-			preparedStatement_details.setString(19, getValueOrDefault(saveDetailsRequest.getCollegeDetails()!=null ? saveDetailsRequest.getCollegeDetails().getCpi() : null, null));
-			preparedStatement_details.setString(20, getValueOrDefault(saveDetailsRequest.getDetails12th()!=null ? saveDetailsRequest.getDetails12th().getUniversity() : null, null));
-			preparedStatement_details.setString(21, getValueOrDefault(saveDetailsRequest.getDetails12th()!=null ? saveDetailsRequest.getDetails12th().getInstitute() : null, null));
-			preparedStatement_details.setString(22, getValueOrDefault(saveDetailsRequest.getDetails12th()!=null ? saveDetailsRequest.getDetails12th().getYear() : null, null));
-			preparedStatement_details.setString(23, getValueOrDefault(saveDetailsRequest.getDetails12th()!=null ? saveDetailsRequest.getDetails12th().getCpi() : null, null));
-			preparedStatement_details.setString(24, getValueOrDefault(saveDetailsRequest.getDetails10th()!=null ? saveDetailsRequest.getDetails10th().getUniversity() : null, null));
-			preparedStatement_details.setString(25, getValueOrDefault(saveDetailsRequest.getDetails10th()!=null ? saveDetailsRequest.getDetails10th().getInstitute() : null, null));
-			preparedStatement_details.setString(26, getValueOrDefault(saveDetailsRequest.getDetails10th()!=null ? saveDetailsRequest.getDetails10th().getYear() : null, null));
-			preparedStatement_details.setString(27, getValueOrDefault(saveDetailsRequest.getDetails10th()!=null ? saveDetailsRequest.getDetails10th().getCpi() : null, null));
-			preparedStatement_details.setString(28, getValueOrDefault(saveDetailsRequest.getOther()!=null ? saveDetailsRequest.getOther().getUniversity() : null, null));
-			preparedStatement_details.setString(29, getValueOrDefault(saveDetailsRequest.getOther()!=null ? saveDetailsRequest.getOther().getInstitute() : null, null));
-			preparedStatement_details.setString(30, getValueOrDefault(saveDetailsRequest.getOther()!=null ? saveDetailsRequest.getOther().getYear() : null, null));
-			preparedStatement_details.setString(31, getValueOrDefault(saveDetailsRequest.getOther()!=null ? saveDetailsRequest.getOther().getCpi() : null, null));
-			preparedStatement_details.setString(32, getValueOrDefault(username, null));
-			
-			preparedStatement.executeUpdate();
+			preparedStatement_details.setString(16, getValueOrDefault(saveDetailsRequest.getDetail12th()!=null ? saveDetailsRequest.getDetail12th().getUniversity() : null, null));
+			preparedStatement_details.setString(17, getValueOrDefault(saveDetailsRequest.getDetail12th()!=null ? saveDetailsRequest.getDetail12th().getInstitute() : null, null));
+			preparedStatement_details.setString(18, getValueOrDefault(saveDetailsRequest.getDetail12th()!=null ? saveDetailsRequest.getDetail12th().getYear() : null, null));
+			preparedStatement_details.setString(19, getValueOrDefault(saveDetailsRequest.getDetail12th()!=null ? saveDetailsRequest.getDetail12th().getCpi() : null, null));
+			preparedStatement_details.setString(20, getValueOrDefault(saveDetailsRequest.getDetail10th()!=null ? saveDetailsRequest.getDetail10th().getUniversity() : null, null));
+			preparedStatement_details.setString(21, getValueOrDefault(saveDetailsRequest.getDetail10th()!=null ? saveDetailsRequest.getDetail10th().getInstitute() : null, null));
+			preparedStatement_details.setString(22, getValueOrDefault(saveDetailsRequest.getDetail10th()!=null ? saveDetailsRequest.getDetail10th().getYear() : null, null));
+			preparedStatement_details.setString(23, getValueOrDefault(saveDetailsRequest.getDetail10th()!=null ? saveDetailsRequest.getDetail10th().getCpi() : null, null));
+			preparedStatement_details.setString(24, getValueOrDefault(saveDetailsRequest.getOthers()!=null ? saveDetailsRequest.getOthers().getUniversity() : null, null));
+			preparedStatement_details.setString(25, getValueOrDefault(saveDetailsRequest.getOthers()!=null ? saveDetailsRequest.getOthers().getInstitute() : null, null));
+			preparedStatement_details.setString(26, getValueOrDefault(saveDetailsRequest.getOthers()!=null ? saveDetailsRequest.getOthers().getYear() : null, null));
+			preparedStatement_details.setString(27, getValueOrDefault(saveDetailsRequest.getOthers()!=null ? saveDetailsRequest.getOthers().getCpi() : null, null));
+			preparedStatement_details.setString(28, getValueOrDefault(username, null));
+			System.out.println(preparedStatement_details);
 			preparedStatement_details.executeUpdate();
-			preparedStatement.close();
+			updateStage(connection, stage, username);
+			preparedStatement_details.close();
 			return true;
 		}
 		catch (Exception e) {
