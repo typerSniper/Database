@@ -24,6 +24,7 @@ public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailure
         servletResponse.setStatus(status);
         PrintWriter writer = servletResponse.getWriter();
         AuthenticationFailureResponse response = new AuthenticationFailureResponse(status, false, exception.getMessage());
+        System.out.println("failed");
         String jsonResponse = new ObjectMapper().writeValueAsString(response);
         writer.write(jsonResponse);
         writer.flush();

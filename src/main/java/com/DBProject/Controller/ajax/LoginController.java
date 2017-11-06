@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
-import static com.DBProject.Controller.DefaultController.isRoleValid;
 
 @Lazy
 @RestController
@@ -30,12 +29,28 @@ public class LoginController {
 //    }
 
     @SneakyThrows
-    @RequestMapping(value = "/is_authenticated", method = RequestMethod.GET)
+    @RequestMapping(value = "/student/is_authenticated", method = RequestMethod.GET)
     @ResponseBody
-    public validateRepsonse validateCredentials(@RequestParam ("type") String type) {
-        boolean valid = isRoleValid("ROLE_"+type.toUpperCase());
-        return new validateRepsonse(valid);
+    public validateRepsonse validateStudentCredentials() {
+        return new validateRepsonse(true);
     }
+
+
+    @SneakyThrows
+    @RequestMapping(value = "/coordinator/is_authenticated", method = RequestMethod.GET)
+    @ResponseBody
+    public validateRepsonse validateCoordinatorCredentials() {
+        return new validateRepsonse(true);
+    }
+
+
+    @SneakyThrows
+    @RequestMapping(value = "/company/is_authenticated", method = RequestMethod.GET)
+    @ResponseBody
+    public validateRepsonse validateCompanyCredentials() {
+        return new validateRepsonse(true);
+    }
+
 
     @Data
     @AllArgsConstructor
