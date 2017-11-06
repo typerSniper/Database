@@ -1,8 +1,8 @@
 <div ng-controller="ICFeeController" ng-init="getFeeRequests()">
     <jumbotron>Pending Fee Requests</jumbotron>
-    <table ng-show="studentList.length > 0">
-        <tr ng-repeat="student in studentList track by student.username" ng-click="selectStudent(student)" ng-class="{'student_selected': isSelected(student), 'student_unselected': !isSelected(student)}">
-            <td>{{student.username}}</td>
+    <table ng-show="studentList.length > 0" class="table table-striped">
+        <tr ng-repeat="student in studentList track by student.username" >
+            <td ng-click="selectStudent(student)" ng-class="{'student_selected': isSelected(student), 'student_unselected': !isSelected(student)}">{{student.username}}</td>
         </tr>
     </table>
     <div ng-show="studentList.length == 0">

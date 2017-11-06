@@ -65,6 +65,9 @@ app.run( function($rootScope, $location, $http, $route) {
             if($rootScope.stage == 4){
                 next.templateUrl = "views/student_home_resume"
             }
+            if($rootScope.stage == 5){
+                next.templateUrl = "views/student_home_verification"
+            }
         }
     });
  });

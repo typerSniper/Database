@@ -1,5 +1,9 @@
-app.controller('StudentResumeController', function($http, $scope, $interval){
+app.controller('StudentVerificationController', function($http, $scope, $interval){
 
+    $scope.comments = 2;
+    $scope.type = 'res0';
+    console.log($scope.comments);
+    $scope.input = [];
     $scope.submitResume = function(index) {
         var id = 'res' + index;
         var f = document.getElementById(id).files[0];

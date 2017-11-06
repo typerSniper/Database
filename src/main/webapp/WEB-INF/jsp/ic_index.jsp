@@ -34,7 +34,7 @@
                   <!-- <li class="active"><a href="/coordinator/home">Home</a></li> -->
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" ng-click="logout()""><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             </div>
         </nav>
