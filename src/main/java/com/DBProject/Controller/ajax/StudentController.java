@@ -86,19 +86,22 @@ public class StudentController {
         return new ResumeSaveResponse(success, stageManager.getCurrentStage(nextStage));
     }
 
-//    @SneakyThrows
-//    @RequestMapping(value = "/student/allocated_ic", method = RequestMethod.GET)
-//    @ResponseBody
-//    public AllocatedIcResponse getAlloactedIc() {
-//        String username = getUsername();
-//        Coordinator coordinator = studentDAO.getAllocatedIc("username");
-//        if(coordinator!=null)
-//            return new AllocatedIcResponse(coordinator.ge(), coordinator.getContactNumber());
-//    }
+   @SneakyThrows
+   @RequestMapping(value = "/student/allocated_ic", method = RequestMethod.GET)
+   @ResponseBody
+   public AllocatedIcResponse getAlloactedIc() {
+       String username = getUsername();
+       Coordinator coordinator = studentDAO.getAllocatedIc(username);
+       if(coordinator!=null)
+           return new AllocatedIcResponse(true, coordinator.getName(), coordinator.getContactNumber());
+       else
+           return new AllocatedIcResponse(false, null, null);
+   }
 
     @Data
     @AllArgsConstructor
     public static class AllocatedIcResponse {
+        private boolean status;
         private String coordinatorName;
         private String phoneNumber;
     }
