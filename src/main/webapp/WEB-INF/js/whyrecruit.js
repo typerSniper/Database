@@ -35,7 +35,7 @@ var chart2 = new CanvasJS.Chart("btechChart", {
         dataPoints: [
             {y: 46, label: "Aerospace"},
             {y: 83, label: "Chemical"},
-            {y: 510, label: "Civil"},
+            {y: 87, label: "Civil"},
             {y: 90, label: "Computer Science"},
             {y: 54, label: "Electrical"},
             {y: 16, label: "Engineering Physics"},

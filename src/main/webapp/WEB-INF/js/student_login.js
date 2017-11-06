@@ -5,7 +5,7 @@ app.controller('StudentLoginController', function($scope, $http, $rootScope, $lo
         var url = '/app/login?' +username + '&' +password + "&type=student";
         $http.post(url)
             .success(function(response) {
-            console.log(response);
+                console.log(response);
                 if(response.authenticated) {
                     $location.path('/student/home');
                 }

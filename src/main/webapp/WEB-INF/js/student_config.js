@@ -24,6 +24,7 @@ app.run( function($rootScope, $location, $http, $route) {
 
     $rootScope.logout = function(){
         $http.get("/logout").success(function(response) {
+            delete $rootScope.stage;
             $rootScope.loggedIn = false;
             $location.path("/student/");
         });
@@ -44,7 +45,6 @@ app.run( function($rootScope, $location, $http, $route) {
                 $http.get("/student/stage").success(function(response){
                     if(response.authenticated){
                         $rootScope.loggedIn = true;
-                        console.log(response.stage);
                         $rootScope.stage = response.stage;
                         $location.path("/student/home");
                         $route.reload();
