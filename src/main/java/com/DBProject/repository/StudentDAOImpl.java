@@ -13,9 +13,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -159,9 +161,13 @@ public class StudentDAOImpl  implements StudentDAO  {
 				+ "?)";
 		try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement_details = connection.prepareStatement(sql_details);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String dob = getValueOrDefault(saveDetailsRequest.getDob(), null);
+			java.util.Date date = sdf.parse(dob);
+			Date sqldate = new Date(date.getTime());
 			preparedStatement_details.setString(1, getValueOrDefault(saveDetailsRequest.getUnivemail(), null));
 			preparedStatement_details.setString(2, getValueOrDefault(saveDetailsRequest.getPeremail(), null));
-			preparedStatement_details.setString(3, getValueOrDefault(saveDetailsRequest.getDob(), null));
+			preparedStatement_details.setDate(3, sqldate);
 			preparedStatement_details.setString(4, getValueOrDefault(saveDetailsRequest.getSex(), null));
 			preparedStatement_details.setString(5, getValueOrDefault(saveDetailsRequest.getCategory(), null));
 			preparedStatement_details.setString(6, getValueOrDefault(saveDetailsRequest.getNationality(), null));
