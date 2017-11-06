@@ -122,10 +122,9 @@ public class StudentController {
         private String homecontact;
         private HomeAddress homeaddress;
         private String skypeid;
-        private CollegeDetails details10th;
-        private CollegeDetails details12th;
-        private CollegeDetails collegeDetails;
-        private CollegeDetails other;
+        private CollegeDetails detail10th;
+        private CollegeDetails detail12th;
+        private CollegeDetails others;
      }
 
     @Data

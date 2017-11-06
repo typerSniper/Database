@@ -2,7 +2,6 @@
 	<form ng-submit="submit()">
 		<div align="center">
 		<table style="width:70%" class="table table-striped">
-		  
 		  <tr>
 		    <td>Date Of Birth</td>
 		    <td><input ng-model="input.dob" type="date" /></td>
@@ -51,18 +50,18 @@
 		    <td>Hostel Address</td>
 		    <td><input ng-model="input.hosteladdress" type="text" /></td>
 		    <td>Home Contact</td>
-		    <td><input ng-model="input.homecontact" type="number" /></td>
+		    <td><input ng-model="input.homeaddress.homecontact" type="number" /></td>
 		  </tr>
 		  <tr>
 		    <td>Contact</td>
 		    <td><input ng-model="input.contact1" type="number" /></td>
 		    <td>Alternate Contact</td>
 		    <td><input ng-model="input.contact2" type="number" /></td>
-		 
+
 		</table>
 
 		<table style="width:70%" class="table table-striped">
-		  
+
 		  <tr>
 		    <td><b>Examination</td>
 		    <td><b>University</td>
