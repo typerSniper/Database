@@ -1,5 +1,4 @@
 app.controller('StudentHomeController', function($http, $scope, $rootScope, $route) {
-    
     $scope.input={dob:'',
                   sex:'',
                   category:'',
