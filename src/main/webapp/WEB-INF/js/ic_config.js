@@ -11,6 +11,9 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/coordinator/fee', {
             templateUrl : 'views/ic_home_fee',
         })
+        .when('/',{
+            templateUrl : '/',
+        })
         .when('/404', {
             templateUrl : 'views/404',
         })
@@ -20,7 +23,7 @@ app.config(function($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
 });
 
-app.run( function($rootScope, $location, $http, $route) {
+app.run( function($rootScope, $location, $http, $route, $window) {
     $rootScope.copyObject = function(object) {
         return JSON.parse(JSON.stringify(object));
     }
@@ -33,6 +36,9 @@ app.run( function($rootScope, $location, $http, $route) {
     }
 
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+        if(next.templateUrl == "/"){
+            $window.location.reload();
+        }
         if(next.templateUrl == "views/ic_login") {
             $rootScope.loggedIn = false;
             $http.get("/is_authenticated").success(function(response) {

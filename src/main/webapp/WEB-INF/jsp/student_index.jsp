@@ -42,6 +42,14 @@
             </div>
         </nav>
 
+        <nav class="navbar navbar-default" ng-show="!loggedIn">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                  <li class="active"><a href="/">PT Cell Home</a></li>
+                </ul>
+            </div>
+        </nav>
+
         <loading></loading>
 
         <div id="container">
