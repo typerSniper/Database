@@ -17,6 +17,19 @@ public class DefaultController {
         return new ModelAndView("index");
     }
 
+    @RequestMapping(value={"/site/*", "/site/**"}, method = {RequestMethod.GET})
+    public ModelAndView getModelViewSite(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+        String servletPath = request.getServletPath();
+        String page = servletPath.split("/")[2];
+        return new ModelAndView(page);
+    }
+
+    @RequestMapping(value={"/site", "/site/"}, method = {RequestMethod.GET})
+    public ModelAndView getViewSite(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+        response.sendRedirect("/");
+        return null;
+    }
+
     @RequestMapping(value = "/404", method = {RequestMethod.GET})
     public ModelAndView send404 (final HttpServletRequest request) {
         return new ModelAndView("404");
