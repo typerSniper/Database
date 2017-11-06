@@ -1,4 +1,5 @@
 app.controller('StudentHomeController', function($http, $scope, $rootScope, $route, $filter) {
+    $scope.date = '';
     $scope.input={dob: '',
                   sex:'',
                   category:'',
@@ -40,21 +41,19 @@ app.controller('StudentHomeController', function($http, $scope, $rootScope, $rou
     $scope.categories =["Gen","SC","ST","OBC","PH"];
 
     $scope.submit = function(){
+        $scope.input.dob = $filter('date')($scope.date, 'yyyy-MM-dd');
         var url = '/student/save_details';
         var params = $rootScope.copyObject($scope.input);
-        console.log(params);
         $http.post(url, params)
             .success(function(response) {
                 if(response.success){
                     console.log(response);
-                    $rootScope.stage = 2; //change this
-                    // $rootScope.stage = response.stage;
+                    $rootScope.stage = response.stage;
                     $route.reload();
                 }
             })
             .error(function(response) {
-                // $scope.errorMessage = "Cannot Connect";
-            });
+        });
     };
 
 });

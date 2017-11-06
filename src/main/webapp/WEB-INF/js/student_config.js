@@ -39,7 +39,7 @@ app.run( function($rootScope, $location, $http, $route, $window) {
         }
         if(next.templateUrl == "views/student_login") {
             $rootScope.loggedIn = false;
-            $http.get("/is_authenticated").success(function(response) {
+            $http.get("/student/is_authenticated").success(function(response) {
                 if(response.authenticated) {
                     $rootScope.loggedIn = true;
                     $location.path("/student/home");
