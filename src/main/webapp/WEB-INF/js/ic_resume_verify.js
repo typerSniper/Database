@@ -1,8 +1,15 @@
 app.controller('ICResumeController', function($scope, $http, $rootScope, $location) {
-    $scope.studentList = [{username: 'student1', rtype: '0'}, {username: 'KJ', rtype: '0'}, {username: 'KJ!', rtype: '0'}, {username: 'KJoppo', rtype: '0'}];
+    $scope.studentList = [];
     $scope.selectedStudent = {};
-    $scope.getResumeRequests = function(){ //TODO
-    };
+    $scope.getResumeRequests = function(){
+        var url = "/ic/get_student_resume";
+        $http.get(url)
+            .success(function(response)){
+                if(response.students.length > 0){
+                    $scope.studentList = $rootScope.copyObject(response.students);
+                }
+            }
+    }
 
     $scope.selectStudent = function(student){
         if($scope.isSelected(student)){
@@ -22,19 +29,17 @@ app.controller('ICResumeController', function($scope, $http, $rootScope, $locati
 
     $scope.seeResume = function(){
         var url = "/ic/get_resume";
-        var params = {username: $scope.selectedStudent.username};
+        var params = {username: $scope.selectedStudent.username, rtype: $scope.selectedStudent.rtype};
         $http.post(url, params)
             .success(function(response){
-                if(response.resume.length > 0){
-                    document.getElementById("resume").src = "data:application/pdf;base64,"+ response.resume[0].resume;
+                if(response.resume != null){
+                    document.getElementById("resume").src = "data:application/pdf;base64,"+ response.resume;
                 }
                 else{
 
                 }
             })
             .error(function(response){
-                console.log("error");
-                console.log(response);
             })
     }
 
