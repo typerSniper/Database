@@ -55,12 +55,22 @@ public class CoordinatorController {
     }
 
     @SneakyThrows
+    @RequestMapping(value = "/ic/get_student_resume", method = RequestMethod.GET)
+    @ResponseBody
+    public  GetResumeStudentsResponse getResumeStudents() {
+        String username  = getUsername();
+        List<ResumeStudents> resumes = coordinatorDAO.getResumeStudents(username);
+        return new GetResumeStudentsResponse(resumes);
+    }
+
+    @SneakyThrows
     @RequestMapping(value = "/ic/get_resume", method = RequestMethod.POST)
     @ResponseBody
     public  GetResumeResponse getResume(@RequestBody final GetResumeRequest getResumeRequest) {
         System.out.println("here");
-        return new GetResumeResponse(resumeDAO.getByUsername(getResumeRequest.getUsername()));
+        return new GetResumeResponse(resumeDAO.getByUsername(getResumeRequest.getUsername(), getResumeRequest.getRType()));
     }
+
 
     @Data
     @AllArgsConstructor
@@ -76,12 +86,27 @@ public class CoordinatorController {
     @Data
     @AllArgsConstructor
     public static class GetResumeResponse {
-        private List<Resume> resume;
+        private Resume resume;
     }
+
+    @Data
+    @AllArgsConstructor
+    public static class GetResumeStudentsResponse{
+        List<ResumeStudents> students;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class ResumeStudents {
+        String username;
+        String rType;
+    }
+
 
     @Data
     @AllArgsConstructor
     public static class GetResumeRequest {
         private String username;
+        private String rType;
     }
 }

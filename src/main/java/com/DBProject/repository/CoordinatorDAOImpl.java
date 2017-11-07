@@ -1,7 +1,10 @@
 package com.DBProject.repository;
 
 import javax.sql.DataSource;
+
+import com.DBProject.Controller.ajax.CoordinatorController;
 import com.DBProject.domain.Coordinator;
+import com.DBProject.domain.Resume;
 import com.DBProject.domain.Student;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +79,25 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public List<CoordinatorController.ResumeStudents> getResumeStudents(String ic_id) {
+		String sql = "select sid, rtype from resume where resume.sid in (select sid from ic_student where ic_student.ic_id = ?);";
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, ic_id);
+			ResultSet rs = preparedStatement.executeQuery();
+			List<CoordinatorController.ResumeStudents> resumeStudents = new ArrayList<>();
+			while(rs.next()) {
+				resumeStudents.add(new CoordinatorController.ResumeStudents(rs.getString(1), rs.getString(2)));
+			}
+			return resumeStudents;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override

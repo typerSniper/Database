@@ -4,11 +4,13 @@ app.controller('ICResumeController', function($scope, $http, $rootScope, $locati
     $scope.getResumeRequests = function(){
         var url = "/ic/get_student_resume";
         $http.get(url)
-            .success(function(response)){
+            .success(function(response){
                 if(response.students.length > 0){
                     $scope.studentList = $rootScope.copyObject(response.students);
                 }
             }
+         );
+
     }
 
     $scope.selectStudent = function(student){
@@ -32,8 +34,8 @@ app.controller('ICResumeController', function($scope, $http, $rootScope, $locati
         var params = {username: $scope.selectedStudent.username, rtype: $scope.selectedStudent.rtype};
         $http.post(url, params)
             .success(function(response){
-                if(response.resume != null){
-                    document.getElementById("resume").src = "data:application/pdf;base64,"+ response.resume;
+                if(response.resume.resume != null){
+                    document.getElementById("resume").src = "data:application/pdf;base64,"+ response.resume.resume;
                 }
                 else{
 

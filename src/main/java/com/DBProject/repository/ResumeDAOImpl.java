@@ -27,17 +27,18 @@ public class ResumeDAOImpl implements ResumeDAO {
     }
 
     @Override
-    public List<Resume> getByUsername(String username) {
+    public Resume getByUsername(String username, String rType) {
         try(Connection connection = dataSource.getConnection()) {
-            String sql = "select * from resume where sid = ?";
+            String sql = "select * from resume where sid = ? and rtype = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, username);
+            preparedStatement.setString(2, rType);
             ResultSet resultSet = preparedStatement.executeQuery();
-            List<Resume> resumes = new ArrayList<>();
+            Resume resume = null;
             while(resultSet.next()) {
-                resumes.add(resumeMapper(resultSet));
+                resume = resumeMapper(resultSet);
             }
-            return resumes;
+            return resume;
         }
         catch (Exception e) {
          e.printStackTrace();
@@ -51,8 +52,6 @@ public class ResumeDAOImpl implements ResumeDAO {
         String type = null;
         if(resultSet.getBytes(3) != null) {
             resume = Base64.getEncoder().encodeToString(resultSet.getBytes(3));
-            System.out.println(resume);
-
         }
         if(resultSet.getBytes(4) != null)
             type = Base64.getEncoder().encodeToString(resultSet.getBytes(4));

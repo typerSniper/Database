@@ -8,5 +8,5 @@ import java.util.List;
  * Created by Jatin on 04/11/17.
  */
 public interface ResumeDAO {
-    List<Resume> getByUsername(String username);
+    Resume getByUsername(String username, String type);
 }
