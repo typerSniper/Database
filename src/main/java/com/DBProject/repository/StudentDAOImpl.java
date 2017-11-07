@@ -8,11 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import static com.DBProject.repository.CoordinatorDAOImpl.icMapper;
@@ -82,8 +89,16 @@ public class StudentDAOImpl  implements StudentDAO  {
     	try(Connection connection = dataSource.getConnection()) {
             String sql = "insert into resume(sid, resume, rtype) values (?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            byte[] resume = unicode.getBytes();
-            preparedStatement.setString(1, student.getUsername());
+            if(StringUtils.isEmpty(unicode))
+            	return false;
+			String partSeparator = ",";
+			String encodedImg = unicode.split(partSeparator)[1];
+
+			byte[] resume = Base64.getDecoder().decode(encodedImg.getBytes(StandardCharsets.UTF_8));
+//			Path destinationFile = Paths.get(".", "myImage.pdf");
+//			Files.write(destinationFile, resume);
+
+			preparedStatement.setString(1, student.getUsername());
             preparedStatement.setBytes(2, resume);
             preparedStatement.setString(3, type);
             preparedStatement.executeUpdate();
@@ -126,67 +141,62 @@ public class StudentDAOImpl  implements StudentDAO  {
     
 	@Override
 	public boolean saveDetails(String username, SaveDetailsRequest saveDetailsRequest, String stage) {
-		String sql = "update student set stage = ? where sid=?";
-		String sql_details = "update studentDetails set "
-				+ "univemail=?,"
-				+ "peremail=?,"
-				+ "dob=?,"
-				+ "sex=?,"
-				+ "category=?,"
-				+ "nationality=?,"
-				+ "hosteladdress=?,"
-				+ "contact1=?,"
-				+ "contact2=?,"
-				+ "skypeid=?,"
-				+ "homeaddress=(?, ?, ?, ?, ?),"
-				+ "collegedetails=(?, ?, ?, ?),"
-				+ "detail12th=(?, ?, ?, ?),"
-				+ "detail10th=(?, ?, ?, ?),"
-				+ "others=(?, ?, ?, ?)"
-				+ "where sid=?";
+		String sql_details = "insert into studentdetails(univemail, peremail, dob, sex, category, nationality, hosteladdress,"
+				+ "contact1, contact2, skypeid, homeaddress, detail12th, detail10th, others, sid) "
+				+ "values ("
+				+ "?,"
+				+ "?,"
+				+ "?,"
+				+ "?,"
+				+ "?,"
+				+ "?,"
+				+ "?,"
+				+ "?,"
+				+ "?,"
+				+ "?,"
+				+ "(?, ?, ?, ?, ?),"
+				+ "(?, ?, ?, ?),"
+				+ "(?, ?, ?, ?),"
+				+ "(?, ?, ?, ?),"
+				+ "?)";
 		try(Connection connection = dataSource.getConnection()) {
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			PreparedStatement preparedStatement_details = connection.prepareStatement(sql_details);
-			System.out.println("saving these details" + username + " : stage " + stage + " \n" + saveDetailsRequest);
-			preparedStatement.setString(1, stage);
-			preparedStatement.setString(2, username);
-			//TODO: Don't store "null", store null and saveDetailsRequest.getDetails12th() may itself be null, so check that too otherwise exception.
-			preparedStatement_details.setString(1, getValueOrDefault(saveDetailsRequest.getUnivemail(), "null"));
-			preparedStatement_details.setString(2, getValueOrDefault(saveDetailsRequest.getPeremail(), "null"));
-			preparedStatement_details.setString(3, getValueOrDefault(saveDetailsRequest.getDob(), "null"));
-			preparedStatement_details.setString(4, getValueOrDefault(saveDetailsRequest.getSex(), "null"));
-			preparedStatement_details.setString(5, getValueOrDefault(saveDetailsRequest.getCategory(), "null"));
-			preparedStatement_details.setString(6, getValueOrDefault(saveDetailsRequest.getNationality(), "null"));
-			preparedStatement_details.setString(7, getValueOrDefault(saveDetailsRequest.getHosteladdress(), "null"));
-			preparedStatement_details.setString(8, getValueOrDefault(saveDetailsRequest.getContact1(), "null"));
-			preparedStatement_details.setString(9, getValueOrDefault(saveDetailsRequest.getContact2(), "null"));
-			preparedStatement_details.setString(10, getValueOrDefault(saveDetailsRequest.getSkypeid(), "null"));
-			preparedStatement_details.setString(11, getValueOrDefault(saveDetailsRequest.getHomeaddress().getState(), "null"));
-			preparedStatement_details.setString(12, getValueOrDefault(saveDetailsRequest.getHomeaddress().getCity(), "null"));
-			preparedStatement_details.setString(13, getValueOrDefault(saveDetailsRequest.getHomeaddress().getPin(), "null"));
-			preparedStatement_details.setString(14, getValueOrDefault(saveDetailsRequest.getHomeaddress().getLocality(), "null"));
-			preparedStatement_details.setString(15, getValueOrDefault(saveDetailsRequest.getHomeaddress().getCountry(), "null"));
-			preparedStatement_details.setString(16, getValueOrDefault(saveDetailsRequest.getCollegeDetails().getUniversity(), "null"));
-			preparedStatement_details.setString(17, getValueOrDefault(saveDetailsRequest.getCollegeDetails().getInstitute(), "null"));
-			preparedStatement_details.setString(18, getValueOrDefault(saveDetailsRequest.getCollegeDetails().getYear(), "null"));
-			preparedStatement_details.setString(19, getValueOrDefault(saveDetailsRequest.getCollegeDetails().getCpi(), "null"));
-			preparedStatement_details.setString(20, getValueOrDefault(saveDetailsRequest.getDetails12th().getUniversity(), "null"));
-			preparedStatement_details.setString(21, getValueOrDefault(saveDetailsRequest.getDetails12th().getInstitute(), "null"));
-			preparedStatement_details.setString(22, getValueOrDefault(saveDetailsRequest.getDetails12th().getYear(), "null"));
-			preparedStatement_details.setString(23, getValueOrDefault(saveDetailsRequest.getDetails12th().getCpi(), "null"));
-			preparedStatement_details.setString(24, getValueOrDefault(saveDetailsRequest.getDetails10th().getUniversity(), "null"));
-			preparedStatement_details.setString(25, getValueOrDefault(saveDetailsRequest.getDetails10th().getInstitute(), "null"));
-			preparedStatement_details.setString(26, getValueOrDefault(saveDetailsRequest.getDetails10th().getYear(), "null"));
-			preparedStatement_details.setString(27, getValueOrDefault(saveDetailsRequest.getDetails10th().getCpi(), "null"));
-			preparedStatement_details.setString(28, getValueOrDefault(saveDetailsRequest.getOther().getUniversity(), "null"));
-			preparedStatement_details.setString(29, getValueOrDefault(saveDetailsRequest.getOther().getInstitute(), "null"));
-			preparedStatement_details.setString(30, getValueOrDefault(saveDetailsRequest.getOther().getYear(), "null"));
-			preparedStatement_details.setString(31, getValueOrDefault(saveDetailsRequest.getOther().getCpi(), "null"));
-			preparedStatement_details.setString(32, getValueOrDefault(username, "null"));
-			
-			preparedStatement.executeUpdate();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String dob = getValueOrDefault(saveDetailsRequest.getDob(), null);
+			java.util.Date date = sdf.parse(dob);
+			Date sqldate = new Date(date.getTime());
+			preparedStatement_details.setString(1, getValueOrDefault(saveDetailsRequest.getUnivemail(), null));
+			preparedStatement_details.setString(2, getValueOrDefault(saveDetailsRequest.getPeremail(), null));
+			preparedStatement_details.setDate(3, sqldate);
+			preparedStatement_details.setString(4, getValueOrDefault(saveDetailsRequest.getSex(), null));
+			preparedStatement_details.setString(5, getValueOrDefault(saveDetailsRequest.getCategory(), null));
+			preparedStatement_details.setString(6, getValueOrDefault(saveDetailsRequest.getNationality(), null));
+			preparedStatement_details.setString(7, getValueOrDefault(saveDetailsRequest.getHosteladdress(), null));
+			preparedStatement_details.setString(8, getValueOrDefault(saveDetailsRequest.getContact1(), null));
+			preparedStatement_details.setString(9, getValueOrDefault(saveDetailsRequest.getContact2(), null));
+			preparedStatement_details.setString(10, getValueOrDefault(saveDetailsRequest.getSkypeid(), null));
+			preparedStatement_details.setString(11, getValueOrDefault(saveDetailsRequest.getHomeaddress()!=null ? saveDetailsRequest.getHomeaddress().getState() : null, null));
+			preparedStatement_details.setString(12, getValueOrDefault(saveDetailsRequest.getHomeaddress()!=null ? saveDetailsRequest.getHomeaddress().getCity() : null, null));
+			preparedStatement_details.setString(13, getValueOrDefault(saveDetailsRequest.getHomeaddress()!=null ? saveDetailsRequest.getHomeaddress().getPin() : null, null));
+			preparedStatement_details.setString(14, getValueOrDefault(saveDetailsRequest.getHomeaddress()!=null ? saveDetailsRequest.getHomeaddress().getLocality() : null, null));
+			preparedStatement_details.setString(15, getValueOrDefault(saveDetailsRequest.getHomeaddress()!=null ? saveDetailsRequest.getHomeaddress().getCountry() : null, null));
+			preparedStatement_details.setString(16, getValueOrDefault(saveDetailsRequest.getDetail12th()!=null ? saveDetailsRequest.getDetail12th().getUniversity() : null, null));
+			preparedStatement_details.setString(17, getValueOrDefault(saveDetailsRequest.getDetail12th()!=null ? saveDetailsRequest.getDetail12th().getInstitute() : null, null));
+			preparedStatement_details.setString(18, getValueOrDefault(saveDetailsRequest.getDetail12th()!=null ? saveDetailsRequest.getDetail12th().getYear() : null, null));
+			preparedStatement_details.setString(19, getValueOrDefault(saveDetailsRequest.getDetail12th()!=null ? saveDetailsRequest.getDetail12th().getCpi() : null, null));
+			preparedStatement_details.setString(20, getValueOrDefault(saveDetailsRequest.getDetail10th()!=null ? saveDetailsRequest.getDetail10th().getUniversity() : null, null));
+			preparedStatement_details.setString(21, getValueOrDefault(saveDetailsRequest.getDetail10th()!=null ? saveDetailsRequest.getDetail10th().getInstitute() : null, null));
+			preparedStatement_details.setString(22, getValueOrDefault(saveDetailsRequest.getDetail10th()!=null ? saveDetailsRequest.getDetail10th().getYear() : null, null));
+			preparedStatement_details.setString(23, getValueOrDefault(saveDetailsRequest.getDetail10th()!=null ? saveDetailsRequest.getDetail10th().getCpi() : null, null));
+			preparedStatement_details.setString(24, getValueOrDefault(saveDetailsRequest.getOthers()!=null ? saveDetailsRequest.getOthers().getUniversity() : null, null));
+			preparedStatement_details.setString(25, getValueOrDefault(saveDetailsRequest.getOthers()!=null ? saveDetailsRequest.getOthers().getInstitute() : null, null));
+			preparedStatement_details.setString(26, getValueOrDefault(saveDetailsRequest.getOthers()!=null ? saveDetailsRequest.getOthers().getYear() : null, null));
+			preparedStatement_details.setString(27, getValueOrDefault(saveDetailsRequest.getOthers()!=null ? saveDetailsRequest.getOthers().getCpi() : null, null));
+			preparedStatement_details.setString(28, getValueOrDefault(username, null));
+			System.out.println(preparedStatement_details);
 			preparedStatement_details.executeUpdate();
-			preparedStatement.close();
+			updateStage(connection, stage, username);
+			preparedStatement_details.close();
 			return true;
 		}
 		catch (Exception e) {

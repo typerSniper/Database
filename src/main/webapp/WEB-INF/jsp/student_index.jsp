@@ -6,8 +6,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/css/progress.css">
         <link rel="stylesheet" type="text/css" href="/css/form_input.css">
+        <link rel="stylesheet" type="text/css" href="/css/home.css">
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <link rel="stylesheet" type="text/css" href="/css/loader.css">
+
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
@@ -38,6 +40,14 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" ng-click="logout()""><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <nav class="navbar navbar-default" ng-show="!loggedIn">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                  <li class="active"><a href="/">PT Cell Home</a></li>
                 </ul>
             </div>
         </nav>

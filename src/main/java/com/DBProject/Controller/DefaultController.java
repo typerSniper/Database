@@ -1,7 +1,5 @@
 package com.DBProject.Controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,6 +17,19 @@ public class DefaultController {
         return new ModelAndView("index");
     }
 
+    @RequestMapping(value={"/site/*", "/site/**"}, method = {RequestMethod.GET})
+    public ModelAndView getModelViewSite(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+        String servletPath = request.getServletPath();
+        String page = servletPath.split("/")[2];
+        return new ModelAndView(page);
+    }
+
+    @RequestMapping(value={"/site", "/site/"}, method = {RequestMethod.GET})
+    public ModelAndView getViewSite(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+        response.sendRedirect("/");
+        return null;
+    }
+
     @RequestMapping(value = "/404", method = {RequestMethod.GET})
     public ModelAndView send404 (final HttpServletRequest request) {
         return new ModelAndView("404");
@@ -26,7 +37,7 @@ public class DefaultController {
 
     @RequestMapping(value={"/student*", "/student/*"}, method = {RequestMethod.GET})
     public ModelAndView getModelViewStudent(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
-        final String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+//        final String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         return new ModelAndView("student_index");
     }
 
@@ -45,10 +56,6 @@ public class DefaultController {
         String servletPath = request.getServletPath();
         String page = servletPath.substring(servletPath.lastIndexOf("/") + 1);
         return new ModelAndView(page);
-    }
-
-    public static boolean isAnonymous() {
-        return SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ANONYMOUS"));
     }
 
 

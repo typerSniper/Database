@@ -11,6 +11,12 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/coordinator/fee', {
             templateUrl : 'views/ic_home_fee',
         })
+        .when('/coordinator/resume_verify',{
+            templateUrl : 'views/ic_resume_verify'
+        })
+        .when('/',{
+            templateUrl : '/',
+        })
         .when('/404', {
             templateUrl : 'views/404',
         })
@@ -20,35 +26,43 @@ app.config(function($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
 });
 
-app.run( function($rootScope, $location, $http, $route) {
+app.run( function($rootScope, $location, $http, $route, $window) {
     $rootScope.copyObject = function(object) {
         return JSON.parse(JSON.stringify(object));
     }
 
     $rootScope.logout = function(){
-        $rootScope.loggedIn = false;
         $http.get("/logout").success(function(response) {
+            $rootScope.loggedIn = false;
             $location.path("/coordinator/");
         });
     }
 
+    $rootScope.isCurrentPage = function(str){
+        if($location.path() === str){
+            return true;
+        }
+        return false;
+    }
+
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+        if(next.templateUrl == "/"){
+            $window.location.reload();
+        }
         if(next.templateUrl == "views/ic_login") {
             $rootScope.loggedIn = false;
-            $http.get("/is_authenticated").success(function(response) {
+            $http.get("/coordinator/is_authenticated").success(function(response) {
                 if(response.authenticated) {
                     $rootScope.loggedIn = true;
                     $location.path("/coordinator/home");
                 }
             });
         }
-        if(next.templateUrl == "views/student_home"){
-
+        else{
+            $rootScope.loggedIn = true;
         }
     });
-
-
- });
+});
 
 
 

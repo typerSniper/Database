@@ -64,8 +64,6 @@
             </tr>
         </table>
     </div>
-    </div>
-   
     <div align="center" class="jumbotron">
         <h3>Time to deadline</h3>
         <div class='time-to'>

@@ -43,8 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
         http.logout().logoutUrl("/logout").deleteCookies("JSESSIONID");
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/student/home").access("hasRole('ROLE_STUDENT')");
-        http.authorizeRequests().antMatchers("/coordinator/home","/coordinator/fee").access("hasRole('ROLE_COORDINATOR')");
+
+        http.authorizeRequests().antMatchers("/student/home", "/student/is_authenticated").access("hasRole('ROLE_STUDENT')");
+        http.authorizeRequests().antMatchers("/coordinator/home","/coordinator/fee", "/coordinator/is_authenticated").access("hasRole('ROLE_COORDINATOR')");
     }
 
     @Autowired

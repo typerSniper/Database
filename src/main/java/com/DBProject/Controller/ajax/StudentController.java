@@ -7,12 +7,12 @@ import com.DBProject.service.StudentStageManager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.SneakyThrows;
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
 import static com.DBProject.Controller.DefaultController.getUsername;
-import static com.DBProject.Controller.DefaultController.isAnonymous;
 
 @Lazy
 @RestController
@@ -86,19 +86,22 @@ public class StudentController {
         return new ResumeSaveResponse(success, stageManager.getCurrentStage(nextStage));
     }
 
-//    @SneakyThrows
-//    @RequestMapping(value = "/student/allocated_ic", method = RequestMethod.GET)
-//    @ResponseBody
-//    public AllocatedIcResponse getAlloactedIc() {
-//        String username = getUsername();
-//        Coordinator coordinator = studentDAO.getAllocatedIc("username");
-//        if(coordinator!=null)
-//            return new AllocatedIcResponse(coordinator.ge(), coordinator.getContactNumber());
-//    }
+   @SneakyThrows
+   @RequestMapping(value = "/student/allocated_ic", method = RequestMethod.GET)
+   @ResponseBody
+   public AllocatedIcResponse getAlloactedIc() {
+       String username = getUsername();
+       Coordinator coordinator = studentDAO.getAllocatedIc(username);
+       if(coordinator!=null)
+           return new AllocatedIcResponse(true, coordinator.getName(), coordinator.getContactNumber());
+       else
+           return new AllocatedIcResponse(false, null, null);
+   }
 
     @Data
     @AllArgsConstructor
     public static class AllocatedIcResponse {
+        private boolean status;
         private String coordinatorName;
         private String phoneNumber;
     }
@@ -119,15 +122,14 @@ public class StudentController {
         private String homecontact;
         private HomeAddress homeaddress;
         private String skypeid;
-        private CollegeDetails details10th;
-        private CollegeDetails details12th;
-        private CollegeDetails collegeDetails;
-        private CollegeDetails other;
+        private CollegeDetails detail10th;
+        private CollegeDetails detail12th;
+        private CollegeDetails others;
      }
 
     @Data
     @AllArgsConstructor
-    public class CollegeDetails {
+    public static class CollegeDetails {
         private String university;
         private String institute;
         private String year;

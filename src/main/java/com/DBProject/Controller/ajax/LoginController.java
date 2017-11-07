@@ -1,7 +1,6 @@
 package com.DBProject.Controller.ajax;
 
 
-import com.DBProject.domain.Student;
 import com.DBProject.repository.StudentDAOImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
-import static com.DBProject.Controller.DefaultController.isAnonymous;
 
 @Lazy
 @RestController
@@ -31,12 +29,28 @@ public class LoginController {
 //    }
 
     @SneakyThrows
-    @RequestMapping(value = "/is_authenticated", method = RequestMethod.GET)
+    @RequestMapping(value = "/student/is_authenticated", method = RequestMethod.GET)
     @ResponseBody
-    public validateRepsonse validateCredentials() {
-        System.out.println(isAnonymous());
-        return new validateRepsonse(!isAnonymous());
+    public validateRepsonse validateStudentCredentials() {
+        return new validateRepsonse(true);
     }
+
+
+    @SneakyThrows
+    @RequestMapping(value = "/coordinator/is_authenticated", method = RequestMethod.GET)
+    @ResponseBody
+    public validateRepsonse validateCoordinatorCredentials() {
+        return new validateRepsonse(true);
+    }
+
+
+    @SneakyThrows
+    @RequestMapping(value = "/company/is_authenticated", method = RequestMethod.GET)
+    @ResponseBody
+    public validateRepsonse validateCompanyCredentials() {
+        return new validateRepsonse(true);
+    }
+
 
     @Data
     @AllArgsConstructor
