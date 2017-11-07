@@ -22,6 +22,8 @@
         <script type="text/javascript" src="/js/student_home.js"></script>
         <script type="text/javascript" src="/js/student_home_fee.js"></script>
         <script type="text/javascript" src="/js/student_home_resume.js"></script>
+        <script type="text/javascript" src="/js/student_home_verification.js"></script>
+
         <script type="text/javascript" src="/js/directives.js"></script>
 
         <base href = "/">
