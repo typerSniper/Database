@@ -35,7 +35,7 @@
                   <li ng-class="{'active': isCurrentPage('/coordinator/resume_verify')}"><a href="/coordinator/resume_verify">Resume Verification</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><a href="#" ng-click="logout()""><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             </div>
         </nav>

@@ -48,20 +48,6 @@
                 </td>
                 
             </tr>
-        
-
-            <tr>
-                <th>
-                    Resume Proofs Pdf
-                </th>
-
-                <td>
-                    <input type="file" accept="application/pdf" id="ver" name="file"/>
-                </td>
-                <td>
-                    <button ng-click="submitResumeVer()" class="btn btn-success">Upload</button>
-                </td>
-            </tr>
         </table>
     </div>
     <div align="center" class="jumbotron">

@@ -8,10 +8,9 @@ app.controller('ICResumeController', function($scope, $http, $rootScope, $locati
                 if(response.students.length > 0){
                     $scope.studentList = $rootScope.copyObject(response.students);
                 }
-            })
-            .error(function(response){
+            }
+         );
 
-            })
     }
 
     $scope.selectStudent = function(student){
