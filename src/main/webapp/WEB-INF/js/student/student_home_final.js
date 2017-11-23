@@ -14,10 +14,12 @@ app.controller('StudentFinalController', function($http, $scope, $interval,$loca
 
     $scope.getJafDetails = function(jid){
     	$rootScope.selectedJaf = jid;
-    	$location.path();
+    	$location.path("student/viewjaf");
 
     };
     $scope.signJaf = function(jid){
     	$rootScope.selectedJaf = jid;
+    	$location.path("student/signjaf");
+
     };
 });

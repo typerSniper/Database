@@ -11,6 +11,12 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/student/editdetails', {
             templateUrl : 'views/student/student_home_editdetails',
         })
+        .when('/student/viewjaf', {
+            templateUrl : 'views/student/student_home_viewjaf',
+        })
+        .when('/student/signjaf', {
+            templateUrl : 'views/student/student_home_signjaf',
+        })
         .when('/',{
             templateUrl : '/',
         })

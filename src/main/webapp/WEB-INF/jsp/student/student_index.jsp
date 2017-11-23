@@ -25,6 +25,9 @@
         <script type="text/javascript" src="/js/student/student_home_verification.js"></script>
         <script type="text/javascript" src="/js/student/student_home_editdetails.js"></script>
         <script type="text/javascript" src="/js/student/student_home_final.js"></script>
+        <script type="text/javascript" src="/js/student/student_home_viewjaf.js"></script>
+        <script type="text/javascript" src="/js/student/student_home_signjaf.js"></script>
+
 
 
 
