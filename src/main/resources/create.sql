@@ -67,11 +67,18 @@ CREATE TABLE resume(
 	FOREIGN KEY (sid) REFERENCES student(sid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE resume_deadline(
+	deadline 	DATE not null,
+	PRIMARY KEY (deadline)
+);
+
 CREATE TABLE company(
 	cid			VARCHAR(20),
 	name 		VARCHAR(20) not null,
 	contact     VARCHAR(20),
 	email       VARCHAR(20),
+	stage       VARCHAR(20),
+	FOREIGN KEY (ic_id) REFERENCES ic(ic_id) ON DELETE SET NULL ON UPDATE CASCADE,
 	PRIMARY KEY (cid)
 );
 
@@ -91,13 +98,24 @@ CREATE TABLE ic_student(
 	FOREIGN KEY (sid) REFERENCES student(sid) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
+CREATE TABLE ic_company(
+	ic_id		VARCHAR(20) not null,
+	cid			VARCHAR(20) not null,
+	PRIMARY KEY (ic_id, cid),
+	FOREIGN KEY (ic_id) REFERENCES ic(ic_id) ON DELETE SET NULL ON UPDATE CASCADE,
+	FOREIGN KEY (cid) REFERENCES company(cid) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
 CREATE TABLE jobs(
 	jid			VARCHAR(20),
 	cid			VARCHAR(20) not null,
-	jname		VARCHAR(20),
+	jname		VARCHAR(100),
 	salary		VARCHAR(20),
 	location	VARCHAR(30),
+	description  VARCHAR(300),
 	stage		VARCHAR(4),
+	company_deadline 	DATE,
+	jaf_deadline		DATE,
 	PRIMARY KEY (jid, cid),
 	FOREIGN KEY (cid) REFERENCES company(cid) ON DELETE CASCADE ON UPDATE CASCADE
 );
