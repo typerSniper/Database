@@ -11,6 +11,12 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/coordinator/fee', {
             templateUrl : 'views/ic/ic_home_fee',
         })
+        .when('/coordinator/jaf', {
+            templateUrl : 'views/ic/ic_home_jaf',
+        })
+        .when('/coordinator/company', {
+            templateUrl : 'views/ic/ic_home_company',
+        })
         .when('/coordinator/resume_verify',{
             templateUrl : 'views/ic/ic_resume_verify'
         })

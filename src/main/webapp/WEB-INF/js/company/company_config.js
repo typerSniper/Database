@@ -1,18 +1,18 @@
-var app = angular.module('ic', ['ngRoute', 'ui.bootstrap']);
+var app = angular.module('company', ['ngRoute', 'ui.bootstrap']);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
-        .when('/coordinator',{
+        .when('/recruiter/home',{
+            templateUrl : 'views/company/company_home'
+        })
+        .when('/recruiter/login',{
             templateUrl : 'views/company/company_login'
         })
-        .when('/coordinator/home', {
-            templateUrl : 'views/company/company_home',
+        .when('/recruiter/register', {
+            templateUrl : 'views/company/company_register',
         })
-        .when('/coordinator/fee', {
-            templateUrl : 'views/company/ic_home_fee',
-        })
-        .when('/coordinator/resume_verify',{
-            templateUrl : 'views/company/ic_resume_verify'
+        .when('/recruiter/newjaf', {
+            templateUrl : 'views/company/create_jaf',
         })
         .when('/',{
             templateUrl : '/',
@@ -34,7 +34,7 @@ app.run( function($rootScope, $location, $http, $route, $window) {
     $rootScope.logout = function(){
         $http.get("/logout").success(function(response) {
             $rootScope.loggedIn = false;
-            $location.path("/recruiter/");
+            $location.path("/recruiter/login");
         });
     }
 
@@ -45,23 +45,23 @@ app.run( function($rootScope, $location, $http, $route, $window) {
         return false;
     }
 
-    $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-        if(next.templateUrl == "/"){
-            $window.location.reload();
-        }
-        if(next.templateUrl == "views/ic_login") {
-            $rootScope.loggedIn = false;
-            $http.get("/coordinator/is_authenticated").success(function(response) {
-                if(response.authenticated) {
-                    $rootScope.loggedIn = true;
-                    $location.path("/coordinator/home");
-                }
-            });
-        }
-        else{
-            $rootScope.loggedIn = true;
-        }
-    });
+    // $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+    //     if(next.templateUrl == "/"){
+    //         $window.location.reload();
+    //     }
+    //     if(next.templateUrl == "views/ic_login") {
+    //         $rootScope.loggedIn = false;
+    //         $http.get("/coordinator/is_authenticated").success(function(response) {
+    //             if(response.authenticated) {
+    //                 $rootScope.loggedIn = true;
+    //                 $location.path("/coordinator/home");
+    //             }
+    //         });
+    //     }
+    //     else{
+    //         $rootScope.loggedIn = true;
+    //     }
+    // });
 });
 
 

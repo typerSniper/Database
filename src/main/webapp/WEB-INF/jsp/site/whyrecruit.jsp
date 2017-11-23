@@ -18,7 +18,7 @@
         <%@include file="index_header.jsp" %>
 </div>
       <div class="jumbotron">
-      <h1 id="a">About IITB</h1>
+      <h3 id="a">About IITB</h36tl>
       <p></p>
     </div>
     <div class="jumbotron">
@@ -32,21 +32,21 @@
         </p>
     </div>
     <div class="jumbotron">
-      <h1 id="c">Academics</h1>
+      <h3 id="c">Academics</h3>
       <p></p>
     </div>
     <div class="jumbotron" >
-      <h1 id="d">Our Recruiters</h1>
+      <h3 id="d">Our Recruiters</h3>
       <p></p>
-      <h1>Past Year Selections</h1>
+      <h3>Past Year Selections</h3>
       <p></p>
     </div>
     <div class="jumbotron">
-      <h1 id="e">Our Alumni</h1>
+      <h3 id="e">Our Alumni</h3>
       <p></p>
     </div>
     <div class="jumbotron" >
-      <h1 id="f">Reasearch And Development</h1>
+      <h3 id="f">Reasearch And Development</h3>
       <p></p>
     </div>
 <%@include file="index_footer.jsp" %>

@@ -45,7 +45,7 @@ public class DefaultController {
         return new ModelAndView("ic/ic_index");
     }
 
-    @RequestMapping(value={"/company*", "/company/*"}, method = {RequestMethod.GET})
+    @RequestMapping(value={"/recruiter*", "/recruiter/*"}, method = {RequestMethod.GET})
     public ModelAndView getModelViewCompany(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         return new ModelAndView("company/company_index");
     }

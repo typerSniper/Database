@@ -1,4 +1,4 @@
-<div ng-controller="companyLoginController">
+<div ng-controller="companyRegisterController">
     <div class="col-xs-4"></div>
     <div class="col-xs-4 well well-lg">
         <div style="text-align:center;">
@@ -12,29 +12,34 @@
                   
                   <tr>
                     <td>Company Name </td>
-                    <td><input ng-model="input.nationality" type="text" /></td>
+                    <td><input ng-model="input.company_name" type="text" /></td>
                    
                   </tr>
                   <tr>
-                    <td>Institute Email</td>
-                    <td><input ng-model="input.univemail" type="email" /></td>
+                    <td>Person Of Contact</td>
+                    <td><input ng-model="input.POC" type="text" /></td>
                      
                   </tr>
                   <tr>
-                    <td>Alernate Email</td>
-                    <td><input ng-model="input.peremail" type="email" /></td>
-                    
-                  <tr>
-                    <td>Hostel Address</td>
-                    <td><input ng-model="input.hosteladdress" type="text" /></td>
-                   
-                  </tr>
+                    <td>Email</td>
+                    <td><input ng-model="input.POC_email" type="email" /></td>
+                    </tr>
                   <tr>
                     <td>Contact</td>
-                    <td><input ng-model="input.contact1" type="number" /></td>
-                    
+                    <td><input ng-model="input.POC_contact" type="number" /></td>
+                  </tr>
+                  <tr>
+                    <td>Create Password</td>
+                    <td><input ng-model="input.passw" type="password" /></td>
+                  </tr>
+                  <tr>
+                    <td>Re-enter Password</td>
+                    <td><input ng-model="pass" type="password" /></td>
+                  </tr>
 
                 </table>
+              <button type="submit" class="btn btn-success">Submit</button>
+
             </div>
         </form>
     </div>

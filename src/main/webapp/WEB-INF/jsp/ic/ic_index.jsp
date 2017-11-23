@@ -32,6 +32,8 @@
                 <ul class="nav navbar-nav">
                   <li ng-class="{'active': isCurrentPage('/coordinator/home')}"><a href="/coordinator/home">Home</a></li>
                   <li ng-class="{'active': isCurrentPage('/coordinator/fee')}"><a href="/coordinator/fee">Fee Requests</a></li>
+                   <li ng-class="{'active': isCurrentPage('/coordinator/jaf')}"><a href="/coordinator/jaf">Fee Requests</a></li>
+                    <li ng-class="{'active': isCurrentPage('/coordinator/company')}"><a href="/coordinator/company">Fee Requests</a></li>
                   <li ng-class="{'active': isCurrentPage('/coordinator/resume_verify')}"><a href="/coordinator/resume_verify">Resume Verification</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
