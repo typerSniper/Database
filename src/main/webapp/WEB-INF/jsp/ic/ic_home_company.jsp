@@ -1,4 +1,4 @@
-<div ng-controller="ICCompanyController" ng-init="getFeeRequests()">
+<div ng-controller="ICCompanyController" ng-init="getcompanyRequests()">
 
     <div class="jumbotron" style="text-align: center;"><h2>Pending Company Registration Requests</h2></div>
 

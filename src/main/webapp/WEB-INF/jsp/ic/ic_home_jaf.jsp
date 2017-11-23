@@ -1,4 +1,4 @@
-<div ng-controller="ICJafController" ng-init="getFeeRequests()">
+<div ng-controller="ICJafController" ng-init="getjafRequests()">
 
     <div class="jumbotron" style="text-align: center;"><h2>Pending Jaf Requests</h2></div>
 

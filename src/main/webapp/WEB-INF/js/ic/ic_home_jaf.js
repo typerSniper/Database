@@ -1,7 +1,7 @@
 app.controller('ICJafController', function($scope, $http, $rootScope, $location) {
     $scope.jafList = [];
     $scope.selectedJafList = [];
-    $scope.getFeeRequests = function(){
+    $scope.getjafRequests = function(){
         var url = "/To Change/";
         $http.get(url)
             .success(function(response){

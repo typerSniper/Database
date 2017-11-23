@@ -8,6 +8,9 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/student/home', {
             templateUrl : 'views/student/student_home',
         })
+        .when('/student/editdetails', {
+            templateUrl : 'views/student/student_home_editdetails',
+        })
         .when('/',{
             templateUrl : '/',
         })
@@ -47,6 +50,7 @@ app.run( function($rootScope, $location, $http, $route, $window) {
             });
         }
         if(next.templateUrl == "views/student/student_home"){
+            $rootScope.stage = 6;
             if($rootScope.stage == null){
                 $http.get("/student/stage").success(function(response){
                     if(response.authenticated){

@@ -1,7 +1,7 @@
 app.controller('ICCompanyController', function($scope, $http, $rootScope, $location) {
     $scope.companyList = [];
     $scope.selectedCompanyList = [];
-    $scope.getFeeRequests = function(){
+    $scope.getcompanyRequests = function(){
         var url = "/To Change/";
         $http.get(url)
             .success(function(response){
