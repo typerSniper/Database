@@ -70,8 +70,8 @@ CREATE TABLE resume(
 CREATE TABLE company(
 	cid			VARCHAR(20),
 	name 		VARCHAR(20) not null,
-	budget		VARCHAR(20),
-	location	VARCHAR(20),
+	contact     VARCHAR(20),
+	email       VARCHAR(20),
 	PRIMARY KEY (cid)
 );
 
