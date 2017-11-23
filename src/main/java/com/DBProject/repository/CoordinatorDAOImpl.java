@@ -3,9 +3,7 @@ package com.DBProject.repository;
 import javax.sql.DataSource;
 
 import com.DBProject.Controller.ajax.CoordinatorController;
-import com.DBProject.domain.Coordinator;
-import com.DBProject.domain.Resume;
-import com.DBProject.domain.Student;
+import com.DBProject.domain.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -117,4 +115,17 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 		}
 		return false;
 	}
+
+	@Override
+	public List<Company> getAllocatedCompanies(String ic_id) {
+//		TODO: get companies allocated to this ic and return after maaping them
+		return null;
+	}
+
+	@Override
+	public List<Jaf> getJafsWithStage(String ic_id, String stage) {
+		//	TODO: get jafs allocated to this ic and return after maaping them
+		return null;
+	}
+
 }

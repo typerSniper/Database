@@ -1,6 +1,7 @@
 package com.DBProject.Controller.ajax;
 
 import com.DBProject.domain.Coordinator;
+import com.DBProject.domain.Jaf;
 import com.DBProject.domain.Student;
 import com.DBProject.repository.StudentDAOImpl;
 import com.DBProject.service.StudentStageManager;
@@ -11,6 +12,9 @@ import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
 
 import static com.DBProject.Controller.DefaultController.getUsername;
 
@@ -86,6 +90,16 @@ public class StudentController {
         return new ResumeSaveResponse(success, stageManager.getCurrentStage(nextStage));
     }
 
+
+
+    @SneakyThrows
+    @RequestMapping(value = "/student/get_resume_deadline", method = RequestMethod.GET)
+    @ResponseBody
+    public GetDeadLineResponse getDeadLineResponse() {
+        return new GetDeadLineResponse(studentDAO.getResumeDeadline());
+    }
+
+
    @SneakyThrows
    @RequestMapping(value = "/student/allocated_ic", method = RequestMethod.GET)
    @ResponseBody
@@ -97,6 +111,28 @@ public class StudentController {
        else
            return new AllocatedIcResponse(false, null, null);
    }
+
+    @SneakyThrows
+    @RequestMapping(value = "/student/get_all_jafs", method = RequestMethod.GET)
+    @ResponseBody
+    public GetJafsResponse getJafsResponse(@RequestBody GetJafsRequest getJafsRequest) {
+
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class GetJafsResponse {
+
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class JafRepresentative {
+        private String jname;
+        private Date jafDeadline;
+        private boolean eligible;
+        private String company;
+    }
 
     @Data
     @AllArgsConstructor
@@ -126,6 +162,13 @@ public class StudentController {
         private CollegeDetails detail12th;
         private CollegeDetails others;
      }
+
+
+    @Data
+    @AllArgsConstructor
+    public static class GetDeadLineResponse {
+        private Date deadline;
+    }
 
     @Data
     @AllArgsConstructor

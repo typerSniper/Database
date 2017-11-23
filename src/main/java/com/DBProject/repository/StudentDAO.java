@@ -5,6 +5,7 @@ import com.DBProject.domain.Coordinator;
 import com.DBProject.domain.Student;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.util.List;
 
 public interface StudentDAO {
@@ -16,4 +17,5 @@ public interface StudentDAO {
      void updateStage(Connection conn, String stage, String username);
      Coordinator allocateIc(String username, String stage);
      Coordinator getAllocatedIc(String username);
+     Date getResumeDeadline();
 }

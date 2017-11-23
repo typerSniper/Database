@@ -1,28 +1,24 @@
 package com.DBProject.service;
 
 import com.google.common.collect.ImmutableMap;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 /**
- * Created by Jatin on 02/11/17.
+ * Created by Jatin on 23/11/17.
  */
 @Service
-public class StudentStageManager {
-
+public class JAFStageManager {
     public static final ImmutableMap<String, Integer> stageMap =
             new ImmutableMap.Builder<String, Integer>()
                     .put("registered", 1)
-                    .put("feepending", 2)
-                    .put("feeverification", 3)
+                    .put("icapproved", 2)
+                    .put("displayjafs", 3)
                     .put("resumepending", 4)
                     .put("resumeverification", 5)
                     .put("jafeligible", 6)
                     .build();
-
-
 
     public String getNextStage(String currentStage) {
         int stage = getCurrentStage(currentStage);
@@ -50,4 +46,5 @@ public class StudentStageManager {
         }
         return null;
     }
+
 }

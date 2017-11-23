@@ -259,4 +259,11 @@ public class StudentDAOImpl  implements StudentDAO  {
 		return null;
 	}
 
+	@Override
+	public java.util.Date getResumeDeadline () {
+    	//TODO: get the deadline from table resume_deadline, The table has nothing else
+    	return null;
+	}
+
+
 }
