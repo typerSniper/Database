@@ -79,6 +79,9 @@ app.run( function($rootScope, $location, $http, $route, $window) {
             if($rootScope.stage == 5){
                 next.templateUrl = "views/student/student_home_verification"
             }
+            if($rootScope.stage == 6){
+                next.templateUrl = "views/student/student_home_final"
+            }
         }
     });
  });
