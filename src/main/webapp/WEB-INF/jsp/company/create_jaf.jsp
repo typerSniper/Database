@@ -29,7 +29,7 @@
 		<table style="width:70%" class="table table-striped">
 		<tr>
 		 	<td>Description</td>
-		 	<td><textarea nd-model="input.description" rows="10" cols="100">
+		 	<td><textarea ng-model="input.description" rows="10" cols="100">
 			</textarea></td>
 		 </tr>
 		</table>

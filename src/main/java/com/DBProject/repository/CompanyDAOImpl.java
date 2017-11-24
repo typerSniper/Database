@@ -97,18 +97,20 @@ public class CompanyDAOImpl implements CompanyDAO {
     public boolean registerJob (String companyId, String stage, CompanyController.JobRegisterRequest jobRegisterRequest) {
     	String sql = "insert into jobs values (nextval('job_id_sequence'), ?, ?, ?, ?, ?, ?, ?, ?);";
     	try(Connection connection = dataSource.getConnection()) {
+			SimpleDateFormat df =  new SimpleDateFormat("yyyy-MM-dd");
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, companyId);
 			preparedStatement.setString(2, jobRegisterRequest.getJname());
 			preparedStatement.setString(3, jobRegisterRequest.getSalary());
 			preparedStatement.setString(4, jobRegisterRequest.getLocation());
 			preparedStatement.setString(5, jobRegisterRequest.getDescription());
-			preparedStatement.setString(6, stage);
-			preparedStatement.setDate(7, Date.valueOf(jobRegisterRequest.getComp_deadline()));
-			preparedStatement.setDate(8, null);
+			preparedStatement.setDate(6, new Date(df.parse(jobRegisterRequest.getComp_deadline()).getTime()));
+			preparedStatement.setDate(7, null);
+			preparedStatement.setString(8, stage);
 			int change = preparedStatement.executeUpdate();
 			if(change > 0) {
 				preparedStatement.close();
+				System.out.println(jobRegisterRequest);
 				for(CompanyController.Eligiblity t : jobRegisterRequest.getEligiblities()) {
 					PreparedStatement ps  =connection.prepareStatement("insert into eligibility values( jid =  select avg(last_value) from job_id_sequence, cid=?, cpicutoff =?, deptid = ?, programid = ? )");
 					ps.setString(1, companyId);
