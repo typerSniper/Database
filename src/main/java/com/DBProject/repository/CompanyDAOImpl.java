@@ -259,16 +259,37 @@ public class CompanyDAOImpl implements CompanyDAO {
 		return false;
 	}
 
-	@Override
+	@Override //Kshitij
 	public boolean signJaf(String studentID, String jid) {
-		//TODO
-		return true;
+		String sql = "Insert into student_jaf values(?,?)";
+		try(Connection connection = dataSource.getConnection()) {
+			preparedStatement.setString(1,studentID);
+			preparedStatement.setString(2,jid);
+			int change = preparedStatement.executeUpdate();
+			if(change > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
 	}
 
-	@Override
+	@Override //Kshitij
 	public boolean unSignJaf(String studentID, String jid) {
-		//TODO
-		return true;
+		String sql = "delete from student_jaf where sid=? and jid=?";
+		try(Connection connection = dataSource.getConnection()) {
+			preparedStatement.setString(1,studentID);
+			preparedStatement.setString(2,jid);
+			int change = preparedStatement.executeUpdate();
+			if(change > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
+			
 	}
 
 
