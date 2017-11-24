@@ -5,6 +5,7 @@ app.controller('companyRegisterController', function($scope, $http, $rootScope, 
                   email:'',
                   representative:'',
                   password:'',
+                  cid:''
               };
     $scope.submit = function(){
       if($scope.pass == $scope.input.password){
