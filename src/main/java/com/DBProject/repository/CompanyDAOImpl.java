@@ -291,12 +291,11 @@ public class CompanyDAOImpl implements CompanyDAO {
 				"where jid=?";
 		Jaf ret = null;
 		try(Connection connection = dataSource.getConnection()) {
-			PreparedStatement preparedStatement = connection.preparedStatement(sql);
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1,jaf);
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
-
-				ret.add(new Jaf(rs.getString(1), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), companyDeadline, jafDeadline));
+                ret = getJaf(rs);
 			}
 			preparedStatement.close();
 		}
@@ -310,10 +309,10 @@ public class CompanyDAOImpl implements CompanyDAO {
 	public boolean getIfSigned(String studentID, String jid) {
 		String sql = "select count(*)\n" +
 				"from student_jaf\n" +
-				"where jid=? and
-						sid=?";
+				"where jid=? and"+
+						"sid=?";
 		try(Connection connection = dataSource.getConnection()) {
-			PreparedStatement preparedStatement = connection.preparedStatement(sql);
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1,jid);
 			preparedStatement.setString(2,studentID);
 			ResultSet rs = preparedStatement.executeQuery();
@@ -334,7 +333,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		return false;
 	}
 
 	@Override
@@ -349,9 +348,37 @@ public class CompanyDAOImpl implements CompanyDAO {
 		return true;
 	}
 
+	@SneakyThrows
+	Jaf getJaf(ResultSet rs) {
+	    return new Jaf(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)
+        , rs.getString(5), rs.getString(6), rs.getString(7), rs.getDate(8), rs.getDate(9));
+    }
+
 	@Override
 	public List<Jaf> getJafsWithStage(String coordinatorName, String stage) {
-		//TODO:
+	    try(Connection connection = dataSource.getConnection()) {
+	        String sql = "select * cid from ic_company where ic_id =?";
+	        PreparedStatement ps = connection.prepareStatement(sql);
+	        ps.setString(1, coordinatorName);
+	        ResultSet rs = ps.executeQuery();
+	        List<Jaf> jafs= new ArrayList<>();
+	        while(rs.next()) {
+	            String cid = rs.getString(1);
+                sql = "select * from jobs where cid =? and stage = ?";
+                PreparedStatement ps2 = connection.prepareStatement(sql);
+                ps2.setString(1, cid);
+                ps2.setString(2, stage);
+                ResultSet rs2 = ps.executeQuery();
+                while(rs2.next()) {
+                    jafs.add(getJaf(rs2));
+                }
+            }
+            return jafs;
+        }
+        catch (Exception e) {
+	        e.printStackTrace();
+        }
+
 		return null;
 	}
 
