@@ -59,32 +59,28 @@ app.run( function($rootScope, $location, $http, $route, $window) {
              $window.location.reload();
          }
          else{
-            if(next.templateUrl !="views/company/company_login" && next.templateUrl !="views/company/company_home"){
+            if(next.templateUrl !="views/company/company_login" && next.templateUrl !="views/company/company_home" && next.templateUrl !="views/company/company_register"){
                 $http.get("/company/stage").success(function(response) {
                                if(response.authenticated) {
-                //                   $rootScope.loggedIn = true;
                                     if(response.stage != 1){
                                         $location.path("/recruiter/home");
-                                        alert("Company not registered yet");
+                                        alert("Registration hasnt been approved yet");
                                     }
 
                                }
                                else{
                                    $location.path("/recruiter/login");
-                                   alert("Company not registered yet");
                                }
                             });
             }
             if(next.templateUrl =="views/company/company_home"){
             $http.get("/company/stage").success(function(response) {
                                            if(response.authenticated) {
-                            //                   $rootScope.loggedIn = true;
                                                 $rootScope.stage = response.stage;
 
                                            }
                                            else{
                                                $location.path("/recruiter/login");
-                                               alert("Company not registered yet");
                                            }
                                         });
             }

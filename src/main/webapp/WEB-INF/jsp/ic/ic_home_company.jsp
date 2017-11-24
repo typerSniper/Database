@@ -8,9 +8,9 @@
                 <td>
                     {{company.name}}
                 </td>
-                <td>
-                    {{company.location}}
-                </td>
+                <td> {{company.email}}</td>
+                <td> {{company.contact}}</td>
+                <td> {{company.rep}}</td>
                 <td>
                     <button ng-click="register_company($index)" class="btn btn-success">Register</button>
                 </td>
