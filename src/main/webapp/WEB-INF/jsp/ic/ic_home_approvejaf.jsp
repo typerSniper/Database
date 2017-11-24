@@ -23,7 +23,7 @@
                             <td><button class="btn btn-danger" ng-click="declinejaf($index)">Decline</button></td>
                         </tr>
                         <tr>
-                            <td><div ng-show="show[$index]" ng-model="content[$index]"></div></td>
+                            <td><div ng-show="show[$index]" ng-model="content[$index]">{{show[$index]}}</div></td>
                         </tr>
                     </table>
                 </td>

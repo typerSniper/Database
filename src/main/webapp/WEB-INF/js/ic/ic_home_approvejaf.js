@@ -10,7 +10,7 @@ app.controller('ICApproveJafController', function($scope, $http, $rootScope, $lo
             .success(function(response){
             console.log(response);
                 $scope.jafList = $rootScope.copyObject(response.jafs);
-               for(int i=0; i<$scope.jafList.length; i++){
+               for(var i=0; i<$scope.jafList.length; i++){
                    $scope.show[i]=false;
                    $scope.content[i]="";
                }
@@ -39,7 +39,7 @@ app.controller('ICApproveJafController', function($scope, $http, $rootScope, $lo
     //deadline: //TODO
     $scope.verifyjaf = function(index){
          var url = "/ic/verify_jaf";
-         params = $rootScope.copyObject({jaf: $scope.jafList[index], advance: true});
+         params = $rootScope.copyObject({jaf: $scope.jafList[index].jid, advance: true});
          $http.post(url, params)
             .success(function(response) {
                 if(response.success){
@@ -54,7 +54,7 @@ app.controller('ICApproveJafController', function($scope, $http, $rootScope, $lo
 
     $scope.declinejaf = function(index){
          var url = "/ic/verify_jaf";
-         params = $rootScope.copyObject({jaf: $scope.jafList[index], advance: false});
+         params = $rootScope.copyObject({jaf: $scope.jafList[index].jid, advance: false, deadline: null});
          $http.post(url, params)
             .success(function(response) {
                 if(response.success){
