@@ -27,7 +27,7 @@
         <nav class="navbar navbar-default" ng-show="loggedIn">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">PT CELL</a>
+                    <a class="navbar-brand" href="/">PT CELL</a>
                 </div>
                 <ul class="nav navbar-nav">
                   <li ng-class="{'active': isCurrentPage('/coordinator/home')}"><a href="/coordinator/home">Home</a></li>

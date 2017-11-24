@@ -9,28 +9,25 @@
         <form ng-submit="submit()" class="form" >
             <div align="center">
                 <table style="width:70%" class="table table-striped">
-                  
                   <tr>
                     <td>Company Name </td>
-                    <td><input ng-model="input.company_name" type="text" /></td>
-                   
-                  </tr>
-                  <tr>
-                    <td>Person Of Contact</td>
-                    <td><input ng-model="input.POC" type="text" /></td>
-                     
+                    <td><input ng-model="input.name" type="text" /></td>
                   </tr>
                   <tr>
                     <td>Email</td>
-                    <td><input ng-model="input.POC_email" type="email" /></td>
+                    <td><input ng-model="input.email" type="email" /></td>
                     </tr>
                   <tr>
                     <td>Contact</td>
-                    <td><input ng-model="input.POC_contact" type="number" /></td>
+                    <td><input ng-model="input.contact" type="number" /></td>
+                  </tr>
+                  <tr>
+                    <td>Person Of Contact</td>
+                    <td><input ng-model="input.representative" type="text" /></td>
                   </tr>
                   <tr>
                     <td>Create Password</td>
-                    <td><input ng-model="input.passw" type="password" /></td>
+                    <td><input ng-model="input.password" type="password" /></td>
                   </tr>
                   <tr>
                     <td>Re-enter Password</td>

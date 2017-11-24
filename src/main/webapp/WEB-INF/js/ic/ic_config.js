@@ -55,12 +55,18 @@ app.run( function($rootScope, $location, $http, $route, $window) {
         if(next.templateUrl == "/"){
             $window.location.reload();
         }
-        if(next.templateUrl == "views/ic_login") {
+        if(next.templateUrl == "views/ic/ic_login") {
+            console.log("here");
             $rootScope.loggedIn = false;
             $http.get("/coordinator/is_authenticated").success(function(response) {
+                    console.log(response);
                 if(response.authenticated) {
+                    console.log("here");
                     $rootScope.loggedIn = true;
                     $location.path("/coordinator/home");
+                }
+                else{
+                    $rootScope.loggedIn = false;
                 }
             });
         }

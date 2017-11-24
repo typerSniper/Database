@@ -2,13 +2,12 @@ app.controller('companyJafController', function($scope, $http, $rootScope, $loca
         $scope.date = '';
       $scope.pass='';
       $scope.newElig = {cpicutoff:'', deptid:'', programid:''};
-     $scope.input={postname:'',
+     $scope.input={jname:'',
                   salary:'',
-                  description:'',
                   location:'',
+                  description:'',
                   eligiblity:[],
-                  deadline_date:'',
-                  deadline_time:'',
+                  comp_deadline:''
                 };
     $scope.deptid=["CSE","CSE","CSE","CSE"];
     $scope.programid=["Btech1","Mtech","PHD","Dual"];
@@ -20,7 +19,7 @@ app.controller('companyJafController', function($scope, $http, $rootScope, $loca
     };
 
     $scope.submit = function(){
-      $scope.input.deadline_date = $filter('date')($scope.date, 'yyyy-MM-dd');
+      $scope.input.comp_deadline = $filter('date')($scope.date, 'yyyy-MM-dd');
 
       if($scope.input.eligiblity.length==0)
       {
@@ -28,19 +27,16 @@ app.controller('companyJafController', function($scope, $http, $rootScope, $loca
       }
         else{
 
-          // var url = '/company/save_details';
-        // var params = $rootScope.copyObject($scope.input);
-        // $http.post(url, params)
-        //     .success(function(response) {
-        //         if(response.success){
-        //             console.log(response);
-        //             $rootScope.stage = response.stage;
-        //             $route.reload();
-        //         }
-        //     })
-        //     .error(function(response) {
-        // });
-        console.log($scope.input);
+        var url = '/company/create_job';
+        var params = $rootScope.copyObject($scope.input);
+        $http.post(url, params)
+            .success(function(response) {
+                if(response.success){
+                    $location.path("/recruiter/home");
+                }
+            })
+            .error(function(response) {
+        });
         }
     };
 

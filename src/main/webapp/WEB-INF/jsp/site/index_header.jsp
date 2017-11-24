@@ -1,4 +1,4 @@
-<div class="jumbotron">
+
     <div class="container">
         <div class="collapse navbar-collapse" style="font-size : 20px">
             <ul class="nav navbar-nav">
@@ -12,7 +12,7 @@
                     <li class="divider"></li>
                     <li><a href="/site/whyrecruit/#c">Academics</a></li>
                     <li class="divider"></li>
-                    <li><a href="/site/whyrecruit/#d">Our Recruiters &amp;<br>Past Year Selections</a></li>
+                    <li><a href="/site/whyrecruit/#d">Our Recruiters</a></li>
                     <li class="divider"></li>
                     <li><a href="/site/whyrecruit/#e">Our Alumni</a></li>
                     <li class="divider"></li>
@@ -25,4 +25,4 @@
             </ul>
         </div>
     </div>
-</div>
+<hr>

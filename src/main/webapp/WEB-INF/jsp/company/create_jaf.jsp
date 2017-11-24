@@ -4,7 +4,7 @@
 		<table style="width:70%" class="table table-striped">
 		  <tr>
 		    <td>Post Name</td>
-		    <td><input ng-model="input.postname" type="text" required/></td>
+		    <td><input ng-model="input.jname" type="text" required/></td>
 		  </tr>
 		  <tr>
 		  	<td>Salary in INR</td>
@@ -17,7 +17,6 @@
 		 <tr>
 		 	<td> Deadline</td>
 		 	<td><input ng-model="date" type="date" required/></td>
-		 	<td><input type="time" ng-model="input.deadline_time" value="00:00:00"></td>
 		</table>
 		<table style="width:70%" class="table table-striped">
 		<tr>
