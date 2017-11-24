@@ -10,10 +10,10 @@ app.controller('ICApproveJafController', function($scope, $http, $rootScope, $lo
             .success(function(response){
             console.log(response);
                 $scope.jafList = $rootScope.copyObject(response.jafs);
-//                for(int i=0; i<$scope.jafList.length; i++){
-//                    $scope.show[i]=false;
-//                    $scope.content[i]="";
-//                }
+               for(int i=0; i<$scope.jafList.length; i++){
+                   $scope.show[i]=false;
+                   $scope.content[i]="";
+               }
             })
             .error(function(response) {
         });
@@ -51,7 +51,7 @@ app.controller('ICApproveJafController', function($scope, $http, $rootScope, $lo
             .error(function(response) {
         });
     };
-//deadline: //TODO
+
     $scope.declinejaf = function(index){
          var url = "/ic/verify_jaf";
          params = $rootScope.copyObject({jaf: $scope.jafList[index], advance: false});
@@ -69,15 +69,15 @@ app.controller('ICApproveJafController', function($scope, $http, $rootScope, $lo
 
     $scope.viewjaf = function(index){
         var url = "/ic/get_jaf";
-        //  params = $rootScope.copyObject({jaf: $scope.selectedJafList});
-        //  $http.post(url, params)
-        //     .success(function(response) {
-        //         if(response.success){
-        //             $scope.show[index] = true;
-        //             $scope.content[index] = "jaf value";
-        //         }
-        //     })
-        //     .error(function(response) {
-        // });
+         params = $rootScope.copyObject({jafID: $scope.jafList[index].jid});
+         $http.post(url, params)
+            .success(function(response) {
+                if(response.success){
+                    $scope.show[index] = true;
+                    $scope.content[index] = ;
+                }
+            })
+            .error(function(response) {
+        });
     }
 });
