@@ -1,6 +1,6 @@
 <div ng-controller="ICViewJafController" ng-init="viewjaf(selectedJafID)">
 
-        <tableclass="table table-striped">
+        <table class="table table-striped">
           <tr>
             <th>Job Name</th>
             <td>{{jafDetails.jname}}</td>
