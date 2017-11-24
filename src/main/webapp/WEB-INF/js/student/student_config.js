@@ -8,6 +8,18 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/student/home', {
             templateUrl : 'views/student/student_home',
         })
+        .when('/student/editdetails', {
+            templateUrl : 'views/student/editdetails',
+        })
+        .when('/student/viewjaf', {
+            templateUrl : 'views/student/viewjaf',
+        })
+        .when('/student/signjaf', {
+            templateUrl : 'views/student/signjaf',
+        })
+        .when('/student/pendingresults', {
+            templateUrl : 'views/student/pendingresults',
+        })
         .when('/',{
             templateUrl : '/',
         })
@@ -47,6 +59,7 @@ app.run( function($rootScope, $location, $http, $route, $window) {
             });
         }
         if(next.templateUrl == "views/student/student_home"){
+            $rootScope.stage = 6;
             if($rootScope.stage == null){
                 $http.get("/student/stage").success(function(response){
                     if(response.authenticated){
@@ -78,6 +91,9 @@ app.run( function($rootScope, $location, $http, $route, $window) {
             }
             if($rootScope.stage == 5){
                 next.templateUrl = "views/student/student_home_verification"
+            }
+            if($rootScope.stage == 6){
+                next.templateUrl = "views/student/student_home_final"
             }
         }
     });

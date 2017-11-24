@@ -13,3 +13,11 @@ li.dropdown:hover > .dropdown-menu {
 .footer{
     position: relative;
 }
+
+td, th{
+    text-align: center;
+}
+
+hr{
+    border-color: rgb(41, 102, 173);
+}

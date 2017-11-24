@@ -1,19 +1,27 @@
-app.controller('companyLoginController', function($scope, $http, $rootScope, $location) {
-     $scope.input={company:'',
+app.controller('companyRegisterController', function($scope, $http, $rootScope, $location) {
+      $scope.pass='';
+     $scope.input={name:'',
+                  contact:'',
+                  email:'',
+                  representative:'',
+                  password:'',
               };
     $scope.submit = function(){
-        var url = '/company/save_details';
+      //if password matches TODO
+      if($scope.pass == $scope.input.password){
+        var url = '/company/register';
         var params = $rootScope.copyObject($scope.input);
         $http.post(url, params)
             .success(function(response) {
                 if(response.success){
-                    console.log(response);
-                    $rootScope.stage = response.stage;
-                    $route.reload();
+                    $location.path("/recruiter/login")
                 }
             })
             .error(function(response) {
         });
+      }
+      else{
+        alert("Passwords dont match");
+      }
     };
-
 });

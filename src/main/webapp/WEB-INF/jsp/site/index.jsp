@@ -12,17 +12,25 @@
     </head>
     <body>
         <%@include file="index_header.jsp" %>
-        
+
         <div class="row" style=" margin: 250px; font-size:20px; padding: 10px;">
-            <div class="col-sm-5 col-sm-offset-1 " >
+            <div class="col-sm-5" >
                     <a href = "/student/">Student Login</a>
             </div>
             <br>
-            <div class="col-sm-5 col-sm-offset-1" >
-                <a href = "/coordinator/">IC Login</a>
+            <div class="col-sm-5" >
+                <a href = "/coordinator/">Coordinator Login</a>
             </div>
-        </table>
+            <br>
+            <div class="col-sm-5" >
+                <a href = "/recruiter/login">Recruiter Login</a>
+            </div>
+            <br>
+            <div class="col-sm-5" >
+                <a href = "/recruiter/register">Recruiter Register</a>
+            </div>
         </div>
+        <a href = "/site/temp">Recruiter Register</a>
         <%@include file="index_footer.jsp" %>
     </body>
 </html>

@@ -23,6 +23,15 @@
         <script type="text/javascript" src="/js/student/student_home_fee.js"></script>
         <script type="text/javascript" src="/js/student/student_home_resume.js"></script>
         <script type="text/javascript" src="/js/student/student_home_verification.js"></script>
+        <script type="text/javascript" src="/js/student/editdetails.js"></script>
+        <script type="text/javascript" src="/js/student/student_home_final.js"></script>
+        <script type="text/javascript" src="/js/student/viewjaf.js"></script>
+        <script type="text/javascript" src="/js/student/signjaf.js"></script>
+        <script type="text/javascript" src="/js/student/signedjafs.js"></script>
+
+
+
+
 
         <script type="text/javascript" src="/js/directives.js"></script>
 
@@ -36,7 +45,10 @@
                     <a class="navbar-brand" href="#">PT CELL</a>
                 </div>
                 <ul class="nav navbar-nav">
-                  <li class="active"><a href="#">Home</a></li>
+                    <li class="active"><a href="/student/home">Home</a></li>
+                    <li ng-if="stage == 6" class="active"><a href="/student/editdetails">Edit Details</a></li>
+                    <li ng-if="stage == 6" class="active"><a href="/student/signedjafs">Signed Jafs </a></li>
+ 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>

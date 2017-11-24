@@ -1,4 +1,4 @@
-<html ng-app="student">
+<html ng-app="company">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>PtCell</title>
@@ -18,6 +18,11 @@
         <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
         <script type="text/javascript" src="/js/company/company_config.js"></script>
+        <script type="text/javascript" src="/js/company/company_login.js"></script>
+        <script type="text/javascript" src="/js/company/company_register.js"></script>  
+        <script type="text/javascript" src="/js/company/company_home.js"></script> 
+        <script type="text/javascript" src="/js/company/company_newjaf.js"></script>  
+ 
         
         <script type="text/javascript" src="/js/directives.js"></script>
 
@@ -25,27 +30,6 @@
     </head>
     <body>
 
-        <nav class="navbar navbar-default" ng-show="loggedIn">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">PT CELL</a>
-                </div>
-                <ul class="nav navbar-nav">
-                  <li class="active"><a href="#">Home</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
-                </ul>
-            </div>
-        </nav>
-
-        <nav class="navbar navbar-default" ng-show="!loggedIn">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav">
-                  <li class="active"><a href="/">PT Cell Home</a></li>
-                </ul>
-            </div>
-        </nav>
 
         <loading></loading>
 
