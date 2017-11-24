@@ -156,7 +156,7 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 				dateString2_jafDeadline = rs.getString(8);
 				java.util.Date companyDeadline = sdf.parse(dateString1_companyDeadline);
 				java.util.Date jafDeadline = sdf.parse(dateString2_jafDeadline);
-				ret.add(new Jaf(rs.getString(1), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), companyDeadline, jafDeadline));
+				ret.add(new Jaf(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), companyDeadline, jafDeadline));
 			}
 			preparedStatement.close();
 		}

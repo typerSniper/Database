@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -175,15 +176,17 @@ public class CompanyDAOImpl implements CompanyDAO {
 		List<Jaf> ret = new ArrayList<>();
 
 		try(Connection connection = dataSource.getConnection()) {
-			PreparedStatement preparedStatement = connection.preparedStatement(sql);
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1,companyID);
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
-				
-				ret.add(new Jaf(rs.getString(1), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), companyDeadline, jafDeadline));
+				ret.add(new Jaf(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getDate(8), rs.getDate(9)));
 			}
 			preparedStatement.close();
-		}	
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return ret;
 	}
 
@@ -195,7 +198,37 @@ public class CompanyDAOImpl implements CompanyDAO {
 
 	@Override
 	public boolean getEligible(String username, String jid) {
-		return true;
+		String sql = "select CPI, pid, did from student where sid = ?";
+		try(Connection conn = dataSource.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			String cpi ="", did =" ", pid="";
+			while(rs.next()) {
+				cpi = rs.getString(1);
+				pid = rs.getString(2);
+				did = rs.getString(3);
+			}
+			ps.close();
+			PreparedStatement ps2 = conn.prepareStatement("Select cpicutoff, deptid, programid from eligibility where jid = ?");
+			ps2.setString(1, jid);
+			ps.setString(1, jid);
+			boolean eligible = false;
+			ResultSet rs2 = ps.executeQuery();
+			while(rs2.next()&&!eligible) {
+				Integer cpiReq = Integer.parseInt(rs.getString(1)) ;
+				String pidReq = rs.getString(3);
+				String didReq = rs.getString(2) ;
+				eligible = (cpiReq==0 || Integer.parseInt(cpi) >cpiReq) &&
+						(pidReq.toLowerCase().equals("any") || pidReq.equals(pid)) &&
+						didReq.toLowerCase().equals("any") || didReq.equals(did);
+			}
+			return eligible;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override
