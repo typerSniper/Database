@@ -37,8 +37,8 @@ public class CompanyDAOImpl implements CompanyDAO {
 
         String sql = "insert into company values (?, ?, ?, ?, ?, ?);";
         String pass = "insert into password values (?, ?, 'COMPANY');";
-        String allo = "insert into ic_company values (select ic.ic_id from ic LEFT OUTER JOIN ic_company on ic.ic_id = ic_company.ic_id group by ic.ic_id order by count(ic_company.cid) limit 1, select last_value from company_id_sequence);";
-        try(Connection connection = dataSource.getConnection()) {
+		String allo = "insert into ic_company \n" +
+				"select ic.ic_id, ? from ic LEFT OUTER JOIN ic_company on ic.ic_id = ic_company.ic_id group by ic.ic_id order by count(ic_company.cid) limit 1;";        try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, companyRegisterRequest.getCid());
 			preparedStatement.setString(2, companyRegisterRequest.getName());
@@ -52,6 +52,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 			passwo.setString(2, companyRegisterRequest.getPassword());
 
 			PreparedStatement allocate = connection.prepareStatement(allo);
+			allocate.setString(1, companyRegisterRequest.getCid());
 			int change = preparedStatement.executeUpdate();
 			int change2 = passwo.executeUpdate();
 			int change3 = allocate.executeUpdate();
