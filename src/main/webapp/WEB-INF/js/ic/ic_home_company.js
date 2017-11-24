@@ -29,16 +29,15 @@ app.controller('ICCompanyController', function($scope, $http, $rootScope, $locat
         return true;
     }
 
-    $scope.sendFeeVerifications = function(){
-         var url = "/ic/advance_fee";
-         params = $rootScope.copyObject({company: $scope.selectedCompanyList});
+    $scope.register_company = function(index){
+         var url = "/Send registeration request";
+         params = $rootScope.copyObject({company: $scope.companyList[index].name});
          $http.post(url, params)
             .success(function(response) {
                 if(response.success){
                     console.log("Done");
-                    $scope.studentList = [];
-                    $scope.selectedStudentList = [];
-                    $scope.getFeeRequests();
+                    $scope.companyList = [];
+                    $scope.getcompanyRequests();
                 }
             })
             .error(function(response) {
