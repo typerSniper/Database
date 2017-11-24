@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -173,14 +175,18 @@ public class CompanyDAOImpl implements CompanyDAO {
 				"from jobs\n" + 
 				"where cid=?";
 		List<Jaf> ret = new ArrayList<>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		try(Connection connection = dataSource.getConnection()) {
-			PreparedStatement preparedStatement = connection.preparedStatement(sql);
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1,companyID);
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
-				
-				ret.add(new Jaf(rs.getString(1), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), companyDeadline, jafDeadline));
+				String compDeadline = rs.getString(8);
+				String jaf_deadline = rs.getString(9);
+				java.util.Date compDate = sdf.parse(compDeadline);
+				java.util.Date jafDate = sdf.parse(jaf_deadline);
+				ret.add(new Jaf(rs.getString(1), rs.getString(3), companyID, rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), compDate, jafDate));
 			}
 			preparedStatement.close();
 		}
@@ -207,13 +213,17 @@ public class CompanyDAOImpl implements CompanyDAO {
 				"from jobs\n" + 
 				"where jid=?";
 		Jaf ret = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try(Connection connection = dataSource.getConnection()) {
-			PreparedStatement preparedStatement = connection.preparedStatement(sql);
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1,jaf);
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
-				
-				ret.add(new Jaf(rs.getString(1), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), companyDeadline, jafDeadline));
+				String compDeadline = rs.getString(8);
+				String jaf_deadline = rs.getString(9);
+				java.util.Date compDate = sdf.parse(compDeadline);
+				java.util.Date jafDate = sdf.parse(jaf_deadline);
+				ret = new Jaf(rs.getString(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), compDate, jafDate);
 			}
 			preparedStatement.close();
 		}
@@ -227,22 +237,17 @@ public class CompanyDAOImpl implements CompanyDAO {
 	public boolean getIfSigned(String studentID, String jid) {
 		String sql = "select count(*)\n" + 
 				"from student_jaf\n" + 
-				"where jid=? and
-						sid=?";
+				"where jid=? and\n" +
+						"sid=?";
 		try(Connection connection = dataSource.getConnection()) {
-			PreparedStatement preparedStatement = connection.preparedStatement(sql);
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1,jid);
 			preparedStatement.setString(2,studentID);
 			ResultSet rs = preparedStatement.executeQuery();
-			int i=0;
 			while(rs.next()) {
-				
-				if(rs.getInt(1) >0)
-				{
+				if(rs.getInt(1) >0) {
 					return true;
-				}
-				else
-				{
+				} else {
 					return false;
 				}
 			}
@@ -251,7 +256,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 		catch (Exception e) {
 			e.printStackTrace();
 		}	
-		
+		return false;
 	}
 
 	@Override
