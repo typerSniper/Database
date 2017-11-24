@@ -8,7 +8,7 @@ app.controller('companyJafController', function($scope, $http, $rootScope, $loca
                   salary:'',
                   location:'',
                   description:'',
-                  eligiblity:[],
+                  eligibilities:[],
                   comp_deadline:''
                 };
     $scope.currlist=["INR","USD","GBP"];
@@ -17,18 +17,18 @@ app.controller('companyJafController', function($scope, $http, $rootScope, $loca
     // $scope.deptid=["CSE","Chemical Engineering","Electrical Engineering","Electrical Engineering Dual","Mechanical Engineering","Mechanical Engineering Dual","Metallurgy"];
     $scope.programid=["Btech1","Btech2","Btech3","Btech4","Mtech1", "Mtech2", "All"];
     $scope.addElig = function(){
-        $scope.input.eligiblity.push($rootScope.copyObject($scope.newElig));
+        $scope.input.eligibilities.push($rootScope.copyObject($scope.newElig));
     };
     $scope.delElig = function(index){
-      $scope.input.eligiblity.splice(index,1);
+      $scope.input.eligibilities.splice(index,1);
     };
 
     $scope.submit = function(){
       $scope.input.comp_deadline = $filter('date')($scope.date, 'yyyy-MM-dd');
       $scope.input.salary = $scope.salnumber + " "+ $scope.curr;
-      if($scope.input.eligiblity.length==0)
+      if($scope.input.eligibilities.length==0)
       {
-        alert("You need to add atleast one eligiblity rule(Select all in the options for no eligiblity requirement)")
+        alert("You need to add atleast one eligibilities rule(Select all in the options for no eligibilities requirement)")
       }
         else{
 
