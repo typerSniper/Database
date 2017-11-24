@@ -106,6 +106,7 @@ public class CompanyController {
     @Data
     @AllArgsConstructor
     public static class CompanyRegisterRequest {
+        String cid;
         String name;
         String contact;
         String email;

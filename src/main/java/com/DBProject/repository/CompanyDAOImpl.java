@@ -35,20 +35,22 @@ public class CompanyDAOImpl implements CompanyDAO {
     public boolean registerCompany(CompanyController.CompanyRegisterRequest companyRegisterRequest, String stage) {
 		//TODO: fix this shit
 
-        String sql = "insert into company values (nextval('company_id_sequence'), ?, ?, ?, ?, ?);";
-        String pass = "insert into password values (select last_value from company_id_sequence, ?);";
+        String sql = "insert into company values (?, ?, ?, ?, ?, ?);";
+        String pass = "insert into password values (?, ?, 'COMPANY');";
         String allo = "insert into ic_company values (select ic.ic_id from ic LEFT OUTER JOIN ic_company on ic.ic_id = ic_company.ic_id group by ic.ic_id order by count(ic_company.cid) limit 1, select last_value from company_id_sequence);";
         try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, companyRegisterRequest.getName());
-			preparedStatement.setString(2, companyRegisterRequest.getContact());
-			preparedStatement.setString(3, companyRegisterRequest.getEmail());
-			preparedStatement.setString(4, companyRegisterRequest.getRepresentative());
-			preparedStatement.setString(5, stage);
+			preparedStatement.setString(1, companyRegisterRequest.getCid());
+			preparedStatement.setString(2, companyRegisterRequest.getName());
+			preparedStatement.setString(3, companyRegisterRequest.getContact());
+			preparedStatement.setString(4, companyRegisterRequest.getEmail());
+			preparedStatement.setString(5, companyRegisterRequest.getRepresentative());
+			preparedStatement.setString(6, stage);
 
 			PreparedStatement passwo = connection.prepareStatement(pass);
-			passwo.setString(1, companyRegisterRequest.getPassword());
-			
+			passwo.setString(1, companyRegisterRequest.getCid());
+			passwo.setString(2, companyRegisterRequest.getPassword());
+
 			PreparedStatement allocate = connection.prepareStatement(allo);
 			int change = preparedStatement.executeUpdate();
 			int change2 = passwo.executeUpdate();
