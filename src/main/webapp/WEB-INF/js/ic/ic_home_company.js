@@ -30,17 +30,18 @@ app.controller('ICCompanyController', function($scope, $http, $rootScope, $locat
     }
 
     $scope.register_company = function(index){
-         var url = "";
-         params = $rootScope.copyObject({company: $scope.companyList[index].name});
+         var url = "/ic/verify_company";
+         params = $rootScope.copyObject({companyID: $scope.companyList[index].cid});
          $http.post(url, params)
             .success(function(response) {
                 if(response.success){
-                    console.log("Done");
                     $scope.companyList = [];
                     $scope.getcompanyRequests();
                 }
             })
             .error(function(response) {
+                alert("An error occured");
+                $scope.getcompanyRequests();
         });
     };
 });

@@ -7,7 +7,6 @@ app.controller('companyRegisterController', function($scope, $http, $rootScope, 
                   password:'',
               };
     $scope.submit = function(){
-      //if password matches TODO
       if($scope.pass == $scope.input.password){
         var url = '/company/register';
         var params = $rootScope.copyObject($scope.input);
