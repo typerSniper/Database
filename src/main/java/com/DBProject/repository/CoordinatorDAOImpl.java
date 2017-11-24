@@ -168,8 +168,18 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 
 	@Override
 	public  boolean setCompanyStage(String companyID, String stage) {
-		//TODO: set this
-		return true;
+	String sql ="update company set stage = ? where cid =? ;";
+	try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, stage);
+				preparedStatement.setString(2, companyID);
+			ResultSet rs = preparedStatement.executeQuery();
+			preparedStatement.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	return true;
 	}
 
 

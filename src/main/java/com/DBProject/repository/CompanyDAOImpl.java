@@ -169,8 +169,22 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
 	public List<Jaf> getCompanyJafs(String companyID) {
-		//TODO: get these and send
-		return null;
+		String sql = "select jid, cid, jname, salary, location, description, stage, company_deadline, jaf_deadline\n" + 
+				"from jobs\n" + 
+				"where cid=?";
+		List<Jaf> ret = new ArrayList<>();
+
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.preparedStatement(sql);
+			preparedStatement.setString(1,companyID);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				
+				ret.add(new Jaf(rs.getString(1), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), companyDeadline, jafDeadline));
+			}
+			preparedStatement.close();
+		}	
+		return ret;
 	}
 
 	@Override
