@@ -10,7 +10,7 @@ app.controller('ICApproveJafController', function($scope, $http, $rootScope, $lo
             .success(function(response){
             console.log(response);
                 $scope.jafList = $rootScope.copyObject(response.jafs);
-               for(int i=0; i<$scope.jafList.length; i++){
+               for(var i=0; i<$scope.jafList.length; i++){
                    $scope.show[i]=false;
                    $scope.content[i]="";
                }
@@ -72,9 +72,10 @@ app.controller('ICApproveJafController', function($scope, $http, $rootScope, $lo
          params = $rootScope.copyObject({jafID: $scope.jafList[index].jid});
          $http.post(url, params)
             .success(function(response) {
+                console.log(response);
                 if(response.success){
                     $scope.show[index] = true;
-                    $scope.content[index] = ;
+                    $scope.content[index] = response.jaf;
                 }
             })
             .error(function(response) {

@@ -3,7 +3,7 @@ app.controller('companyJafController', function($scope, $http, $rootScope, $loca
         $scope.curr="";
         $scope.salnumber="";
       $scope.pass='';
-      $scope.newElig = {cpicutoff:'0', deptid:'', programid:''};
+      $scope.newElig = {cpicutoff:0, deptid:'', programid:''};
      $scope.input={jname:'',
                   salary:'',
                   location:'',

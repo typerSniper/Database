@@ -54,6 +54,8 @@ public class DefaultController {
     public ModelAndView getPage(final HttpServletRequest request, final HttpServletResponse response) {
         String servletPath = request.getServletPath();
         System.out.println(servletPath);
+        if(servletPath.equals("/views/404"))
+            return new ModelAndView("404");
         String folder = servletPath.split("/")[2];
         String page = servletPath.split("/")[3];
         System.out.println(folder+"/"+page);

@@ -131,6 +131,19 @@ public class CoordinatorController {
         return new GetRegisteredJafs(companyDAO.getJafsWithStage(getUsername(), jafStageManager.getCurrentRep(3)));
     }
 
+    @SneakyThrows
+    @ResponseBody
+    @RequestMapping(value = "ic/get_jaf", method = RequestMethod.POST)
+    public GetJafResponse getNonPostedJafs(@RequestBody PostJafRequest postJafRequest) {
+        return new GetJafResponse(companyDAO.getJaf(postJafRequest.getJafID()));
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class GetJafResponse {
+        private Jaf jaf;
+    }
+
     @Data
     @AllArgsConstructor
     public static class PostJafResponse {
