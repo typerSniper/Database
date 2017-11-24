@@ -1,7 +1,7 @@
 app.controller('StudentSignJafController', function($http, $scope, $interval,$location,$rootScope){
     $scope.resume_type = "";
 
-    $scope.signjaf = function(index) {
+    $scope.signjaf = function() {
         
         var f = document.getElementById('res').files;
         if(f.length>0)
@@ -9,8 +9,8 @@ app.controller('StudentSignJafController', function($http, $scope, $interval,$lo
             var r = new FileReader();
             r.onloadend = function(e) {
                 var data = e.target.result;
-                var url = "/student/save_resume";
-                var params = {resume: index, resumeData: data,sop:true};
+                var url = "/To Change";
+                var params = {company:$rootScope.selectedCompany,jid:$rootScope.selectedJaf,resume: index, sopData: data,sop:true};
                 $http.post(url, params)
                     .success(function(response) {
                     if(response.success){
@@ -25,8 +25,8 @@ app.controller('StudentSignJafController', function($http, $scope, $interval,$lo
         }
         else
         {   
-            var url = "/student/save_resume";
-            var params = {resume: index, resumeData: "",sop:false};
+            var url = "/To Change";
+            var params = {company:$rootScope.selectedCompany,jid:$rootScope.selectedJaf,resume: index, sopData: "",sop:false};
             $http.post(url, params)
                     .success(function(response) {
                     if(response.success){
@@ -37,6 +37,22 @@ app.controller('StudentSignJafController', function($http, $scope, $interval,$lo
                     // $scope.errorMessage = "Cannot Connect";
                 });
         }
-    }
+    };
+
+    $scope.unsignjaf = function()
+    {
+        var url = "//To Change";
+            var params = {company:$rootScope.selectedCompany,jid:$rootScope.selectedJaf};
+            $http.post(url, params)
+                    .success(function(response) {
+                    if(response.success){
+                        console.log("Done");
+                    }
+                })
+                .error(function(response) {
+                    // $scope.errorMessage = "Cannot Connect";
+                });
+
+    }  
    
 });

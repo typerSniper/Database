@@ -9,13 +9,16 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl : 'views/student/student_home',
         })
         .when('/student/editdetails', {
-            templateUrl : 'views/student/student_home_editdetails',
+            templateUrl : 'views/student/editdetails',
         })
         .when('/student/viewjaf', {
-            templateUrl : 'views/student/student_home_viewjaf',
+            templateUrl : 'views/student/viewjaf',
         })
         .when('/student/signjaf', {
-            templateUrl : 'views/student/student_home_signjaf',
+            templateUrl : 'views/student/signjaf',
+        })
+        .when('/student/pendingresults', {
+            templateUrl : 'views/student/pendingresults',
         })
         .when('/',{
             templateUrl : '/',

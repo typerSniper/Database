@@ -3,7 +3,7 @@ app.controller('StudentViewJafController', function($http, $scope, $interval,$lo
 
     $scope.getJaf = function(){
         var url = "/To Change/";
-        var params = {jid:$rootScope.selectedJaf};
+        var params = {company:$rootScope.selectedCompany,jid:$rootScope.selectedJaf};
         $http.post(url,params)
             .success(function(response){
                 $scope.jaf = $rootScope.copyObject(response.jaf);

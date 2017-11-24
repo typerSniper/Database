@@ -1,6 +1,6 @@
 <div ng-controller="StudentSignJafController" >
-	<div  align="center" >
-		<table style="width:70%" class="table table-striped">
+	<div ng-if="setSigned == true" align="center" >
+		<table  style="width:70%" class="table table-striped">
 			<tr>
 				<td style="text-align:left;">
 					Select Resume
@@ -24,5 +24,9 @@
 			</tr>
 		</table>
 		<button ng-click="signjaf()" class="btn btn-success">Sign</button>
+	</div>
+	<div ng-if="setSigned == false" align="center" >
+		
+		<button ng-click="unsignjaf()" class="btn btn-success">Sign</button>
 	</div>
 </div>
