@@ -14,6 +14,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.DBProject.domain.Jaf;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -34,21 +35,24 @@ public class CompanyDAOImpl implements CompanyDAO {
     public boolean registerCompany(CompanyController.CompanyRegisterRequest companyRegisterRequest, String stage) {
 		//TODO: fix this shit
 
-        String sql = "insert into company values (nextval('company_id_sequence'), ?, ?, ?, ?, ?);";
-        String pass = "insert into password values (select last_value from company_id_sequence, ?);";
-        String allo = "insert into ic_company values (select ic.ic_id from ic LEFT OUTER JOIN ic_company on ic.ic_id = ic_company.ic_id group by ic.ic_id order by count(ic_company.cid) limit 1, select last_value from company_id_sequence);";
-        try(Connection connection = dataSource.getConnection()) {
+        String sql = "insert into company values (?, ?, ?, ?, ?, ?);";
+        String pass = "insert into password values (?, ?, 'COMPANY');";
+		String allo = "insert into ic_company \n" +
+				"select ic.ic_id, ? from ic LEFT OUTER JOIN ic_company on ic.ic_id = ic_company.ic_id group by ic.ic_id order by count(ic_company.cid) limit 1;";        try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, companyRegisterRequest.getName());
-			preparedStatement.setString(2, companyRegisterRequest.getContact());
-			preparedStatement.setString(3, companyRegisterRequest.getEmail());
-			preparedStatement.setString(4, companyRegisterRequest.getRepresentative());
-			preparedStatement.setString(5, stage);
+			preparedStatement.setString(1, companyRegisterRequest.getCid());
+			preparedStatement.setString(2, companyRegisterRequest.getName());
+			preparedStatement.setString(3, companyRegisterRequest.getContact());
+			preparedStatement.setString(4, companyRegisterRequest.getEmail());
+			preparedStatement.setString(5, companyRegisterRequest.getRepresentative());
+			preparedStatement.setString(6, stage);
 
 			PreparedStatement passwo = connection.prepareStatement(pass);
-			passwo.setString(1, companyRegisterRequest.getPassword());
-			
+			passwo.setString(1, companyRegisterRequest.getCid());
+			passwo.setString(2, companyRegisterRequest.getPassword());
+
 			PreparedStatement allocate = connection.prepareStatement(allo);
+			allocate.setString(1, companyRegisterRequest.getCid());
 			int change = preparedStatement.executeUpdate();
 			int change2 = passwo.executeUpdate();
 			int change3 = allocate.executeUpdate();
@@ -62,6 +66,31 @@ public class CompanyDAOImpl implements CompanyDAO {
 			e.printStackTrace();
 		}
         return false;
+    }
+
+    @SneakyThrows
+    String getDeptIdFromName (String deptName, Connection connection) {
+        String sql = "select did from department where name =?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, deptName.toUpperCase());
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+            return rs.getString(1);
+        }
+        return null;
+    }
+
+
+    @SneakyThrows
+    String getProgIdFromName (String progName, Connection connection) {
+        String sql = "select pid from program where name = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, progName.toUpperCase());
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+            return rs.getString(1);
+        }
+        return null;
     }
 
     @Override
@@ -79,6 +108,32 @@ public class CompanyDAOImpl implements CompanyDAO {
 			preparedStatement.setDate(8, null);
 			int change = preparedStatement.executeUpdate();
 			if(change > 0) {
+				preparedStatement.close();
+				for(CompanyController.Eligiblity t : jobRegisterRequest.getEligiblities()) {
+					PreparedStatement ps  =connection.prepareStatement("insert into eligibility values( jid =  select avg(last_value) from job_id_sequence, cid=?, cpicutoff =?, deptid = ?, programid = ? )");
+					ps.setString(1, companyId);
+					ps.setString(2, t.getCpicutoff());
+					if(t.getDeptid().toLowerCase().equals("all")) {
+						ps.setString(3, "all");
+					}
+					else {
+						String deptId = getDeptIdFromName(t.getDeptid(), connection);
+						if(deptId==null)
+							return false;
+						ps.setString(3, deptId);
+					}
+					if(t.getProgramid().toLowerCase().equals("all")) {
+						ps.setString(4, "all");
+					}
+					else {
+						String progId = getProgIdFromName(t.getProgramid(), connection);
+						if(progId==null)
+							return false;
+						ps.setString(4, progId);
+					}
+					ps.executeUpdate();
+					ps.close();
+				}
 				return true;
 			} else {
 				return false;
@@ -192,7 +247,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
 		return ret;
 	}
 
@@ -204,13 +259,43 @@ public class CompanyDAOImpl implements CompanyDAO {
 
 	@Override
 	public boolean getEligible(String username, String jid) {
-		return true;
+		String sql = "select CPI, pid, did from student where sid = ?";
+		try(Connection conn = dataSource.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			String cpi ="", did =" ", pid="";
+			while(rs.next()) {
+				cpi = rs.getString(1);
+				pid = rs.getString(2);
+				did = rs.getString(3);
+			}
+			ps.close();
+			PreparedStatement ps2 = conn.prepareStatement("Select cpicutoff, deptid, programid from eligibility where jid = ?");
+			ps2.setString(1, jid);
+			ps.setString(1, jid);
+			boolean eligible = false;
+			ResultSet rs2 = ps.executeQuery();
+			while(rs2.next()&&!eligible) {
+				Integer cpiReq = Integer.parseInt(rs.getString(1)) ;
+				String pidReq = rs.getString(3);
+				String didReq = rs.getString(2) ;
+				eligible = (cpiReq==0 || Integer.parseInt(cpi) >cpiReq) &&
+						(pidReq.toLowerCase().equals("any") || pidReq.equals(pid)) &&
+						didReq.toLowerCase().equals("any") || didReq.equals(did);
+			}
+			return eligible;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override  //Kshitij
 	public Jaf getJaf(String jaf) {
-		String sql = "select jid, cid, jname, salary, location, description, stage, company_deadline, jaf_deadline\n" + 
-				"from jobs\n" + 
+		String sql = "select jid, cid, jname, salary, location, description, stage, company_deadline, jaf_deadline\n" +
+				"from jobs\n" +
 				"where jid=?";
 		Jaf ret = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -229,7 +314,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
 		return ret;
 	}
 
@@ -255,7 +340,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
 		return false;
 	}
 
@@ -263,6 +348,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 	public boolean signJaf(String studentID, String jid) {
 		String sql = "Insert into student_jaf values(?,?)";
 		try(Connection connection = dataSource.getConnection()) {
+		    PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1,studentID);
 			preparedStatement.setString(2,jid);
 			int change = preparedStatement.executeUpdate();
@@ -272,6 +358,9 @@ public class CompanyDAOImpl implements CompanyDAO {
 				return false;
 			}
 		}
+		catch (Exception e) {
+		    e.printStackTrace();
+        }
 		return false;
 	}
 
@@ -279,7 +368,8 @@ public class CompanyDAOImpl implements CompanyDAO {
 	public boolean unSignJaf(String studentID, String jid) {
 		String sql = "delete from student_jaf where sid=? and jid=?";
 		try(Connection connection = dataSource.getConnection()) {
-			preparedStatement.setString(1,studentID);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,studentID);
 			preparedStatement.setString(2,jid);
 			int change = preparedStatement.executeUpdate();
 			if(change > 0) {
@@ -288,8 +378,45 @@ public class CompanyDAOImpl implements CompanyDAO {
 				return false;
 			}
 		}
+		catch (Exception e) {
+		    e.printStackTrace();
+        }
 		return false;
-			
+
+	}
+
+	@SneakyThrows
+	Jaf getJaf(ResultSet rs) {
+	    return new Jaf(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)
+        , rs.getString(5), rs.getString(6), rs.getString(7), rs.getDate(8), rs.getDate(9));
+    }
+
+	@Override
+	public List<Jaf> getJafsWithStage(String coordinatorName, String stage) {
+	    try(Connection connection = dataSource.getConnection()) {
+	        String sql = "select * cid from ic_company where ic_id =?";
+	        PreparedStatement ps = connection.prepareStatement(sql);
+	        ps.setString(1, coordinatorName);
+	        ResultSet rs = ps.executeQuery();
+	        List<Jaf> jafs= new ArrayList<>();
+	        while(rs.next()) {
+	            String cid = rs.getString(1);
+                sql = "select * from jobs where cid =? and stage = ?";
+                PreparedStatement ps2 = connection.prepareStatement(sql);
+                ps2.setString(1, cid);
+                ps2.setString(2, stage);
+                ResultSet rs2 = ps.executeQuery();
+                while(rs2.next()) {
+                    jafs.add(getJaf(rs2));
+                }
+            }
+            return jafs;
+        }
+        catch (Exception e) {
+	        e.printStackTrace();
+        }
+
+		return null;
 	}
 
 

@@ -1,12 +1,10 @@
-CREATE SEQUENCE company_id_sequence START 1;
 CREATE SEQUENCE job_id_sequence START 1;
 
 CREATE TABLE department(
-	did			VARCHAR(20),
-	name		VARCHAR(20) not null,
-	PRIMARY KEY (did)
-);
-
+	did VARCHAR(20),
+	name VARCHAR(20) not null,
+	PRIMARY KEY(did)
+	);
 
 CREATE TABLE program(
 	pid			VARCHAR(20),
@@ -113,10 +111,10 @@ CREATE TABLE jobs(
 	salary		VARCHAR(20),
 	location	VARCHAR(30),
 	description  VARCHAR(300),
-	stage		VARCHAR(4),
+	stage		VARCHAR(20),
 	company_deadline 	DATE,
 	jaf_deadline		DATE,
-	PRIMARY KEY (jid, cid),
+	PRIMARY KEY (jid),
 	FOREIGN KEY (cid) REFERENCES company(cid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -127,10 +125,14 @@ CREATE TABLE eligibility(
 	deptid		VARCHAR(20),
 	programid	VARCHAR(20),
 	PRIMARY KEY (jid, cid, deptid, programid),
-	FOREIGN KEY (cid, jid) REFERENCES jobs(cid, jid) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (cid) REFERENCES company(cid) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (jid) REFERENCES jobs(jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE student_jaf (
     sid VARCHAR(20),
     jid VARCHAR(20),
+    PRIMARY KEY (sid, jid),
+    FOREIGN KEY (sid) REFERENCES student(sid)  ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (jid) REFERENCES jobs(jid)  ON DELETE CASCADE ON UPDATE CASCADE
 );
