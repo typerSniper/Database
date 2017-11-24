@@ -194,11 +194,13 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public boolean deleteJaf(String jafID) {
+		System.out.println(jafID);
     	String sql = "delete from jobs where jid = ?;";
     	try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, jafID);
 			int updated = preparedStatement.executeUpdate();
+			System.out.println(updated);
 			if (updated > 0) {
 				return true;
 			} else {
