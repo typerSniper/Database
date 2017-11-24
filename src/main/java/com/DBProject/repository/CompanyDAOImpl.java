@@ -167,7 +167,7 @@ public class CompanyDAOImpl implements CompanyDAO {
         return false;
     }
 
-    @Override
+    @Override //Kshitij
 	public List<Jaf> getCompanyJafs(String companyID) {
 		String sql = "select jid, cid, jname, salary, location, description, stage, company_deadline, jaf_deadline\n" + 
 				"from jobs\n" + 
@@ -183,6 +183,9 @@ public class CompanyDAOImpl implements CompanyDAO {
 				ret.add(new Jaf(rs.getString(1), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), companyDeadline, jafDeadline));
 			}
 			preparedStatement.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}	
 		return ret;
 	}
@@ -198,16 +201,57 @@ public class CompanyDAOImpl implements CompanyDAO {
 		return true;
 	}
 
-	@Override
+	@Override  //Kshitij
 	public Jaf getJaf(String jaf) {
-		//TODO:
-		return null;
+		String sql = "select jid, cid, jname, salary, location, description, stage, company_deadline, jaf_deadline\n" + 
+				"from jobs\n" + 
+				"where jid=?";
+		Jaf ret = null;
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.preparedStatement(sql);
+			preparedStatement.setString(1,jaf);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				
+				ret.add(new Jaf(rs.getString(1), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), companyDeadline, jafDeadline));
+			}
+			preparedStatement.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return ret;
 	}
 
-	@Override
+	@Override  //Kshitij
 	public boolean getIfSigned(String studentID, String jid) {
-		//TODO:
-		return true;
+		String sql = "select count(*)\n" + 
+				"from student_jaf\n" + 
+				"where jid=? and
+						sid=?";
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.preparedStatement(sql);
+			preparedStatement.setString(1,jid);
+			preparedStatement.setString(2,studentID);
+			ResultSet rs = preparedStatement.executeQuery();
+			int i=0;
+			while(rs.next()) {
+				
+				if(rs.getInt(1) >0)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			preparedStatement.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}	
+		
 	}
 
 	@Override
