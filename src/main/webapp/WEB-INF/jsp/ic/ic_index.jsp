@@ -21,6 +21,7 @@
         <script type="text/javascript" src="/js/ic/ic_home_company.js"></script>
         <script type="text/javascript" src="/js/ic/ic_home_approvejaf.js"></script>
         <script type="text/javascript" src="/js/ic/ic_home_pendingjaf.js"></script>
+        <script type="text/javascript" src="/js/ic/viewjaf.js"></script>
 
         <script type="text/javascript" src="/js/directives.js"></script>
 

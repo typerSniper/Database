@@ -23,6 +23,9 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/coordinator/resume_verify',{
             templateUrl : 'views/ic/ic_resume_verify'
         })
+        .when('/coordinator/viewjaf',{
+            templateUrl : 'views/ic/viewjaf'
+        })
         .when('/',{
             templateUrl : '/',
         })

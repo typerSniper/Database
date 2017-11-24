@@ -1,8 +1,5 @@
 app.controller('ICApproveJafController', function($scope, $http, $rootScope, $location) {
     $scope.jafList = [];
-    $scope.selectedJafList = [];
-    $scope.show = [];
-    $scope.content = [];
 
     $scope.getjafRequests = function(){
         var url = "/ic/get_pending_jaf";
@@ -20,63 +17,7 @@ app.controller('ICApproveJafController', function($scope, $http, $rootScope, $lo
     };
 
     $scope.selectJaf = function(jaf){
-        if($scope.isSelected(jaf)){
-            var index = $scope.selectedJafList.indexOf(jaf);
-            $scope.selectedJafList.splice(index, 1);
-        }
-        else{
-            $scope.selectedJafList.push(jaf);
-        }
-    }
-
-    $scope.isSelected = function(jaf){
-        var index = $scope.selectedJafList.indexOf(jaf);
-        if(index == -1){
-            return false;
-        }
-        return true;
-    }
-    //deadline: //TODO
-    $scope.verifyjaf = function(index){
-         var url = "/ic/verify_jaf";
-         params = $rootScope.copyObject({jafID: $scope.jafList[index].jid, advance: true});
-         $http.post(url, params)
-            .success(function(response) {
-                if(response.success){
-                    $scope.jafList = [];
-                    $scope.selectedJafList = [];
-                    $scope.getjafRequests();
-                }
-            })
-            .error(function(response) {
-        });
-    };
-
-    $scope.declinejaf = function(index){
-         var url = "/ic/verify_jaf";
-         params = $rootScope.copyObject({jafID: $scope.jafList[index].jid, advance: false, deadline: null});
-         $http.post(url, params)
-            .success(function(response) {
-                if(response.success){
-                    $scope.jafList = [];
-                    $scope.selectedJafList = [];
-                    $scope.getjafRequests();
-                }
-            })
-            .error(function(response) {
-        });
-    };
-
-    $scope.viewjaf = function(index){
-        var url = "/ic/get_jaf";
-         params = $rootScope.copyObject({jafID: $scope.jafList[index].jid});
-         $http.post(url, params)
-            .success(function(response) {
-                console.log(response);
-                $scope.show[index] = true;
-                $scope.content[index] = response.jaf;
-            })
-            .error(function(response) {
-        });
+        $rootScope.selectedJafID = jaf.jid;
+        $location.path("/coordinator/viewjaf");
     }
 });

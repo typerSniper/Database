@@ -33,7 +33,7 @@
 			</textarea></td>
 		 </tr>
 		</table>
-  		<div>
+  		</div>
 
     <fieldset>
       <legend>Add Eligibility Rule</legend>
