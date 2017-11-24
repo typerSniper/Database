@@ -17,7 +17,7 @@
           </tr>
          <tr>
             <th>Company Deadline</th>
-            <td><{{jafDetails.company_deadline}}</td>
+            <td>{{jafDetails.companyDeadline}}</td>
         </tr></table>
 
         <table class="table table-striped">

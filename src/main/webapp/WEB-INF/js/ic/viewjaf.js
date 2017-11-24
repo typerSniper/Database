@@ -34,6 +34,9 @@ app.controller('ICViewJafController', function($scope, $http, $rootScope, $locat
     };
 
     $scope.viewjaf = function(jid){
+        if(jid == null){
+            $location.path("/coordinator/approvejaf");
+        }
         var url = "/ic/get_jaf";
         $scope.jafID = jid;
          params = $rootScope.copyObject({jafID: jid});
