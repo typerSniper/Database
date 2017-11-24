@@ -7,10 +7,6 @@ app.controller('ICApproveJafController', function($scope, $http, $rootScope, $lo
             .success(function(response){
             console.log(response);
                 $scope.jafList = $rootScope.copyObject(response.jafs);
-               for(var i=0; i<$scope.jafList.length; i++){
-                   $scope.show[i]=false;
-                   $scope.content[i]="";
-               }
             })
             .error(function(response) {
         });

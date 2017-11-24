@@ -6,8 +6,8 @@ app.controller('ICViewJafController', function($scope, $http, $rootScope, $locat
 
     $scope.verifyjaf = function(){
          var url = "/ic/verify_jaf";
-         $scope.deadline_date = $filter('date')($scope.deadline_date, 'yyyy-MM-dd');
-         params = $rootScope.copyObject({jafID: $scope.jafID, advance: true, deadline: $scope.deadline_date + " " + $scope.deadline_time});
+         $scope.date = $filter('date')($scope.deadline_date, 'yyyy-MM-dd');
+         params = $rootScope.copyObject({jafID: $scope.jafID, advance: true, deadline: $scope.date + " " + $scope.deadline_time});
          $http.post(url, params)
             .success(function(response) {
                 if(response.success){

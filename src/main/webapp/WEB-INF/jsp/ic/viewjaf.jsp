@@ -24,7 +24,7 @@
         <tr>
             <th>Description</th>
          </tr>
-         <tr>{{jafDetails.description}}</tr>
+         <tr><th>{{jafDetails.description}}</th></tr>
         </table>
         <hr>
 
