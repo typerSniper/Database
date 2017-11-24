@@ -99,8 +99,6 @@ public class CoordinatorController {
         return new VerifyCompanyResponse(coordinatorDAO.setCompanyStage(verifyCompanyRequest.getCompanyID(), "registered"));
     }
 
-
-
     @SneakyThrows
     @ResponseBody
     @RequestMapping(value = "ic/get_pending_jaf", method =  RequestMethod.GET)

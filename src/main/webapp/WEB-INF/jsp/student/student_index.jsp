@@ -27,7 +27,7 @@
         <script type="text/javascript" src="/js/student/student_home_final.js"></script>
         <script type="text/javascript" src="/js/student/viewjaf.js"></script>
         <script type="text/javascript" src="/js/student/signjaf.js"></script>
-        <script type="text/javascript" src="/js/student/signedjafs.js"></script>
+        <script type="text/javascript" src="/js/student/pendingresults.js"></script>
 
 
 

@@ -1,8 +1,11 @@
 package com.DBProject.Controller.ajax;
 
 import com.DBProject.domain.Coordinator;
+import com.DBProject.domain.Jaf;
 import com.DBProject.domain.Student;
+import com.DBProject.repository.CompanyDAOImpl;
 import com.DBProject.repository.StudentDAOImpl;
+import com.DBProject.service.JAFStageManager;
 import com.DBProject.service.StudentStageManager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.DBProject.Controller.DefaultController.getUsername;
 
@@ -22,7 +28,13 @@ public class StudentController {
     private StudentDAOImpl studentDAO;
 
     @Autowired
-    StudentStageManager stageManager;
+    private StudentStageManager stageManager;
+
+    @Autowired
+    private CompanyDAOImpl companyDAO;
+
+    @Autowired
+    private JAFStageManager jafStageManager;
 
     @SneakyThrows
     @RequestMapping(value = "/student/save_details", method = RequestMethod.POST)
@@ -112,15 +124,55 @@ public class StudentController {
     @SneakyThrows
     @RequestMapping(value = "/student/get_all_jafs", method = RequestMethod.GET)
     @ResponseBody
-    public GetJafsResponse getJafsResponse(@RequestBody GetJafsRequest getJafsRequest) {
-		return null;
+    public GetJafsResponse getJafsResponse() {
+        Date getCurrentDate = new Date();
+        return new GetJafsResponse(companyDAO.getAllJafs().stream()
+                .filter(t->t.getJafDeadline().after(Calendar.getInstance().getTime()))
+                .filter(t-> jafStageManager.getCurrentStage(t.getStage())==3)
+                .map(t->new JafRepresentative(t.getJname(), t.getJafDeadline(),
+                        companyDAO.getEligible(getUsername(), t.getJid()),t.getCid(),
+                        companyDAO.getIfSigned(getUsername(), t.getJid()))).collect(Collectors.toList()));
+    }
 
+    @SneakyThrows
+    @RequestMapping(value ="/student/sign_jaf", method = RequestMethod.POST)
+    @ResponseBody
+    public StageUpdateResponse signJaf(@RequestBody JafRequest request) {
+        return new StageUpdateResponse(-1, companyDAO.signJaf(getUsername(), request.getJafID()));
+    }
+
+    @SneakyThrows
+    @RequestMapping(value ="/student/unsign_jaf", method = RequestMethod.POST)
+    @ResponseBody
+    public StageUpdateResponse unSignJaf(@RequestBody JafRequest request) {
+        return new StageUpdateResponse(-1, companyDAO.unSignJaf(getUsername(), request.getJafID()));
+    }
+
+
+    @SneakyThrows
+    @RequestMapping(value="/student/get_jaf_details", method = RequestMethod.POST)
+    @ResponseBody
+    public JafResponse jafResponse(@RequestBody JafRequest jafRequest) {
+        return new JafResponse(companyDAO.getJaf(jafRequest.getJafID()));
     }
 
     @Data
     @AllArgsConstructor
-    public static class GetJafsResponse {
+    public static class JafResponse {
+        Jaf jaf;
+    }
 
+    @Data
+    @AllArgsConstructor
+    public static class JafRequest {
+        String jafID;
+    }
+
+
+    @Data
+    @AllArgsConstructor
+    public static class GetJafsResponse {
+        List<JafRepresentative> jafRepresentatives;
     }
 
     @Data
@@ -130,6 +182,7 @@ public class StudentController {
         private Date jafDeadline;
         private boolean eligible;
         private String company;
+        private boolean isSigned;
     }
 
     @Data
@@ -160,10 +213,6 @@ public class StudentController {
         private CollegeDetails detail12th;
         private CollegeDetails others;
      }
-
-    public static class GetJafsRequest {
-    	
-    }
 
     @Data
     @AllArgsConstructor

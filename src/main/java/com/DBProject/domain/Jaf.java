@@ -17,6 +17,7 @@ public class Jaf implements Serializable {
 	private static final long serialVersionUID = 1L;
 	String jid;
     String jname;
+    String cid;
     String salary;
     String location;
     String description;

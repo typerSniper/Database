@@ -5,7 +5,8 @@ app.controller('ICCompanyController', function($scope, $http, $rootScope, $locat
         var url = "/ic/get_pending_company";
         $http.get(url)
             .success(function(response){
-                $scope.companyList = $rootScope.copyObject(response.companies);
+                $scope.companyList = $rootScope.copyObject(response.companies).filter(function(t){return t.stage == "unregistered"});
+                console.log($scope.companyList);
             })
             .error(function(response) {
         });

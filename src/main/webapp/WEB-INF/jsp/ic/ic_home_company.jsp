@@ -4,7 +4,7 @@
 
     <div ng-show="companyList.length > 0" style="margin: 50px" class="list-group">
         <table style="width:100%" class="table table-striped" align="center">
-            <tr ng-repeat="jaf in studentList track by $index">
+            <tr ng-repeat="company in companyList track by $index">
                 <td>
                     {{company.name}}
                 </td>

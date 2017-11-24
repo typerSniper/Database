@@ -173,5 +173,41 @@ public class CompanyDAOImpl implements CompanyDAO {
 		return null;
 	}
 
+	@Override
+	public List<Jaf> getAllJafs() {
+		//TODO
+		return null;
+	}
+
+	@Override
+	public boolean getEligible(String username, String jid) {
+		return true;
+	}
+
+	@Override
+	public Jaf getJaf(String jaf) {
+		//TODO:
+		return null;
+	}
+
+	@Override
+	public boolean getIfSigned(String studentID, String jid) {
+		//TODO:
+		return true;
+	}
+
+	@Override
+	public boolean signJaf(String studentID, String jid) {
+		//TODO
+		return true;
+	}
+
+	@Override
+	public boolean unSignJaf(String studentID, String jid) {
+		//TODO
+		return true;
+	}
+
+
 
 }
