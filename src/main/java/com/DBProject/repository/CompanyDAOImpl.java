@@ -1,6 +1,7 @@
 package com.DBProject.repository;
 
 import com.DBProject.Controller.ajax.CompanyController;
+import com.DBProject.Controller.ajax.SelectionController;
 import com.DBProject.domain.Company;
 
 import java.sql.Connection;
@@ -33,8 +34,6 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public boolean registerCompany(CompanyController.CompanyRegisterRequest companyRegisterRequest, String stage) {
-		//TODO: fix this shit
-
         String sql = "insert into company values (?, ?, ?, ?, ?, ?);";
         String pass = "insert into password values (?, ?, 'COMPANY');";
 		String allo = "insert into ic_company \n" +
@@ -262,7 +261,19 @@ public class CompanyDAOImpl implements CompanyDAO {
 
 	@Override
 	public List<Jaf> getAllJafs() {
-		//TODO
+		String sql = "select * from jobs;";
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			List<Jaf> jafs = new ArrayList<>();
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				jafs.add(getJaf(rs));
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 
@@ -431,6 +442,20 @@ public class CompanyDAOImpl implements CompanyDAO {
 		return null;
 	}
 
+	@Override
+	public boolean setJobStages(SelectionController.JobRegisterRequest jobRegisterRequest) {
+		String sql = "insert into jaf_handle values(?, ?, ?);";
+		try(Connection connection = dataSource.getConnection()) {
+			for(SelectionController.JobStages t: jobRegisterRequest.getSelectionProcedure()) {
+				PreparedStatement ps = connection.prepareStatement(sql);
+
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 
 }

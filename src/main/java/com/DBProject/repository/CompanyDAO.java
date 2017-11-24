@@ -1,6 +1,7 @@
 package com.DBProject.repository;
 
 import com.DBProject.Controller.ajax.CompanyController;
+import com.DBProject.Controller.ajax.SelectionController;
 import com.DBProject.domain.Company;
 import com.DBProject.domain.Jaf;
 
@@ -25,4 +26,5 @@ public interface CompanyDAO {
      boolean signJaf(String studentID, String jid);
      boolean unSignJaf(String studentID, String jid);
      List<Jaf> getJafsWithStage(String coordinatorName, String stage);
+     boolean setJobStages(SelectionController.JobRegisterRequest jobRegisterRequest);
 }
