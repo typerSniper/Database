@@ -9,7 +9,7 @@ app.controller('ICApproveJafController', function($scope, $http, $rootScope, $lo
         $http.get(url)
             .success(function(response){
             console.log(response);
-                $scope.jafList = $rootScope.copyObject(response.jaf);
+                $scope.jafList = $rootScope.copyObject(response.jafs);
 //                for(int i=0; i<$scope.jafList.length; i++){
 //                    $scope.show[i]=false;
 //                    $scope.content[i]="";
