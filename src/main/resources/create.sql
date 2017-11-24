@@ -113,7 +113,7 @@ CREATE TABLE jobs(
 	salary		VARCHAR(20),
 	location	VARCHAR(30),
 	description  VARCHAR(300),
-	stage		VARCHAR(4),
+	stage		VARCHAR(20),
 	company_deadline 	DATE,
 	jaf_deadline		DATE,
 	PRIMARY KEY (jid, cid),
