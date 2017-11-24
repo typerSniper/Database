@@ -30,7 +30,7 @@ app.controller('ICCompanyController', function($scope, $http, $rootScope, $locat
     }
 
     $scope.register_company = function(index){
-         var url = "/Send registeration request";
+         var url = "";
          params = $rootScope.copyObject({company: $scope.companyList[index].name});
          $http.post(url, params)
             .success(function(response) {

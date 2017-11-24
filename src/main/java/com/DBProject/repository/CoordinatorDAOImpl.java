@@ -166,4 +166,13 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 		return ret;
 	}
 
+	@Override
+	public  boolean setCompanyStage(String companyID, String stage) {
+		//TODO: set this
+		return true;
+	}
+
+
+
+
 }

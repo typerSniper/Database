@@ -94,6 +94,15 @@ public class CoordinatorController {
 
     @SneakyThrows
     @ResponseBody
+    @RequestMapping(value="ic/verify_company", method = RequestMethod.POST)
+    public VerifyCompanyResponse verifyCompany(@RequestBody VerifyCompanyRequest verifyCompanyRequest) {
+        return new VerifyCompanyResponse(coordinatorDAO.setCompanyStage(verifyCompanyRequest.getCompanyID(), "registered"));
+    }
+
+
+
+    @SneakyThrows
+    @ResponseBody
     @RequestMapping(value = "ic/get_pending_jaf", method =  RequestMethod.GET)
     public GetRegisteredJafs getRegisteredJafs (){
         return new GetRegisteredJafs(coordinatorDAO.getJafsWithStage(getUsername(), jafStageManager.getCurrentRep(1)));
@@ -109,6 +118,18 @@ public class CoordinatorController {
         }
 
         return new ChangeJafResponse(companyDAO.deleteJaf(changeJafRequest.getJafID()));
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class VerifyCompanyResponse {
+        private boolean success;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class VerifyCompanyRequest {
+        private String companyID;
     }
 
     @Data
