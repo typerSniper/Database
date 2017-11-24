@@ -9,9 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -261,8 +258,22 @@ public class StudentDAOImpl  implements StudentDAO  {
 
 	@Override
 	public java.util.Date getResumeDeadline () {
-    	//TODO: get the deadline from table resume_deadline, The table has nothing else
-    	return null;
+		String sql = "select to_char(deadline, 'yyyy-mm-dd hh:mm:ss') as created_date\n" + 
+				"from resume_deadline;";
+		java.util.Date ans = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				String ret = rs.getString(1);
+				ans = sdf.parse(ret);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+    	return ans;
 	}
 
 

@@ -1,7 +1,6 @@
 package com.DBProject.Controller.ajax;
 
 import com.DBProject.domain.Company;
-import com.DBProject.domain.Student;
 import com.DBProject.repository.CompanyDAOImpl;
 import com.DBProject.service.JAFStageManager;
 import lombok.AllArgsConstructor;
@@ -73,7 +72,7 @@ public class CompanyController {
         String location;
         String description;
         List<Eligiblity> eligiblities;
-        String datetime;
+        String comp_deadline;
     }
 
     @Data

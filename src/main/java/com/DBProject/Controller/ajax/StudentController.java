@@ -1,20 +1,17 @@
 package com.DBProject.Controller.ajax;
 
 import com.DBProject.domain.Coordinator;
-import com.DBProject.domain.Jaf;
 import com.DBProject.domain.Student;
 import com.DBProject.repository.StudentDAOImpl;
 import com.DBProject.service.StudentStageManager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.SneakyThrows;
-import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.List;
 
 import static com.DBProject.Controller.DefaultController.getUsername;
 
@@ -116,6 +113,7 @@ public class StudentController {
     @RequestMapping(value = "/student/get_all_jafs", method = RequestMethod.GET)
     @ResponseBody
     public GetJafsResponse getJafsResponse(@RequestBody GetJafsRequest getJafsRequest) {
+		return null;
 
     }
 
@@ -163,6 +161,9 @@ public class StudentController {
         private CollegeDetails others;
      }
 
+    public static class GetJafsRequest {
+    	
+    }
 
     @Data
     @AllArgsConstructor

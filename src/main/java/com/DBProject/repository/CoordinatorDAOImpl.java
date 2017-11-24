@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,14 +32,13 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 
 	@Override
 	public Coordinator getAFreeIc() {
-		//TODO: Is giving null for some reason.
-		// String sql = "select ic.ic_id, count(ic_student.sid) as c\r\n" +
-		// 		"from ic LEFT OUTER JOIN ic_student\r\n" +
-		// 		"on ic.ic_id = ic_student.ic_id\r\n" +
-		// 		"group by ic.ic_id\r\n" +
-		// 		"order by c\r\n" +
-		// 		"limit 1";
-		String sql = "select * from ic where ic_id ='coordinator1';";
+		 String sql = "select ic.ic_id, count(ic_student.sid) as c\r\n" +
+		 		"from ic LEFT OUTER JOIN ic_student\r\n" +
+		 		"on ic.ic_id = ic_student.ic_id\r\n" +
+		 		"group by ic.ic_id\r\n" +
+		 		"order by c\r\n" +
+		 		"limit 1";
+//		String sql = "select * from ic where ic_id ='coordinator1';";
 		try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet rs = preparedStatement.executeQuery();
@@ -118,14 +118,52 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 
 	@Override
 	public List<Company> getAllocatedCompanies(String ic_id) {
-//		TODO: get companies allocated to this ic and return after maaping them
-		return null;
+		String sql = "select company.cid, company.name, company.contact, company.email, company.stage\n" + 
+				"from company\n" + 
+				"where company.cid in (select cid from ic_company where ic_id = ?)";
+		List<Company> ret = new ArrayList<>();
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, ic_id);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				ret.add(new Company(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+			}
+			preparedStatement.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
 
 	@Override
 	public List<Jaf> getJafsWithStage(String ic_id, String stage) {
-		//	TODO: get jafs allocated to this ic and return after maaping them
-		return null;
+		String sql = "select jid, cid, jname, salary, location, description, stage, company_deadline, jaf_deadline\n" + 
+				"from jobs\n" + 
+				"where stage = ? and cid in (select cid from ic_company where ic_id=?)";
+		List<Jaf> ret = new ArrayList<>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString1_companyDeadline;
+		String dateString2_jafDeadline;
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(2, ic_id);
+			preparedStatement.setString(1, stage);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				dateString1_companyDeadline = rs.getString(8);
+				dateString2_jafDeadline = rs.getString(8);
+				java.util.Date companyDeadline = sdf.parse(dateString1_companyDeadline);
+				java.util.Date jafDeadline = sdf.parse(dateString2_jafDeadline);
+				ret.add(new Jaf(rs.getString(1), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), companyDeadline, jafDeadline));
+			}
+			preparedStatement.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
 
 }

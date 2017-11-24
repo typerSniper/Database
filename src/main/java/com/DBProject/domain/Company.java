@@ -14,7 +14,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Company implements Serializable{
-    String cid;
+	private static final long serialVersionUID = 1L;
+	String cid;
     String name;
     String contact;
     String email;

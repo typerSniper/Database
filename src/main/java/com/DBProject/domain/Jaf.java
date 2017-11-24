@@ -3,11 +3,19 @@ package com.DBProject.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * Created by Jatin on 23/11/17.
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Jaf implements Serializable {
-    String jid;
+	private static final long serialVersionUID = 1L;
+	String jid;
     String jname;
     String salary;
     String location;
