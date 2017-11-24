@@ -72,9 +72,10 @@ app.controller('ICApproveJafController', function($scope, $http, $rootScope, $lo
          params = $rootScope.copyObject({jafID: $scope.jafList[index].jid});
          $http.post(url, params)
             .success(function(response) {
+                console.log(response);
                 if(response.success){
                     $scope.show[index] = true;
-                    $scope.content[index] = ;
+                    $scope.content[index] = response.jaf;
                 }
             })
             .error(function(response) {

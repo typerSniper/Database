@@ -85,7 +85,7 @@ public class CompanyController {
         String salary;
         String location;
         String description;
-        List<Eligiblity> eligiblities;
+        List<Eligiblity> eligibilities;
         String comp_deadline;
     }
 

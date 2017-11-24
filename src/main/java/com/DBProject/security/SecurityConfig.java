@@ -44,9 +44,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout().logoutUrl("/logout").deleteCookies("JSESSIONID");
         http.csrf().disable();
 
-        http.authorizeRequests().antMatchers("/student/home", "/student/is_authenticated").access("hasRole('ROLE_STUDENT')");
-        http.authorizeRequests().antMatchers("/coordinator/home","/coordinator/fee", "/coordinator/is_authenticated").access("hasRole('ROLE_COORDINATOR')");
-        http.authorizeRequests().antMatchers("/recruiter/home","/recruiter/newjaf", "/company/is_authenticated", "/recruiter/existingjafs").access("hasRole('ROLE_COMPANY')");
+        http.authorizeRequests().antMatchers("/student/home", "/student/is_authenticated",
+                "/student/editdetails", "/student/viewjaf", "/student/signjaf", "/student/pendingresults")
+                .access("hasRole('ROLE_STUDENT')");
+        http.authorizeRequests().antMatchers("/coordinator/home","/coordinator/fee",
+                "/coordinator/is_authenticated", "/coordinator/approvejaf",
+                "/coordinator/pendingjaf", "/coordinator/company", "/coordinator/resume_verify")
+                .access("hasRole('ROLE_COORDINATOR')");
+        http.authorizeRequests().antMatchers("/recruiter/home","/recruiter/newjaf", "/company/is_authenticated", "/recruiter/existingjafs",
+                "/recruiter/interview")
+                .access("hasRole('ROLE_COMPANY')");
 
     }
 

@@ -11,3 +11,5 @@ drop table if exists "password" cascade;
 drop table if exists "ic" cascade;
 drop table if exists "resume_deadline" cascade;
 drop table if exists "ic_company" cascade;
+drop table if exists "student_jaf" cascade;
+drop sequence if exists "job_id_sequence" ;

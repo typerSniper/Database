@@ -72,11 +72,12 @@ public class CompanyDAOImpl implements CompanyDAO {
     String getDeptIdFromName (String deptName, Connection connection) {
         String sql = "select did from department where name =?";
         PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, deptName.toUpperCase());
+        ps.setString(1, deptName);
         ResultSet rs = ps.executeQuery();
-        while (rs.next()){
-            return rs.getString(1);
-        }
+        ps.close();
+        while (rs.next()) {
+			return rs.getString(1);
+		}
         return null;
     }
 
@@ -85,8 +86,9 @@ public class CompanyDAOImpl implements CompanyDAO {
     String getProgIdFromName (String progName, Connection connection) {
         String sql = "select pid from program where name = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, progName.toUpperCase());
+        ps.setString(1, progName);
         ResultSet rs = ps.executeQuery();
+        ps.close();
         while (rs.next()){
             return rs.getString(1);
         }
@@ -111,8 +113,8 @@ public class CompanyDAOImpl implements CompanyDAO {
 			if(change > 0) {
 				preparedStatement.close();
 				System.out.println(jobRegisterRequest);
-				for(CompanyController.Eligiblity t : jobRegisterRequest.getEligiblities()) {
-					PreparedStatement ps  =connection.prepareStatement("insert into eligibility values( jid =  select avg(last_value) from job_id_sequence, cid=?, cpicutoff =?, deptid = ?, programid = ? )");
+				for(CompanyController.Eligiblity t : jobRegisterRequest.getEligibilities()) {
+					PreparedStatement ps  =connection.prepareStatement("insert into eligibility select last_value, ?, ?, ?, ? from job_id_sequence;");
 					ps.setString(1, companyId);
 					ps.setString(2, t.getCpicutoff());
 					if(t.getDeptid().toLowerCase().equals("all")) {
@@ -120,6 +122,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 					}
 					else {
 						String deptId = getDeptIdFromName(t.getDeptid(), connection);
+						System.out.println("d" + deptId);
 						if(deptId==null)
 							return false;
 						ps.setString(3, deptId);
@@ -129,11 +132,13 @@ public class CompanyDAOImpl implements CompanyDAO {
 					}
 					else {
 						String progId = getProgIdFromName(t.getProgramid(), connection);
+						System.out.println(progId);
 						if(progId==null)
 							return false;
 						ps.setString(4, progId);
 					}
-					ps.executeUpdate();
+					int k = ps.executeUpdate();
+					System.out.println(k);
 					ps.close();
 				}
 				return true;
@@ -300,7 +305,8 @@ public class CompanyDAOImpl implements CompanyDAO {
 				"from jobs\n" +
 				"where jid=?";
 		Jaf ret = null;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1,jaf);
@@ -308,8 +314,10 @@ public class CompanyDAOImpl implements CompanyDAO {
 			while(rs.next()) {
 				String compDeadline = rs.getString(8);
 				String jaf_deadline = rs.getString(9);
-				java.util.Date compDate = sdf.parse(compDeadline);
-				java.util.Date jafDate = sdf.parse(jaf_deadline);
+				java.util.Date compDate = sdf1.parse(compDeadline);
+				java.util.Date jafDate = null;
+				if(jaf_deadline!=null)
+					jafDate = sdf2.parse(jaf_deadline);
 				ret = new Jaf(rs.getString(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), compDate, jafDate);
 			}
 			preparedStatement.close();
