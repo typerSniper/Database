@@ -3,7 +3,7 @@ app.controller('companyJafController', function($scope, $http, $rootScope, $loca
         $scope.curr="";
         $scope.salnumber="";
       $scope.pass='';
-      $scope.newElig = {cpicutoff:'', deptid:'', programid:''};
+      $scope.newElig = {cpicutoff:'0', deptid:'', programid:''};
      $scope.input={jname:'',
                   salary:'',
                   location:'',
@@ -12,10 +12,10 @@ app.controller('companyJafController', function($scope, $http, $rootScope, $loca
                   comp_deadline:''
                 };
     $scope.currlist=["INR","USD","GBP"];
-    $scope.deptid=["CS","Chemical","Elec", "Mech", "Meta"];
+    $scope.deptid=["CS","Chemical","Elec", "Mech", "Meta", "All"];
 
     // $scope.deptid=["CSE","Chemical Engineering","Electrical Engineering","Electrical Engineering Dual","Mechanical Engineering","Mechanical Engineering Dual","Metallurgy"];
-    $scope.programid=["Btech1","Btech2","Btech3","Btech4","Mtech1", "Mtech2"];
+    $scope.programid=["Btech1","Btech2","Btech3","Btech4","Mtech1", "Mtech2", "All"];
     $scope.addElig = function(){
         $scope.input.eligiblity.push($rootScope.copyObject($scope.newElig));
     };
