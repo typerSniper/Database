@@ -12,7 +12,6 @@
                 </td>
                 <td>
                     <button ng-if="stage==" class="btn btn-success" ng-click="student_interview([$index])">Publish</button>
-                    <button ng-if="stage==" class="btn btn-success" ng-click="final_selections([$index])">Publish</button>
                 </td>
             </tr>
         </table>               
