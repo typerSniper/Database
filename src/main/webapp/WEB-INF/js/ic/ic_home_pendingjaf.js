@@ -3,7 +3,7 @@ app.controller('ICPendingJafController', function($scope, $http, $rootScope, $lo
     $scope.selectedJafList = [];
 
     $scope.getjafRequests = function(){
-        var url = "/To be published";
+        var url = "/ic/non_posted_jobs";
         $http.get(url)
             .success(function(response){
                 $scope.jafList = $rootScope.copyObject(response.jaf);
@@ -32,8 +32,8 @@ app.controller('ICPendingJafController', function($scope, $http, $rootScope, $lo
     }
     //deadline: //TODO
     $scope.publishjaf = function(index){
-         var url = "/Publsih jaf";
-         params = $rootScope.copyObject({jaf: $scope.jafList[index]});
+         var url = "/ic/post_jaf";
+         params = $rootScope.copyObject({jafID: index});
          $http.post(url, params)
             .success(function(response) {
                 if(response.success){
