@@ -334,8 +334,6 @@ public class CompanyDAOImpl implements CompanyDAO {
 			e.printStackTrace();
 		}
 		return false;
-		}
-		return false;
 	}
 
 	@Override //Kshitij
@@ -352,6 +350,9 @@ public class CompanyDAOImpl implements CompanyDAO {
 				return false;
 			}
 		}
+		catch (Exception e) {
+		    e.printStackTrace();
+        }
 		return false;
 	}
 
@@ -359,7 +360,8 @@ public class CompanyDAOImpl implements CompanyDAO {
 	public boolean unSignJaf(String studentID, String jid) {
 		String sql = "delete from student_jaf where sid=? and jid=?";
 		try(Connection connection = dataSource.getConnection()) {
-			preparedStatement.setString(1,studentID);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,studentID);
 			preparedStatement.setString(2,jid);
 			int change = preparedStatement.executeUpdate();
 			if(change > 0) {
@@ -368,6 +370,9 @@ public class CompanyDAOImpl implements CompanyDAO {
 				return false;
 			}
 		}
+		catch (Exception e) {
+		    e.printStackTrace();
+        }
 		return false;
 
 	}
