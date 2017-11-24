@@ -27,4 +27,3 @@
 </div>
 
 
-<button type="button" class="list-group-item" ng-repeat="company in companyList track by company.username" ng-click="selectCompany(company)" ng-class="{'active': isSelected(company)}">{{company.username}}</button>
