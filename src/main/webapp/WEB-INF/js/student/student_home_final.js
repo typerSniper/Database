@@ -16,14 +16,14 @@ app.controller('StudentFinalController', function($http, $scope, $interval,$loca
     	$rootScope.setSigned = jaf.status;
     	$rootScope.selectedCompany=jaf.company;
     	$rootScope.selectedJaf = jaf.jid;
-    	$location.path("student/viewjaf");
+    	$location.path("/student/viewjaf");
 
     };
     $scope.signJaf = function(jid){
     	$rootScope.setSigned = jaf.status;
     	$rootScope.selectedCompany=jaf.company;
 		$rootScope.selectedJaf = jid;
-    	$location.path("student/signjaf");
+    	$location.path("/student/signjaf");
 
     };
 });

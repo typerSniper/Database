@@ -17,6 +17,9 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/recruiter/existingjafs',{
             templateUrl : 'views/company/existing_jafs',
         })
+        .when('/recruiter/interview',{
+            templateUrl : 'views/company/interview',
+        })
         .when('/',{
             templateUrl : '/',
         })
