@@ -2,10 +2,10 @@ app.controller('ICCompanyController', function($scope, $http, $rootScope, $locat
     $scope.companyList = [];
     $scope.selectedCompanyList = [];
     $scope.getcompanyRequests = function(){
-        var url = "/To Change/";
+        var url = "/ic/get_pending_company";
         $http.get(url)
             .success(function(response){
-                $scope.companyList = $rootScope.copyObject(response.company);
+                $scope.companyList = $rootScope.copyObject(response.companies);
             })
             .error(function(response) {
         });

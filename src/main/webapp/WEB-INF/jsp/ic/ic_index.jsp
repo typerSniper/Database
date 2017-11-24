@@ -18,6 +18,10 @@
         <script type="text/javascript" src="/js/ic/ic_home.js"></script>
         <script type="text/javascript" src="/js/ic/ic_home_fee.js"></script>
         <script type="text/javascript" src="/js/ic/ic_resume_verify.js"></script>
+                <script type="text/javascript" src="/js/ic/ic_home_company.js"></script>
+                        <script type="text/javascript" src="/js/ic/ic_home_jaf.js"></script>
+
+
         <script type="text/javascript" src="/js/directives.js"></script>
 
         <base href = "/">

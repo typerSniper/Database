@@ -1,6 +1,7 @@
 package com.DBProject.Controller.ajax;
 
 import com.DBProject.domain.Company;
+import com.DBProject.domain.Jaf;
 import com.DBProject.repository.CompanyDAOImpl;
 import com.DBProject.service.JAFStageManager;
 import lombok.AllArgsConstructor;
@@ -58,10 +59,23 @@ public class CompanyController {
         return new JobRegisterResponse(companyDAO.registerJob(companyId, jafStageManager.getCurrentRep(1), jobRegisterRequest));
     }
 
+    @SneakyThrows
+    @RequestMapping(value="/company/get_jobs", method= RequestMethod.GET)
+    @ResponseBody
+    public CompanyJafResponse getCompanyJafs() {
+        return new CompanyJafResponse(companyDAO.getCompanyJafs(getUsername()));
+    }
+
     @Data
     @AllArgsConstructor
     public static class JobRegisterResponse {
         boolean success;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class CompanyJafResponse {
+        List<Jaf> jafs;
     }
 
     @Data

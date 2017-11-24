@@ -8,11 +8,12 @@ app.controller('ICJafController', function($scope, $http, $rootScope, $location)
         var url = "/ic/get_pending_jaf";
         $http.get(url)
             .success(function(response){
+            console.log(response);
                 $scope.jafList = $rootScope.copyObject(response.jaf);
-                for(int i=0; i<$scope.jafList.length; i++){
-                    $scope.show[i]=false;
-                    $scope.content[i]="";
-                }
+//                for(int i=0; i<$scope.jafList.length; i++){
+//                    $scope.show[i]=false;
+//                    $scope.content[i]="";
+//                }
             })
             .error(function(response) {
         });

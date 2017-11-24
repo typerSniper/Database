@@ -67,7 +67,6 @@ public class CoordinatorController {
 
     }
 
-
     @SneakyThrows
     @RequestMapping(value = "/ic/get_student_resume", method = RequestMethod.GET)
     @ResponseBody
@@ -124,8 +123,6 @@ public class CoordinatorController {
         String jafID;
         String deadline;
     }
-
-
 
     @Data
     @AllArgsConstructor

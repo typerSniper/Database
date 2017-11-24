@@ -46,6 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/student/home", "/student/is_authenticated").access("hasRole('ROLE_STUDENT')");
         http.authorizeRequests().antMatchers("/coordinator/home","/coordinator/fee", "/coordinator/is_authenticated").access("hasRole('ROLE_COORDINATOR')");
+        http.authorizeRequests().antMatchers("/recruiter/home","/recruiter/newjaf", "/company/is_authenticated", "/recruiter/existingjafs").access("hasRole('ROLE_COMPANY')");
+
     }
 
     @Autowired
