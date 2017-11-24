@@ -13,6 +13,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.DBProject.domain.Jaf;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -63,6 +64,31 @@ public class CompanyDAOImpl implements CompanyDAO {
         return false;
     }
 
+    @SneakyThrows
+    String getDeptIdFromName (String deptName, Connection connection) {
+		String sql = "select did from department where name =?";
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ps.setString(1, deptName.toUpperCase());
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()){
+			return rs.getString(1);
+		}
+		return null;
+	}
+
+
+	@SneakyThrows
+	String getProgIdFromName (String progName, Connection connection) {
+		String sql = "select pid from program where name = ?";
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ps.setString(1, progName.toUpperCase());
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()){
+			return rs.getString(1);
+		}
+		return null;
+	}
+
     @Override
     public boolean registerJob (String companyId, String stage, CompanyController.JobRegisterRequest jobRegisterRequest) {
     	String sql = "insert into jobs values (nextval('job_id_sequence'), ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -78,6 +104,32 @@ public class CompanyDAOImpl implements CompanyDAO {
 			preparedStatement.setDate(8, null);
 			int change = preparedStatement.executeUpdate();
 			if(change > 0) {
+				preparedStatement.close();
+				for(CompanyController.Eligiblity t : jobRegisterRequest.getEligiblities()) {
+					PreparedStatement ps  =connection.prepareStatement("insert into eligibility values( jid =  select avg(last_value) from job_id_sequence, cid=?, cpicutoff =?, deptid = ?, programid = ? )");
+					ps.setString(1, companyId);
+					ps.setString(2, t.getCpicutoff());
+					if(t.getDeptid().toLowerCase().equals("all")) {
+						ps.setString(3, "all");
+					}
+					else {
+						String deptId = getDeptIdFromName(t.getDeptid(), connection);
+						if(deptId==null)
+							return false;
+						ps.setString(3, deptId);
+					}
+					if(t.getProgramid().toLowerCase().equals("all")) {
+						ps.setString(4, "all");
+					}
+					else {
+						String progId = getProgIdFromName(t.getProgramid(), connection);
+						if(progId==null)
+							return false;
+						ps.setString(4, progId);
+					}
+					ps.executeUpdate();
+					ps.close();
+				}
 				return true;
 			} else {
 				return false;
