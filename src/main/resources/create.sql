@@ -129,3 +129,8 @@ CREATE TABLE eligibility(
 	PRIMARY KEY (jid, cid, deptid, programid),
 	FOREIGN KEY (cid, jid) REFERENCES jobs(cid, jid) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE student_jaf (
+    sid VARCHAR(20),
+    jid VARCHAR(20),
+);

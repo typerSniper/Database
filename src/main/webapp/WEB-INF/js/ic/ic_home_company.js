@@ -2,10 +2,11 @@ app.controller('ICCompanyController', function($scope, $http, $rootScope, $locat
     $scope.companyList = [];
     $scope.selectedCompanyList = [];
     $scope.getcompanyRequests = function(){
-        var url = "/To Change/";
+        var url = "/ic/get_pending_company";
         $http.get(url)
             .success(function(response){
-                $scope.companyList = $rootScope.copyObject(response.company);
+                $scope.companyList = $rootScope.copyObject(response.companies).filter(function(t){return t.stage == "unregistered"});
+                console.log($scope.companyList);
             })
             .error(function(response) {
         });
@@ -30,17 +31,18 @@ app.controller('ICCompanyController', function($scope, $http, $rootScope, $locat
     }
 
     $scope.register_company = function(index){
-         var url = "/Send registeration request";
-         params = $rootScope.copyObject({company: $scope.companyList[index].name});
+         var url = "/ic/verify_company";
+         params = $rootScope.copyObject({companyID: $scope.companyList[index].cid});
          $http.post(url, params)
             .success(function(response) {
                 if(response.success){
-                    console.log("Done");
                     $scope.companyList = [];
                     $scope.getcompanyRequests();
                 }
             })
             .error(function(response) {
+                alert("An error occured");
+                $scope.getcompanyRequests();
         });
     };
 });

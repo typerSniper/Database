@@ -4,11 +4,14 @@ import com.DBProject.Controller.ajax.CompanyController;
 import com.DBProject.domain.Company;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.DBProject.domain.Jaf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +30,8 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public boolean registerCompany(CompanyController.CompanyRegisterRequest companyRegisterRequest, String stage) {
+		//TODO: fix this shit
+
         String sql = "insert into company values (nextval('company_id_sequence'), ?, ?, ?, ?, ?);";
         String pass = "insert into password values (select last_value from company_id_sequence, ?);";
         String allo = "insert into ic_company values (select ic.ic_id from ic LEFT OUTER JOIN ic_company on ic.ic_id = ic_company.ic_id group by ic.ic_id order by count(ic_company.cid) limit 1, select last_value from company_id_sequence);";
@@ -42,7 +47,6 @@ public class CompanyDAOImpl implements CompanyDAO {
 			passwo.setString(1, companyRegisterRequest.getPassword());
 			
 			PreparedStatement allocate = connection.prepareStatement(allo);
-
 			int change = preparedStatement.executeUpdate();
 			int change2 = passwo.executeUpdate();
 			int change3 = allocate.executeUpdate();
@@ -69,8 +73,8 @@ public class CompanyDAOImpl implements CompanyDAO {
 			preparedStatement.setString(4, jobRegisterRequest.getLocation());
 			preparedStatement.setString(5, jobRegisterRequest.getDescription());
 			preparedStatement.setString(6, stage);
-			preparedStatement.setString(7, jobRegisterRequest.getComp_deadline());
-			preparedStatement.setString(8, null);
+			preparedStatement.setDate(7, Date.valueOf(jobRegisterRequest.getComp_deadline()));
+			preparedStatement.setDate(8, null);
 			int change = preparedStatement.executeUpdate();
 			if(change > 0) {
 				return true;
@@ -162,5 +166,48 @@ public class CompanyDAOImpl implements CompanyDAO {
 		}
         return false;
     }
+
+    @Override
+	public List<Jaf> getCompanyJafs(String companyID) {
+		//TODO: get these and send
+		return null;
+	}
+
+	@Override
+	public List<Jaf> getAllJafs() {
+		//TODO
+		return null;
+	}
+
+	@Override
+	public boolean getEligible(String username, String jid) {
+		return true;
+	}
+
+	@Override
+	public Jaf getJaf(String jaf) {
+		//TODO:
+		return null;
+	}
+
+	@Override
+	public boolean getIfSigned(String studentID, String jid) {
+		//TODO:
+		return true;
+	}
+
+	@Override
+	public boolean signJaf(String studentID, String jid) {
+		//TODO
+		return true;
+	}
+
+	@Override
+	public boolean unSignJaf(String studentID, String jid) {
+		//TODO
+		return true;
+	}
+
+
 
 }

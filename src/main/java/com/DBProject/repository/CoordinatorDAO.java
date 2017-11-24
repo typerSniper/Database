@@ -12,4 +12,6 @@ public interface CoordinatorDAO {
 	 boolean advanceHerStudents(String ic_id, String stage, List<Student> students);
 	 List<CoordinatorController.ResumeStudents> getResumeStudents(String ic_id);
 	 List<Company> getAllocatedCompanies(String ic_id);
+	boolean setCompanyStage(String companyID, String stage);
+
 }

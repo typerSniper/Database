@@ -57,13 +57,14 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
 
     public boolean isValid(final HttpServletRequest request) {
         String type = request.getParameter("type");
+        System.out.println(type);
         Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         switch (type) {
             case "student":
                 return authorities.contains(new SimpleGrantedAuthority("ROLE_STUDENT"));
             case "coordinator" :
                 return authorities.contains(new SimpleGrantedAuthority("ROLE_COORDINATOR"));
-            case "company" :
+            case "recruiter" :
                 return authorities.contains(new SimpleGrantedAuthority("ROLE_COMPANY"));
             default:
                 return false;

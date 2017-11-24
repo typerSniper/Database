@@ -53,6 +53,7 @@ public class DefaultController {
     @RequestMapping(value="views/**", method = {RequestMethod.GET})
     public ModelAndView getPage(final HttpServletRequest request, final HttpServletResponse response) {
         String servletPath = request.getServletPath();
+        System.out.println(servletPath);
         String folder = servletPath.split("/")[2];
         String page = servletPath.split("/")[3];
         System.out.println(folder+"/"+page);

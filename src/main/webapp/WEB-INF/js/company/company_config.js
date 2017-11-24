@@ -51,23 +51,54 @@ app.run( function($rootScope, $location, $http, $route, $window) {
         return false;
     }
 
-    // $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-    //     if(next.templateUrl == "/"){
-    //         $window.location.reload();
-    //     }
-    //     if(next.templateUrl == "views/ic_login") {
-    //         $rootScope.loggedIn = false;
-    //         $http.get("/coordinator/is_authenticated").success(function(response) {
-    //             if(response.authenticated) {
-    //                 $rootScope.loggedIn = true;
-    //                 $location.path("/coordinator/home");
-    //             }
-    //         });
-    //     }
-    //     else{
-    //         $rootScope.loggedIn = true;
-    //     }
-    // });
+     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+         if(next.templateUrl == "/"){
+             $window.location.reload();
+         }
+         else{
+            if(next.templateUrl !="views/company/company_login" && next.templateUrl !="views/company/company_home"){
+                $http.get("/company/stage").success(function(response) {
+                               if(response.authenticated) {
+                //                   $rootScope.loggedIn = true;
+                                    if(response.stage != 1){
+                                        $location.path("/recruiter/home");
+                                        alert("Company not registered yet");
+                                    }
+
+                               }
+                               else{
+                                   $location.path("/recruiter/login");
+                                   alert("Company not registered yet");
+                               }
+                            });
+            }
+            if(next.templateUrl =="views/company/company_home"){
+            $http.get("/company/stage").success(function(response) {
+                                           if(response.authenticated) {
+                            //                   $rootScope.loggedIn = true;
+                                                $rootScope.stage = response.stage;
+
+                                           }
+                                           else{
+                                               $location.path("/recruiter/login");
+                                               alert("Company not registered yet");
+                                           }
+                                        });
+            }
+         }
+//         if(next.templateUrl == "views/ic_login") {
+//             $rootScope.loggedIn = false;
+//             $http.get("/coordinator/is_authenticated").success(function(response) {
+//                 if(response.authenticated) {
+//                     $rootScope.loggedIn = true;
+//                     $location.path("/coordinator/home");
+//                 }
+//             });
+//         }
+//         else{
+//             $rootScope.loggedIn = true;
+//         }
+     });
 });
 
 
