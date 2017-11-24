@@ -34,6 +34,7 @@ app.controller('companyJafController', function($scope, $http, $rootScope, $loca
 
         var url = '/company/create_job';
         var params = $rootScope.copyObject($scope.input);
+        console.log(params);
         $http.post(url, params)
             .success(function(response) {
                 if(response.success){

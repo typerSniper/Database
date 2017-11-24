@@ -156,7 +156,7 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 				dateString2_jafDeadline = rs.getString(8);
 				java.util.Date companyDeadline = sdf.parse(dateString1_companyDeadline);
 				java.util.Date jafDeadline = sdf.parse(dateString2_jafDeadline);
-				ret.add(new Jaf(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), companyDeadline, jafDeadline));
+				ret.add(new Jaf(rs.getString(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), companyDeadline, jafDeadline));
 			}
 			preparedStatement.close();
 		}
@@ -168,18 +168,23 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 
 	@Override  //Kshitij
 	public  boolean setCompanyStage(String companyID, String stage) {
-	String sql ="update company set stage = ? where cid =? ;";
-	try(Connection connection = dataSource.getConnection()) {
+		String sql ="update company set stage = ? where cid =? ;";
+		try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 				preparedStatement.setString(1, stage);
 				preparedStatement.setString(2, companyID);
-			ResultSet rs = preparedStatement.executeQuery();
+			int change = preparedStatement.executeUpdate();
 			preparedStatement.close();
+			if (change > 0) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-	return true;
+		return false;
 	}
 
 

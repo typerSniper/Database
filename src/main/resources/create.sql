@@ -111,9 +111,9 @@ CREATE TABLE jobs(
 	salary		VARCHAR(20),
 	location	VARCHAR(30),
 	description  VARCHAR(300),
-	stage		VARCHAR(20),
 	company_deadline 	DATE,
 	jaf_deadline		DATE,
+	stage		VARCHAR(20),
 	PRIMARY KEY (jid),
 	FOREIGN KEY (cid) REFERENCES company(cid) ON DELETE CASCADE ON UPDATE CASCADE
 );
