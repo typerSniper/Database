@@ -59,7 +59,7 @@ app.run( function($rootScope, $location, $http, $route, $window) {
              $window.location.reload();
          }
          else{
-            if(next.templateUrl !="views/company/company_login" && next.templateUrl !="views/company/company_home"){
+            if(next.templateUrl !="views/company/company_login" && next.templateUrl !="views/company/company_home" && next.templateUrl !="views/company/company_register"){
                 $http.get("/company/stage").success(function(response) {
                                if(response.authenticated) {
                                     if(response.stage != 1){
