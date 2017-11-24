@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 
 import com.DBProject.domain.Jaf;
 import lombok.SneakyThrows;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -66,28 +67,28 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @SneakyThrows
     String getDeptIdFromName (String deptName, Connection connection) {
-		String sql = "select did from department where name =?";
-		PreparedStatement ps = connection.prepareStatement(sql);
-		ps.setString(1, deptName.toUpperCase());
-		ResultSet rs = ps.executeQuery();
-		while (rs.next()){
-			return rs.getString(1);
-		}
-		return null;
-	}
+        String sql = "select did from department where name =?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, deptName.toUpperCase());
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+            return rs.getString(1);
+        }
+        return null;
+    }
 
 
-	@SneakyThrows
-	String getProgIdFromName (String progName, Connection connection) {
-		String sql = "select pid from program where name = ?";
-		PreparedStatement ps = connection.prepareStatement(sql);
-		ps.setString(1, progName.toUpperCase());
-		ResultSet rs = ps.executeQuery();
-		while (rs.next()){
-			return rs.getString(1);
-		}
-		return null;
-	}
+    @SneakyThrows
+    String getProgIdFromName (String progName, Connection connection) {
+        String sql = "select pid from program where name = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, progName.toUpperCase());
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+            return rs.getString(1);
+        }
+        return null;
+    }
 
     @Override
     public boolean registerJob (String companyId, String stage, CompanyController.JobRegisterRequest jobRegisterRequest) {
@@ -220,7 +221,7 @@ public class CompanyDAOImpl implements CompanyDAO {
         return false;
     }
 
-    @Override
+    @Override //Kshitij
 	public List<Jaf> getCompanyJafs(String companyID) {
 		String sql = "select jid, cid, jname, salary, location, description, stage, company_deadline, jaf_deadline\n" + 
 				"from jobs\n" + 
@@ -283,16 +284,57 @@ public class CompanyDAOImpl implements CompanyDAO {
 		return false;
 	}
 
-	@Override
+	@Override  //Kshitij
 	public Jaf getJaf(String jaf) {
-		//TODO:
-		return null;
+		String sql = "select jid, cid, jname, salary, location, description, stage, company_deadline, jaf_deadline\n" +
+				"from jobs\n" +
+				"where jid=?";
+		Jaf ret = null;
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.preparedStatement(sql);
+			preparedStatement.setString(1,jaf);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+
+				ret.add(new Jaf(rs.getString(1), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), companyDeadline, jafDeadline));
+			}
+			preparedStatement.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
 
-	@Override
+	@Override  //Kshitij
 	public boolean getIfSigned(String studentID, String jid) {
-		//TODO:
-		return true;
+		String sql = "select count(*)\n" +
+				"from student_jaf\n" +
+				"where jid=? and
+						sid=?";
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.preparedStatement(sql);
+			preparedStatement.setString(1,jid);
+			preparedStatement.setString(2,studentID);
+			ResultSet rs = preparedStatement.executeQuery();
+			int i=0;
+			while(rs.next()) {
+
+				if(rs.getInt(1) >0)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			preparedStatement.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
