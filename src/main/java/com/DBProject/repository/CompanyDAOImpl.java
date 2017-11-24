@@ -208,6 +208,12 @@ public class CompanyDAOImpl implements CompanyDAO {
 		return true;
 	}
 
+	@Override
+	public List<Jaf> getJafsWithStage(String coordinatorName, String stage) {
+		//TODO:
+		return null;
+	}
+
 
 
 }

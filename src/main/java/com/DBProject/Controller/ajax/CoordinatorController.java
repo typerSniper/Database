@@ -118,6 +118,31 @@ public class CoordinatorController {
         return new ChangeJafResponse(companyDAO.deleteJaf(changeJafRequest.getJafID()));
     }
 
+    @SneakyThrows
+    @ResponseBody
+    @RequestMapping(value = "ic/post_jaf", method = RequestMethod.POST)
+    public PostJafResponse postJaf(@RequestBody PostJafRequest postJafRequest) {
+        return new PostJafResponse(companyDAO.setJafStage(postJafRequest.getJafID(), jafStageManager.getCurrentRep(3)));
+    }
+
+    @SneakyThrows
+    @ResponseBody
+    @RequestMapping(value = "ic/non_posted_jafs", method = RequestMethod.GET)
+    public GetRegisteredJafs getNonPostedJafs() {
+        return new GetRegisteredJafs(companyDAO.getJafsWithStage(getUsername(), jafStageManager.getCurrentRep(3)));
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class PostJafResponse {
+        boolean success;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class PostJafRequest {
+        private String jafID;
+    }
     @Data
     @AllArgsConstructor
     public static class VerifyCompanyResponse {
