@@ -1,17 +1,25 @@
 <div ng-controller="companyJafController">
+	    <div class="jumbotron" style="text-align: center;"><h2>Create New Jaf</h2></div>
+
 	<form ng-submit="submit()">
 		<div align="center">
 		<table style="width:70%" class="table table-striped">
 		  <tr>
-		    <td>Post Name</td>
+		    <td>Job Name</td>
 		    <td><input ng-model="input.jname" type="text" required/></td>
 		  </tr>
 		  <tr>
-		  	<td>Salary in INR</td>
-		    <td><input ng-model="input.salary" type="number" required/></td>
+		  	<td>Salary</td>
+		    <td>
+		    	<input ng-model="salnumber" type="number" required/>
+		    	<select class="btn" ng-model="curr"
+		    	ng-init = "curr=currlist[0]"
+		    	ng-options="x for x in currlist">
+		    </select>
+		    </td>
 		  </tr>
 		  <tr>
-		  	<td>Location</td>
+		  	<td>Company Location</td>
 		    <td><input ng-model="input.location" type="text" required/></td>
 		  </tr>
 		 <tr>

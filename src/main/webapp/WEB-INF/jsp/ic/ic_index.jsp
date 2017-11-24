@@ -18,9 +18,9 @@
         <script type="text/javascript" src="/js/ic/ic_home.js"></script>
         <script type="text/javascript" src="/js/ic/ic_home_fee.js"></script>
         <script type="text/javascript" src="/js/ic/ic_resume_verify.js"></script>
-                <script type="text/javascript" src="/js/ic/ic_home_company.js"></script>
-                        <script type="text/javascript" src="/js/ic/ic_home_jaf.js"></script>
-
+        <script type="text/javascript" src="/js/ic/ic_home_company.js"></script>
+        <script type="text/javascript" src="/js/ic/ic_home_approvejaf.js"></script>
+        <script type="text/javascript" src="/js/ic/ic_home_pendingjaf.js"></script>
 
         <script type="text/javascript" src="/js/directives.js"></script>
 
@@ -36,8 +36,9 @@
                 <ul class="nav navbar-nav">
                   <li ng-class="{'active': isCurrentPage('/coordinator/home')}"><a href="/coordinator/home">Home</a></li>
                   <li ng-class="{'active': isCurrentPage('/coordinator/fee')}"><a href="/coordinator/fee">Fee Requests</a></li>
-                   <li ng-class="{'active': isCurrentPage('/coordinator/jaf')}"><a href="/coordinator/jaf">Fee Requests</a></li>
-                    <li ng-class="{'active': isCurrentPage('/coordinator/company')}"><a href="/coordinator/company">Fee Requests</a></li>
+                   <li ng-class="{'active': isCurrentPage('/coordinator/approvejaf')}"><a href="/coordinator/approvejaf">Approve Jafs</a></li>
+                    <li ng-class="{'active': isCurrentPage('/coordinator/company')}"><a href="/coordinator/company">Company Registeration Request</a></li>
+                    <li ng-class="{'active': isCurrentPage('/coordinator/pendingjaf')}"><a href="/coordinator/pendingjaf">Pending Jafs</a></li>
                   <li ng-class="{'active': isCurrentPage('/coordinator/resume_verify')}"><a href="/coordinator/resume_verify">Resume Verification</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

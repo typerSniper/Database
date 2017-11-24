@@ -1,4 +1,4 @@
-app.controller('ICJafController', function($scope, $http, $rootScope, $location) {
+app.controller('ICApproveJafController', function($scope, $http, $rootScope, $location) {
     $scope.jafList = [];
     $scope.selectedJafList = [];
     $scope.show = [];
