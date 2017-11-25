@@ -17,11 +17,11 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/recruiter/existingjafs',{
             templateUrl : 'views/company/existing_jafs',
         })
-        .when('/recruiter/interview',{
-            templateUrl : 'views/company/interview',
+        .when('/recruiter/selections',{
+            templateUrl : 'views/company/selections',
         })
-        .when('/recruiter/existingjafs',{
-            templateUrl : 'views/company/existing_jafs',
+        .when('/recruiter/publishresults',{
+            templateUrl : 'views/company/publish_results',
         })
         .when('/',{
             templateUrl : '/',

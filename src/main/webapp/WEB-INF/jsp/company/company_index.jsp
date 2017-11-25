@@ -19,7 +19,9 @@
         <script type="text/javascript" src="/js/company/company_home.js"></script> 
         <script type="text/javascript" src="/js/company/company_newjaf.js"></script>
         <script type="text/javascript" src="/js/company/existing_jafs.js"></script>
-        <script type="text/javascript" src="/js/company/selections.js"></script>  
+        <script type="text/javascript" src="/js/company/selections.js"></script>
+        <script type="text/javascript" src="/js/company/publish_results.js"></script>  
+  
   
   
 
