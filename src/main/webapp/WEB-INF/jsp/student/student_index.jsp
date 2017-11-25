@@ -10,7 +10,7 @@
         <link rel="stylesheet" type="text/css" href="/css/home.css">
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <link rel="stylesheet" type="text/css" href="/css/loader.css">
-
+        <link rel="stylesheet" type="text/css" href="/css/angular-datatables.css">
 
         <script type="text/javascript" src="/js/jQuery.min.js"></script>
         <script type="text/javascript" src="/js/angular.min.js"></script>
@@ -18,6 +18,7 @@
         <script type="text/javascript" src="/js/ui-bootstrap-tpls.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap.js"></script>
         <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="/js/angular-datatables.min.js"></script>
 
         <script type="text/javascript" src="/js/student/student_config.js"></script>
         <script type="text/javascript" src="/js/student/student_login.js"></script>
