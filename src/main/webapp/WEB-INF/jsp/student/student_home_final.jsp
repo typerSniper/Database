@@ -1,5 +1,5 @@
 <div ng-controller="StudentFinalController" ng-init="getJafs()">
-	<table datatable="" class="row-border hover" cellspacing="0" width="100%"  >
+	<table datatable="ng" class="row-border hover" cellspacing="0" width="100%"  >
 	    <thead>
 	    <tr>
 	        <th>Company</th>
