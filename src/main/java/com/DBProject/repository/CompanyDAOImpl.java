@@ -79,7 +79,6 @@ public class CompanyDAOImpl implements CompanyDAO {
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, deptName);
         ResultSet rs = ps.executeQuery();
-        ps.close();
         while (rs.next()) {
 			return rs.getString(1);
 		}
@@ -93,7 +92,6 @@ public class CompanyDAOImpl implements CompanyDAO {
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, progName);
         ResultSet rs = ps.executeQuery();
-        ps.close();
         while (rs.next()){
             return rs.getString(1);
         }

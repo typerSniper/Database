@@ -24,6 +24,7 @@ app.controller('companyJafController', function($scope, $http, $rootScope, $loca
     };
 
     $scope.submit = function(){
+    	console.log("dfauhdsgfushf");
       $scope.input.comp_deadline = $filter('date')($scope.date, 'yyyy-MM-dd');
       $scope.input.salary = $scope.salnumber + " "+ $scope.curr;
       if($scope.input.eligibilities.length==0)

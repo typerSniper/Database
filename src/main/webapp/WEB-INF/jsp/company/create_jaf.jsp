@@ -38,7 +38,7 @@
     <fieldset>
       <legend>Add Eligibility Rule</legend>
     </fieldset>
-    
+    <div>
     <table style="width:70%" class="table table-striped">
     	<tr>
 <td>
@@ -69,6 +69,5 @@
 		<button type="submit" class="btn btn-success">Submit</button>
 
 		
-	</div>
 	</form>
 </div>
