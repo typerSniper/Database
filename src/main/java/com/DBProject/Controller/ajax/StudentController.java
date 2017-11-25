@@ -127,9 +127,14 @@ public class StudentController {
     @ResponseBody
     public GetJafsResponse getJafsResponse() {
         Date getCurrentDate = new Date();
+        System.out.println(companyDAO.getAllJafs().stream()
+                .filter(t-> jafStageManager.getCurrentStage(t.getStage())==3).collect(Collectors.toList()));
+        System.out.println(Calendar.getInstance().getTime());
+companyDAO.getAllJafs().stream()
+                .filter(t-> jafStageManager.getCurrentStage(t.getStage())==3).forEach(t->System.out.println(t.getJafDeadline().after(Calendar.getInstance().getTime())));
         return new GetJafsResponse(companyDAO.getAllJafs().stream()
-                .filter(t->t.getJafDeadline().after(Calendar.getInstance().getTime()))
                 .filter(t-> jafStageManager.getCurrentStage(t.getStage())==3)
+                .filter(t->t.getJafDeadline().after(Calendar.getInstance().getTime()))
                 .map(t->new JafRepresentative(t.getJname(), t.getJafDeadline(),
                         companyDAO.getEligible(getUsername(), t.getJid()),t.getCid(),
                         companyDAO.getIfSigned(getUsername(), t.getJid()))).collect(Collectors.toList()));

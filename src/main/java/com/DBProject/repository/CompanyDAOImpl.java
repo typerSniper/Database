@@ -276,6 +276,8 @@ public class CompanyDAOImpl implements CompanyDAO {
 			while(rs.next()) {
 				jafs.add(getJaf(rs));
 			}
+			System.out.println(jafs);
+			return jafs;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -297,7 +299,6 @@ public class CompanyDAOImpl implements CompanyDAO {
 				pid = rs.getString(2);
 				did = rs.getString(3);
 			}
-			ps.close();
 			PreparedStatement ps2 = conn.prepareStatement("Select cpicutoff, deptid, programid from eligibility where jid = ?");
 			ps2.setString(1, jid);
 			ps.setString(1, jid);

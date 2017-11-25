@@ -3,10 +3,10 @@ app.controller('StudentFinalController', function($http, $scope, $interval,$loca
 
     $scope.getJafs = function(){
     	$scope.selectedJaf = null;
-        var url = "/To Change/";
+        var url = "/student/get_all_jafs";
         $http.get(url)
             .success(function(response){
-                $scope.jafList = $rootScope.copyObject(response.jafs);
+                $scope.jafList = $rootScope.copyObject(response.jafRepresentatives);
             })
             .error(function(response) {
         });
