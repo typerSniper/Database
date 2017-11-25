@@ -45,6 +45,8 @@ app.controller('ICViewJafController', function($scope, $http, $rootScope, $locat
             .success(function(response) {
                 console.log(response);
                 $scope.jafDetails = response.jaf;
+                var date = new Date($scope.jafDetails.companyDeadline);
+                $scope.jafDetails.companyDeadline = date;
             })
             .error(function(response) {
         });
