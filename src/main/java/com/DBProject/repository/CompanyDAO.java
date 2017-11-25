@@ -3,6 +3,7 @@ package com.DBProject.repository;
 import com.DBProject.Controller.ajax.CompanyController;
 import com.DBProject.domain.Company;
 import com.DBProject.domain.Jaf;
+import com.DBProject.domain.Student;
 
 import java.util.List;
 
@@ -25,4 +26,7 @@ public interface CompanyDAO {
      boolean signJaf(String studentID, String jid);
      boolean unSignJaf(String studentID, String jid);
      List<Jaf> getJafsWithStage(String coordinatorName, String stage);
+     
+     List<Student> getAllStudents(String jafID);
+     boolean selectedStudents(String jafID, List<Student> selections);
 }

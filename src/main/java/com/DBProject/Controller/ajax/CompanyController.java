@@ -2,6 +2,7 @@ package com.DBProject.Controller.ajax;
 
 import com.DBProject.domain.Company;
 import com.DBProject.domain.Jaf;
+import com.DBProject.domain.Student;
 import com.DBProject.repository.CompanyDAOImpl;
 import com.DBProject.service.JAFStageManager;
 import lombok.AllArgsConstructor;
@@ -65,7 +66,33 @@ public class CompanyController {
     public CompanyJafResponse getCompanyJafs() {
         return new CompanyJafResponse(companyDAO.getCompanyJafs(getUsername()));
     }
+    
+    @SneakyThrows
+    @RequestMapping(value = "/company/all_students", method = RequestMethod.POST)
+    @ResponseBody
+    public AllStudentsResponse allStudents (@RequestBody final AllStudentsRequest allStudentsRequest) {
+        return new AllStudentsResponse(companyDAO.getAllStudents(allStudentsRequest.jafID));
+    }
+    
+    @SneakyThrows
+    @RequestMapping(value = "/company/selected_students", method = RequestMethod.POST)
+    @ResponseBody
+    public SelectedStudentsResponse selectedStudents (@RequestBody final SelectedStudentsRequest selectedStudentsRequest) {
+        return new SelectedStudentsResponse(companyDAO.selectedStudents(selectedStudentsRequest.jafID, selectedStudentsRequest.selections));
+    }
 
+    @Data
+    @AllArgsConstructor
+    public static class AllStudentsResponse {
+        List<Student> allStudents;
+    }
+    
+    @Data
+    @AllArgsConstructor
+    public static class SelectedStudentsResponse {
+    	boolean success;
+    }
+   
     @Data
     @AllArgsConstructor
     public static class JobRegisterResponse {
@@ -87,6 +114,19 @@ public class CompanyController {
         String description;
         List<Eligiblity> eligibilities;
         String comp_deadline;
+    }
+    
+    @Data
+    @AllArgsConstructor
+    public  static class AllStudentsRequest {
+        String jafID;
+    }
+    
+    @Data
+    @AllArgsConstructor
+    public  static class SelectedStudentsRequest {
+    	String jafID;
+        List<Student> selections;
     }
 
     @Data

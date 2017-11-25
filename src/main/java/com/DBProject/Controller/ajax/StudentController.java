@@ -155,6 +155,21 @@ public class StudentController {
     public JafResponse jafResponse(@RequestBody JafRequest jafRequest) {
         return new JafResponse(companyDAO.getJaf(jafRequest.getJafID()));
     }
+    
+    
+    @SneakyThrows
+    @RequestMapping(value="/student/elig_jafs", method = RequestMethod.GET)
+    @ResponseBody
+    public EligJafsResponse eligJafResponse() {
+    	String username = getUsername();
+        return new EligJafsResponse(studentDAO.getEligJafs(username));
+    }
+    
+    @Data
+    @AllArgsConstructor
+    public static class EligJafsResponse {
+        List<Jaf> elig_jafs;
+    }
 
     @Data
     @AllArgsConstructor
