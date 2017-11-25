@@ -304,6 +304,82 @@ public class StudentDAOImpl  implements StudentDAO  {
 		}
 		return ret;
 	}
+	
+	@Override
+	public List<Jaf> getUneligJafs(String username) {
+		String sql = "select * from jobs";
+		List<Jaf> ret = new ArrayList<>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				if(!companyDAO.getEligible(rs.getString(1), username)) {
+					String compDeadline = rs.getString(8);
+					String jaf_deadline = rs.getString(9);
+					java.util.Date compDate = sdf.parse(compDeadline);
+					java.util.Date jafDate = sdf.parse(jaf_deadline);
+					ret.add(new Jaf(rs.getString(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), compDate, jafDate));
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	@Override
+	public List<Jaf> getEligJafsSIGN(String username){
+		List<Jaf> temp = getEligJafs(username);
+		List<Jaf> ret = new ArrayList<>();
+		String sql = "select * from jobs where jobs.jid=student_jaf.jid and student_jaf.sid=?";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				String compDeadline = rs.getString(8);
+				String jaf_deadline = rs.getString(9);
+				java.util.Date compDate = sdf.parse(compDeadline);
+				java.util.Date jafDate = sdf.parse(jaf_deadline);
+				Jaf j = new Jaf(rs.getString(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), compDate, jafDate);
+				if(temp.contains(j)) {
+					ret.add(j);
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	@Override
+	public List<Jaf> getEligJafsUNSIGN(String username){
+		List<Jaf> temp = getEligJafs(username);
+		List<Jaf> ret = new ArrayList<>();
+		String sql = "select * from jobs EXCEPT select * from jobs where jobs.jid=student_jaf.jid and student_jaf.sid=?";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				String compDeadline = rs.getString(8);
+				String jaf_deadline = rs.getString(9);
+				java.util.Date compDate = sdf.parse(compDeadline);
+				java.util.Date jafDate = sdf.parse(jaf_deadline);
+				Jaf j = new Jaf(rs.getString(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), compDate, jafDate);
+				if(temp.contains(j)) {
+					ret.add(j);
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
 
 
 }

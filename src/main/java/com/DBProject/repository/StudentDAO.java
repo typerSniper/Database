@@ -21,4 +21,7 @@ public interface StudentDAO {
      Date getResumeDeadline();
      
      List<Jaf> getEligJafs(String username);
+     List<Jaf> getUneligJafs(String username);
+     List<Jaf> getEligJafsSIGN(String username);
+     List<Jaf> getEligJafsUNSIGN(String username);
 }

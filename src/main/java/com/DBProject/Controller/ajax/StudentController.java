@@ -162,13 +162,15 @@ public class StudentController {
     @ResponseBody
     public EligJafsResponse eligJafResponse() {
     	String username = getUsername();
-        return new EligJafsResponse(studentDAO.getEligJafs(username));
+        return new EligJafsResponse(studentDAO.getEligJafsSIGN(username), studentDAO.getEligJafsUNSIGN(username), studentDAO.getUneligJafs(username));
     }
     
     @Data
     @AllArgsConstructor
     public static class EligJafsResponse {
-        List<Jaf> elig_jafs;
+        List<Jaf> elig_jafs_sign;
+        List<Jaf> elig_jafs_unsign;
+        List<Jaf> unelig_jafs;
     }
 
     @Data
