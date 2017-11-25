@@ -12,16 +12,7 @@
   				</td>
 
 			</tr>
-			<tr >
-				<td style="text-align:left;">
-					Sop(If asked in jaf)
-				</td>
-				<td style="text-align:left;">
-					<input type="file" accept="application/pdf" id="res" name="file"/>
-
-  				</td>
-
-			</tr>
+			
 		</table>
 		<button ng-click="signjaf()" class="btn btn-success">Sign</button>
 	</div>
