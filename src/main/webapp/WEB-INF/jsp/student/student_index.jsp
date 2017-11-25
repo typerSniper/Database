@@ -4,6 +4,7 @@
         <title>PtCell</title>
 
         <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="/css/progress.css">
         <link rel="stylesheet" type="text/css" href="/css/form_input.css">
         <link rel="stylesheet" type="text/css" href="/css/home.css">
@@ -16,6 +17,7 @@
         <script type="text/javascript" src="/js/angular-route.min.js"></script>
         <script type="text/javascript" src="/js/ui-bootstrap-tpls.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap.js"></script>
+        <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
 
         <script type="text/javascript" src="/js/student/student_config.js"></script>
         <script type="text/javascript" src="/js/student/student_login.js"></script>
