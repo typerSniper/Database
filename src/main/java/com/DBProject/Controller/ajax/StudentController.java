@@ -131,7 +131,7 @@ public class StudentController {
                 .filter(t->t.getJafDeadline().after(Calendar.getInstance().getTime()))
                 .map(t->new JafRepresentative(t.getJname(), t.getJafDeadline(),
                         companyDAO.getEligible(getUsername(), t.getJid()),t.getCid(),
-                        companyDAO.getIfSigned(getUsername(), t.getJid()))).collect(Collectors.toList()));
+                        companyDAO.getIfSigned(getUsername(), t.getJid()), t.getJid())).collect(Collectors.toList()));
     }
 
     @SneakyThrows
@@ -200,6 +200,7 @@ public class StudentController {
         private boolean eligible;
         private String company;
         private boolean isSigned;
+        private String jid;
     }
 
     @Data

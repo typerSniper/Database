@@ -1,5 +1,16 @@
 <div ng-controller="StudentFinalController" ng-init="getJafs()">
-	<table id = "example" class = "table table-bordered" >
+	<table datatable="ng" class="row-border hover" cellspacing="0" width="100%"  >
+	    <thead>
+	    <tr>
+	        <th>Company</th>
+            <th>JAF</th>
+            <th>Deadline</th>
+            <th>Eligible</th>
+            <th></th>
+            <th></th>
+	    </tr>
+	    </thead>
+	    <tbody>
 		<tr ng-repeat="jaf in jafList track by $index">
 			<td>{{jaf.company}}</td>
 			<td>{{jaf.jname}}</td>
@@ -10,5 +21,6 @@
 			<td ng-show="jaf.isSigned"><button ng-disabled="!jaf.eligible" ng-click="signJaf(jaf)">UnSign JAF</button></td>
 
 		</tr>
+		</tbody>
 	</table>
 </div>

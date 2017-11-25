@@ -1,4 +1,4 @@
-var app = angular.module('student', ['ngRoute', 'ui.bootstrap']);
+var app = angular.module('student', ['ngRoute', 'ui.bootstrap', 'datatables']);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
