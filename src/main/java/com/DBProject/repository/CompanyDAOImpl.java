@@ -1,7 +1,6 @@
 package com.DBProject.repository;
 
 import com.DBProject.Controller.ajax.CompanyController;
-import com.DBProject.Controller.ajax.SelectionController;
 import com.DBProject.domain.Company;
 
 import java.sql.Connection;
@@ -30,7 +29,8 @@ import org.springframework.stereotype.Repository;
 public class CompanyDAOImpl implements CompanyDAO {
 	@Autowired
 	private DataSource dataSource;
-	
+
+
 	@Autowired
     private JAFStageManager jafStageManager;
 
@@ -449,20 +449,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 		return null;
 	}
 
-	@Override
-	public boolean setJobStages(SelectionController.JobRegisterRequest jobRegisterRequest) {
-		String sql = "insert into jaf_handle values(?, ?, ?);";
-		try(Connection connection = dataSource.getConnection()) {
-			for(SelectionController.JobStages t: jobRegisterRequest.getSelectionProcedure()) {
-				PreparedStatement ps = connection.prepareStatement(sql);
 
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
 	@Override
 	public List<Student> getAllStudents(String jafID) {
 		List<Student> ret = new ArrayList<>();

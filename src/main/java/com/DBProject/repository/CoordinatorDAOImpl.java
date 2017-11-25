@@ -21,7 +21,11 @@ import java.util.List;
 public class CoordinatorDAOImpl implements CoordinatorDAO {
 	@Autowired
 	private DataSource dataSource;
-	
+
+	@Autowired
+	private StudentDAOImpl studentDAO;
+
+
 	public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -85,7 +89,9 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 			List<CoordinatorController.ResumeStudents> resumeStudents = new ArrayList<>();
 			while(rs.next()) {
-				resumeStudents.add(new CoordinatorController.ResumeStudents(rs.getString(1), rs.getString(2)));
+				Student student = studentDAO.getStudent(rs.getString(1));
+				if(student.getStage().toLowerCase().equals("resumeverification"))
+					resumeStudents.add(new CoordinatorController.ResumeStudents(rs.getString(1), rs.getString(2)));
 			}
 			return resumeStudents;
 		}
