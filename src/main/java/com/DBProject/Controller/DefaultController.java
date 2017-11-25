@@ -56,6 +56,8 @@ public class DefaultController {
         System.out.println(servletPath);
         if(servletPath.equals("/views/404"))
             return new ModelAndView("404");
+        if(servletPath.equals("/views/progressBar"))
+            return new ModelAndView("progressBar");
         String folder = servletPath.split("/")[2];
         String page = servletPath.split("/")[3];
         System.out.println(folder+"/"+page);

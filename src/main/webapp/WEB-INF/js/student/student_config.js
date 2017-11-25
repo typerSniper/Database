@@ -59,7 +59,6 @@ app.run( function($rootScope, $location, $http, $route, $window) {
             });
         }
         if(next.templateUrl == "views/student/student_home"){
-            $rootScope.stage = 6;
             if($rootScope.stage == null){
                 $http.get("/student/stage").success(function(response){
                     if(response.authenticated){

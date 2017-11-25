@@ -24,4 +24,6 @@ public interface StudentDAO {
      List<Jaf> getUneligJafs(String username);
      List<Jaf> getEligJafsSIGN(String username);
      List<Jaf> getEligJafsUNSIGN(String username);
+     
+     boolean verifyResume(String username, String rtype);
 }

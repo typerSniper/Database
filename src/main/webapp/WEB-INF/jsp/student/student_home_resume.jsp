@@ -67,7 +67,7 @@
     <div align="center" class="jumbotron">
         <h3>Time to deadline</h3>
         <div class='time-to'>
-            <span countdown='' date='November 10, 2017 12:00:00'>&nbsp;</span>
+            <span countdown='' date='December 10, 2017 12:00:00'>&nbsp;</span>
         </div>
     </div>
 </div>

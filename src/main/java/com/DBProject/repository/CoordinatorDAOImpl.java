@@ -32,12 +32,12 @@ public class CoordinatorDAOImpl implements CoordinatorDAO {
 
 	@Override
 	public Coordinator getAFreeIc() {
-		 String sql = "select ic.ic_id, count(ic_student.sid) as c\r\n" +
+		 String sql = "select * from ic where ic.ic_id = (select ic.ic_id\r\n" +
 		 		"from ic LEFT OUTER JOIN ic_student\r\n" +
 		 		"on ic.ic_id = ic_student.ic_id\r\n" +
 		 		"group by ic.ic_id\r\n" +
-		 		"order by c\r\n" +
-		 		"limit 1";
+		 		"order by count(ic_student.sid)\r\n" +
+		 		"limit 1)";
 //		String sql = "select * from ic where ic_id ='coordinator1';";
 		try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
