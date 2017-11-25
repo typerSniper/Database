@@ -2,6 +2,7 @@ app.controller('StudentFinalController', function($http, $scope, $interval,$loca
     $scope.jafList = [];
 
     $scope.getJafs = function(){
+        $('#example').DataTable();
     	$scope.selectedJaf = null;
         var url = "/student/get_all_jafs";
         $http.get(url)
