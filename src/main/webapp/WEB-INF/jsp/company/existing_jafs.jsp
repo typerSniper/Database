@@ -1,17 +1,18 @@
-<div ng-controller="CompanyExistingJafsController">
-	 <div class="jumbotron" style="text-align: center;"><h2>Pending Jaf </h2></div>
+<div ng-controller="CompanyExistingJafsController" ng-init="getExistingJaf()">
+	 <div class="jumbotron" style="text-align: center;"><h2>All Jafs </h2></div>
 
     <div ng-show="jafList.length > 0" style="margin: 50px" class="list-group">
         <table id="example" style="width:70%" class="table table-striped" align="center">
-            <tr ng-repeat="jaf in studentList track by $index">
+            <tr ng-repeat="jaf in jafList track by $index">
                 <td>
-                    <button type="button" class="list-group-item" ng-click="selectJaf(jaf)" ng-class="{'active': isSelected(jaf)}">{{jaf.jname}}</button>
+                    <button type="button" class="list-group-item" >{{jaf.cid}}</button>
                 </td>
                 <td>
-                	<button type="button" class="list-group-item" ng-click="selectJaf(jaf)" ng-class="{'active': isSelected(jaf)}">{{jaf.jid}}</button>
+                	<button type="button" class="list-group-item" >{{jaf.jid}}</button>
                 </td>
                 <td>
-                    <button ng-if="stage==" class="btn btn-success" ng-click="student_interview([$index])">Publish</button>
+                    <button ng-if="stage==7" class="btn btn-success" ng-click="final_selections([$index])">Final Selections</button>
+                    <button ng-if="stage==6" class="btn btn-success" ng-click="publish_results([$index])">Publish Results</button>
                 </td>
             </tr>
         </table>               

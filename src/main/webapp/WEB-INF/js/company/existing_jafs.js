@@ -1,4 +1,4 @@
-app.controller('CompanyExistingJafsController', function(){
+app.controller('CompanyExistingJafsController', function($http, $scope, $interval,$location,$rootScope){
     $scope.jafList = [];
     $scope.selectedJafList = [];
     
@@ -16,22 +16,14 @@ app.controller('CompanyExistingJafsController', function(){
             .error(function(response) {
         });
     };
-
-    $scope.student_interview = function(index)
-    {
-    	$rootScope.getCompanyjaf = index;
-        $scope.getExistingJaf();
-        $location.path("comapny/interview");
-
-
-    };
     $scope.final_selections = function(index)
     {
     	$rootScope.getCompanyjaf = index;
-        $scope.getExistingJaf();
-        $location.path("comapny/selections");
-
-
-
+        $location.path("/comapny/selections");
+    }
+    $scope.publish_results = function(index)
+    {
+        $rootScope.getCompanyjaf = index;
+        $location.path("/comapny/publishresults");
     }
 });

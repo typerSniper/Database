@@ -15,6 +15,9 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.DBProject.domain.Jaf;
+import com.DBProject.domain.Student;
+import com.DBProject.service.JAFStageManager;
+
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,6 +31,9 @@ public class CompanyDAOImpl implements CompanyDAO {
 	@Autowired
 	private DataSource dataSource;
 	
+	@Autowired
+    private JAFStageManager jafStageManager;
+
 	public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -456,6 +462,49 @@ public class CompanyDAOImpl implements CompanyDAO {
 		}
 		return false;
 	}
+	@Override
+	public List<Student> getAllStudents(String jafID) {
+		List<Student> ret = new ArrayList<>();
+		String sql = "select * from student where sid in (select sid from student_jaf where jid=?)";
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1,jafID);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				ret.add(new Student(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+			}
+			preparedStatement.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+
+	@Override
+	public boolean selectedStudents(String jafID, List<Student> selections) {
+		String sql = "delete from students where sid=?";
+		String updatejaf = "update jobs set stage=? where jid=?";
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			for(Student i : selections) {
+				preparedStatement.setString(1, i.getUsername());
+				preparedStatement.executeUpdate();
+			}
+			preparedStatement.close();
+
+			PreparedStatement p2 = connection.prepareStatement(updatejaf);
+			p2.setString(1, jafStageManager.getCurrentRep(7));
+			p2.setString(2, jafID);
+			p2.executeUpdate();
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 
 
 }

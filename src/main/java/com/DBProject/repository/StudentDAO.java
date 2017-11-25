@@ -2,6 +2,7 @@ package com.DBProject.repository;
 
 import com.DBProject.Controller.ajax.StudentController.SaveDetailsRequest;
 import com.DBProject.domain.Coordinator;
+import com.DBProject.domain.Jaf;
 import com.DBProject.domain.Student;
 
 import java.sql.Connection;
@@ -18,4 +19,9 @@ public interface StudentDAO {
      Coordinator allocateIc(String username, String stage);
      Coordinator getAllocatedIc(String username);
      Date getResumeDeadline();
+     
+     List<Jaf> getEligJafs(String username);
+     List<Jaf> getUneligJafs(String username);
+     List<Jaf> getEligJafsSIGN(String username);
+     List<Jaf> getEligJafsUNSIGN(String username);
 }

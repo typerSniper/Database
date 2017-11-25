@@ -18,6 +18,7 @@ public class JAFStageManager {
                     .put("resumepending", 4)
                     .put("resumeverification", 5)
                     .put("jafeligible", 6)
+                    .put("selectiondone", 7)
                     .build();
 
     public String getNextStage(String currentStage) {
