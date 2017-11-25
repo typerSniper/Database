@@ -7,6 +7,7 @@ import com.DBProject.domain.Student;
 import com.DBProject.repository.CompanyDAOImpl;
 import com.DBProject.repository.CoordinatorDAOImpl;
 import com.DBProject.repository.ResumeDAOImpl;
+import com.DBProject.repository.StudentDAOImpl;
 import com.DBProject.service.JAFStageManager;
 import com.DBProject.service.StudentStageManager;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,9 @@ import static com.DBProject.Controller.DefaultController.getUsername;
 public class CoordinatorController {
 	@Autowired
     private CoordinatorDAOImpl coordinatorDAO;
+	
+	@Autowired
+    private StudentDAOImpl studentDAO;
 
 	@Autowired
     private StudentStageManager stageManager;
@@ -82,6 +86,14 @@ public class CoordinatorController {
         System.out.println("here");
         return new GetResumeResponse(resumeDAO.getByUsername(getResumeRequest.getUsername(), getResumeRequest.getRType()));
     }
+    
+    @SneakyThrows
+    @RequestMapping(value = "/ic/verify_resume", method = RequestMethod.POST)
+    @ResponseBody
+    public  VerifyResumeResponse verifyResume(@RequestBody final GetResumeRequest getResumeRequest) {
+        System.out.println("here");
+        return new VerifyResumeResponse(studentDAO.verifyResume(getResumeRequest.getUsername(), getResumeRequest.getRType()));
+    }
 
 
     @SneakyThrows
@@ -128,7 +140,7 @@ public class CoordinatorController {
     @ResponseBody
     @RequestMapping(value = "ic/non_posted_jafs", method = RequestMethod.GET)
     public GetRegisteredJafs getNonPostedJafs() {
-        return new GetRegisteredJafs(companyDAO.getJafsWithStage(getUsername(), jafStageManager.getCurrentRep(3)));
+        return new GetRegisteredJafs(companyDAO.getJafsWithStage(getUsername(), jafStageManager.getCurrentRep(2)));
     }
 
     @SneakyThrows
@@ -206,6 +218,12 @@ public class CoordinatorController {
     @AllArgsConstructor
     public static class GetResumeResponse {
         private Resume resume;
+    }
+    
+    @Data
+    @AllArgsConstructor
+    public static class VerifyResumeResponse {
+        private boolean success;
     }
 
     @Data

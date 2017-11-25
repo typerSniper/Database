@@ -45,5 +45,20 @@ app.controller('ICResumeController', function($scope, $http, $rootScope, $locati
             .error(function(response){
             })
     }
+    
+    $scope.verifyResume = function(){
+        var url = "/ic/verify_resume";
+        var params = {username: $scope.selectedStudent.username, rtype: $scope.selectedStudent.rtype};
+        $http.post(url, params)
+            .success(function(response){
+                if(response.success){
+                    $scope.studentList = [];
+                    $scope.selectedStudent = {};
+                    $scope.getResumeRequests();
+                }
+            })
+            .error(function(response){
+            })
+    }
 
 });

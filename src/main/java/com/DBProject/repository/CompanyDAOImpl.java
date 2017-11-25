@@ -219,9 +219,12 @@ public class CompanyDAOImpl implements CompanyDAO {
     @Override
     public boolean setJobDeadline(String jafID, String jobDeadline) {
     	String sql = "update jobs set jaf_deadline=? where jid=?";
+//    	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+    	SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     	try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, jobDeadline);
+			java.util.Date jafDate = sdf2.parse(jobDeadline);
+			preparedStatement.setDate(1, new Date(jafDate.getTime()));
 			preparedStatement.setString(2, jafID);
 			int updated = preparedStatement.executeUpdate();
 			if (updated > 0) {
@@ -414,25 +417,25 @@ public class CompanyDAOImpl implements CompanyDAO {
 
 	@SneakyThrows
 	Jaf getJaf(ResultSet rs) {
-	    return new Jaf(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)
-        , rs.getString(5), rs.getString(6), rs.getString(7), rs.getDate(8), rs.getDate(9));
+	    return new Jaf(rs.getString(1), rs.getString(3), rs.getString(2), rs.getString(4)
+        , rs.getString(5), rs.getString(6), rs.getString(9), rs.getDate(7), rs.getDate(8));
     }
 
 	@Override
 	public List<Jaf> getJafsWithStage(String coordinatorName, String stage) {
 	    try(Connection connection = dataSource.getConnection()) {
-	        String sql = "select * cid from ic_company where ic_id =?";
+	        String sql = "select cid from ic_company where ic_id =?";
 	        PreparedStatement ps = connection.prepareStatement(sql);
 	        ps.setString(1, coordinatorName);
 	        ResultSet rs = ps.executeQuery();
 	        List<Jaf> jafs= new ArrayList<>();
 	        while(rs.next()) {
-	            String cid = rs.getString(1);
+	        	String cid = rs.getString(1);
                 sql = "select * from jobs where cid =? and stage = ?";
                 PreparedStatement ps2 = connection.prepareStatement(sql);
                 ps2.setString(1, cid);
                 ps2.setString(2, stage);
-                ResultSet rs2 = ps.executeQuery();
+                ResultSet rs2 = ps2.executeQuery();
                 while(rs2.next()) {
                     jafs.add(getJaf(rs2));
                 }

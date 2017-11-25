@@ -3,10 +3,10 @@ app.controller('ICPendingJafController', function($scope, $http, $rootScope, $lo
     $scope.selectedJafList = [];
 
     $scope.getjafRequests = function(){
-        var url = "/ic/non_posted_jobs";
+        var url = "/ic/non_posted_jafs";
         $http.get(url)
             .success(function(response){
-                $scope.jafList = $rootScope.copyObject(response.jaf);
+                $scope.jafList = $rootScope.copyObject(response.jafs);
                 
             })
             .error(function(response) {
@@ -33,7 +33,7 @@ app.controller('ICPendingJafController', function($scope, $http, $rootScope, $lo
     //deadline: //TODO
     $scope.publishjaf = function(index){
          var url = "/ic/post_jaf";
-         params = $rootScope.copyObject({jafID: index});
+         params = $rootScope.copyObject({jafID: $scope.jafList[index].jid});
          $http.post(url, params)
             .success(function(response) {
                 if(response.success){

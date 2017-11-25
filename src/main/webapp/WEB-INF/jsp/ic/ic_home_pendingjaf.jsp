@@ -5,7 +5,7 @@
     <div ng-show="jafList.length > 0" style="margin: 50px" class="list-group">
         
                 <table style="width:70%" class="table table-striped" align="center">
-                    <tr ng-repeat="jaf in studentList track by $index">
+                    <tr ng-repeat="jaf in jafList track by $index">
                         <td>
                             <button type="button" class="list-group-item" ng-click="selectJaf(jaf)" ng-class="{'active': isSelected(jaf)}">{{jaf.cid}}->{{jaf.jid}}</button>
                         </td>

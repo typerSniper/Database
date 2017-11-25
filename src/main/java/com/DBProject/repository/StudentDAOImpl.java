@@ -4,6 +4,8 @@ import com.DBProject.Controller.ajax.StudentController.SaveDetailsRequest;
 import com.DBProject.domain.Coordinator;
 import com.DBProject.domain.Jaf;
 import com.DBProject.domain.Student;
+import com.DBProject.service.StudentStageManager;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,6 +30,10 @@ public class StudentDAOImpl  implements StudentDAO  {
     @Autowired
     private DataSource dataSource;
 
+    
+    @Autowired
+    private StudentStageManager ssm;
+   
     @Autowired
     private CoordinatorDAO icDAO;
     
@@ -379,6 +385,19 @@ public class StudentDAOImpl  implements StudentDAO  {
 			e.printStackTrace();
 		}
 		return ret;
+	}
+
+
+	@Override
+	public boolean verifyResume(String username, String rtype) {
+		try(Connection connection = dataSource.getConnection()){
+			updateStage(connection,ssm.getCurrentRep(6), username);
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 
