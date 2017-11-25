@@ -1,5 +1,6 @@
-app.controller('StudentViewJafController', function($http, $scope, $interval,$location,$rootScope){
+app.controller('StudentViewJafController', function($http, $scope, $interval,$location,$rootScope, $filter, $route){
     $scope.jafDetails = {};
+    $scope.eligiblities =[];
     $scope.jafID = '';
     $scope.viewjaf = function(jid){
         if(jid == null){
@@ -12,8 +13,9 @@ app.controller('StudentViewJafController', function($http, $scope, $interval,$lo
             .success(function(response) {
                 console.log(response);
                 $scope.jafDetails = response.jaf;
-                var date = new Date($scope.jafDetails.companyDeadline);
-                $scope.jafDetails.companyDeadline = $filter('date')(date, 'yyyy-MM-dd');
+                $scope.eligibilities = response.eligiblities;
+                var date = new Date($scope.jafDetails.jafDeadline);
+                $scope.jafDetails.jafDeadline = $filter('date')(date, 'yyyy-MM-dd');
             })
             .error(function(response) {
         });
@@ -26,6 +28,7 @@ app.controller('StudentViewJafController', function($http, $scope, $interval,$lo
     };
     $scope.back = function(){
         $location.path("/student/home");
+        $route.reload();
     }
    
 });

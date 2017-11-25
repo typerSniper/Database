@@ -30,7 +30,6 @@
                 <a href = "/recruiter/register">Recruiter Register</a>
             </div>
         </div>
-        <a href = "/site/temp">Recruiter Register</a>
         <%@include file="index_footer.jsp" %>
     </body>
 </html>

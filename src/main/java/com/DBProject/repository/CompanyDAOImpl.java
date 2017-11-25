@@ -326,7 +326,6 @@ public class CompanyDAOImpl implements CompanyDAO {
 				"where jid=?";
 		Jaf ret = null;
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1,jaf);
@@ -337,7 +336,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 				java.util.Date compDate = sdf1.parse(compDeadline);
 				java.util.Date jafDate = null;
 				if(jaf_deadline!=null)
-					jafDate = sdf2.parse(jaf_deadline);
+					jafDate = sdf1.parse(jaf_deadline);
 				ret = new Jaf(rs.getString(1), rs.getString(3), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), compDate, jafDate);
 			}
 			preparedStatement.close();
@@ -491,6 +490,53 @@ public class CompanyDAOImpl implements CompanyDAO {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@SneakyThrows
+	public String getDeptName(String did, Connection connection) {
+		PreparedStatement os = connection.prepareStatement("select name from department where did =?");
+		os.setString(1, did);
+		if(did.equals("all"))
+			return "No Constraints";
+		ResultSet rs = os.executeQuery();
+		while(rs.next()) {
+			return rs.getString(1);
+		}
+		return null;
+	}
+
+	@SneakyThrows
+	public String getProgName(String pid, Connection connection) {
+		PreparedStatement os = connection.prepareStatement("select name from program where pid =?");
+		if(pid.equals("all"))
+			return "No Constraints";
+		os.setString(1, pid);
+		ResultSet rs = os.executeQuery();
+		while(rs.next()) {
+			return rs.getString(1);
+		}
+		return null;
+	}
+
+	@Override
+	public List<CompanyController.Eligiblity> getEligilities(String jafID) {
+		String sql = "select * from eligibility where jid = ?";
+		try(Connection conn = dataSource.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, jafID);
+			ResultSet rs = ps.executeQuery();
+			List<CompanyController.Eligiblity> eligiblities = new ArrayList<>();
+			while(rs.next()) {
+				eligiblities.add(new CompanyController.Eligiblity(getDeptName(rs.getString(5), conn),
+						getProgName(rs.getString(4), conn), rs.getString(3)));
+
+			}
+			return eligiblities;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 

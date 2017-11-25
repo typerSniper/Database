@@ -136,13 +136,3 @@ CREATE TABLE student_jaf (
     FOREIGN KEY (sid) REFERENCES student(sid)  ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (jid) REFERENCES jobs(jid)  ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-CREATE TABLE jaf_handle (
-    jid VARCHAR(20),
-    stage VARCHAR(20),
-    description VARCHAR(20),
-    venue VARCHAR(20),
-    timing VARCHAR(20),
-    PRIMARY KEY (stage, jid),
-    FOREIGN KEY (jid) REFERENCES jobs(jid)  ON DELETE CASCADE ON UPDATE CASCADE
-);

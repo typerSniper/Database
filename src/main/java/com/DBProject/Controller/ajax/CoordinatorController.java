@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.SneakyThrows;
 
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -138,6 +139,15 @@ public class CoordinatorController {
 
     @SneakyThrows
     @ResponseBody
+    @RequestMapping(value = "ic/getcompany", method = RequestMethod.GET)
+    public CompanyDetails getCompanies() {
+        return new CompanyDetails(coordinatorDAO.getAllocatedCompanies(getUsername()));
+    }
+
+
+
+    @SneakyThrows
+    @ResponseBody
     @RequestMapping(value = "ic/non_posted_jafs", method = RequestMethod.GET)
     public GetRegisteredJafs getNonPostedJafs() {
         return new GetRegisteredJafs(companyDAO.getJafsWithStage(getUsername(), jafStageManager.getCurrentRep(2)));
@@ -148,6 +158,12 @@ public class CoordinatorController {
     @RequestMapping(value = "ic/get_jaf", method = RequestMethod.POST)
     public GetJafResponse getNonPostedJafs(@RequestBody PostJafRequest postJafRequest) {
         return new GetJafResponse(companyDAO.getJaf(postJafRequest.getJafID()));
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class CompanyDetails {
+        List<Company> companies;
     }
 
     @Data

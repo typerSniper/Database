@@ -2,11 +2,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>PtCell</title>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
-
-        <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.js"></script>
 
         <link rel="stylesheet" type="text/css" href="/css/home.css">
 
@@ -16,12 +15,12 @@
     <div class="container">
         <h1>Procedures</h1>
 <h2>Structure:</h2>
-<p style="font-size:20px">
+<p style="font-size:15px">
 The Practical Training Cell, IIT Bombay (PT Cell) comprises of Internship Coordinators (ICs) and a Head of the PT Cell working directly under Dean - Academic Program and General Secretary Academic Affairs. Our enthusiastic team strives for effectively striking a match between recruiter/researcher expectations and student aspirations. The companies, universites and NGOs are encouraged to contact the PT Cell for initial discussions and for confirming all schedules and all official communication.
 </p>
 
 <h2>Working:</h2>
-<p style="font-size:20px">
+<p style="font-size:15px">
 To support the internship process, the PT Cell has an effective online system in place. The procedure for internships follows the following plan:
 The PT Cell sends invitations to companies and organizations along with relevant information.
 Login at our website: http://placements.iitb.ac.in/training/

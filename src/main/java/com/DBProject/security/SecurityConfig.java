@@ -49,10 +49,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .access("hasRole('ROLE_STUDENT')");
         http.authorizeRequests().antMatchers("/coordinator/home","/coordinator/fee",
                 "/coordinator/is_authenticated", "/coordinator/approvejaf",
-                "/coordinator/pendingjaf", "/coordinator/company", "/coordinator/resume_verify")
+                "/coordinator/pendingjaf", "/coordinator/company", "/coordinator/resume_verify", "/coordinator/viewjaf")
                 .access("hasRole('ROLE_COORDINATOR')");
         http.authorizeRequests().antMatchers("/recruiter/home","/recruiter/newjaf", "/company/is_authenticated", "/recruiter/existingjafs",
-                "/recruiter/interview")
+                "/recruiter/interview", "/recruiter/existingjafs", "/recruiter/selections", "/recruiter/publishresults")
                 .access("hasRole('ROLE_COMPANY')");
 
     }

@@ -110,6 +110,7 @@ public class StudentController {
     }
 
 
+
    @SneakyThrows
    @RequestMapping(value = "/student/allocated_ic", method = RequestMethod.GET)
    @ResponseBody
@@ -152,8 +153,8 @@ public class StudentController {
     @SneakyThrows
     @RequestMapping(value="/student/get_jaf_details", method = RequestMethod.POST)
     @ResponseBody
-    public JafResponse jafResponse(@RequestBody JafRequest jafRequest) {
-        return new JafResponse(companyDAO.getJaf(jafRequest.getJafID()));
+    public JafResponseNew jafResponse(@RequestBody JafRequest jafRequest) {
+        return new JafResponseNew(companyDAO.getJaf(jafRequest.getJafID()), companyDAO.getEligilities(jafRequest.getJafID()));
     }
     
     
@@ -181,8 +182,17 @@ public class StudentController {
 
     @Data
     @AllArgsConstructor
+    public static class JafResponseNew {
+        Jaf jaf;
+        List<CompanyController.Eligiblity> eligiblities;
+    }
+
+
+    @Data
+    @AllArgsConstructor
     public static class JafRequest {
         String jafID;
+        String rType;
     }
 
 

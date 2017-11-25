@@ -26,7 +26,7 @@ public interface CompanyDAO {
      boolean signJaf(String studentID, String jid);
      boolean unSignJaf(String studentID, String jid);
      List<Jaf> getJafsWithStage(String coordinatorName, String stage);
-     
+     List<CompanyController.Eligiblity> getEligilities(String jafID);
      List<Student> getAllStudents(String jafID);
      boolean selectedStudents(String jafID, List<Student> selections);
 }

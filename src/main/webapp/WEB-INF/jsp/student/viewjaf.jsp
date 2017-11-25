@@ -16,8 +16,8 @@
             <td>{{jafDetails.location}}</td>
           </tr>
          <tr>
-            <th>Company Deadline</th>
-            <td>{{jafDetails.companyDeadline}}</td>
+            <th>JAF Deadline</th>
+            <td>{{jafDetails.jafDeadline}}</td>
         </tr></table>
 
         <table class="table table-striped">
@@ -35,7 +35,7 @@
                 <th>Department</th>
                 <th>PROGRAM</th>
             </tr>
-            <tr ng-repeat="elig in jafDetails.eligibilities track by $index">
+            <tr ng-repeat="elig in eligibilities track by $index">
                 <td>{{elig.cpicutoff}}</td>
                 <td>{{elig.programid}}</td>
                 <td>{{elig.deptid}}</td>
@@ -44,9 +44,9 @@
         <div align="center">
             <table class="table table-striped">
                 <tr>
-                    <button ng-show="!setEligible" ng-click="back()">Go Back</button>
-                    <td ng-hide="jaf.isSigned"><button ng-disabled="!jaf.eligible" ng-click="signJaf(jaf)">Sign JAF</button></td>
-                    <td ng-show="jaf.isSigned"><button ng-disabled="!jaf.eligible" ng-click="signJaf(jaf)">UnSign JAF</button></td>
+                    <button  class="btn btn-info" ng-show="!setEligible" ng-click="back()">Go Back</button>
+                    <td ng-hide="jaf.isSigned"><button ng-disabled="!jaf.eligible" ng-click="signJaf(jaf)" class="btn btn-success">Sign JAF</button></td>
+                    <td ng-show="jaf.isSigned"><button ng-disabled="!jaf.eligible" ng-click="signJaf(jaf)"  class="btn btn-warning" >UnSign JAF</button></td>
                 </tr>
             </table>
 

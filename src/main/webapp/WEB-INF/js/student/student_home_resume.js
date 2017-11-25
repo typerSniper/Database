@@ -1,4 +1,4 @@
-app.controller('StudentResumeController', function($http, $scope, $interval){
+app.controller('StudentResumeController', function($http, $scope, $interval, $route){
 
     $scope.submitResume = function(index) {
         var id = 'res' + index;
@@ -12,6 +12,7 @@ app.controller('StudentResumeController', function($http, $scope, $interval){
                 .success(function(response) {
                 if(response.success){
                     console.log("Done");
+                    $route.reload();
                 }
             })
             .error(function(response) {

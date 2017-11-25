@@ -1,4 +1,4 @@
-app.controller('ICResumeController', function($scope, $http, $rootScope, $location) {
+app.controller('ICResumeController', function($scope, $http, $rootScope, $location, $route) {
     $scope.studentList = [];
     $scope.selectedStudent = {};
     $scope.getResumeRequests = function(){
@@ -55,6 +55,7 @@ app.controller('ICResumeController', function($scope, $http, $rootScope, $locati
                     $scope.studentList = [];
                     $scope.selectedStudent = {};
                     $scope.getResumeRequests();
+                    $route.reload();
                 }
             })
             .error(function(response){

@@ -16,6 +16,7 @@
             <li ng-class="{'active': currentActive==5, 'completed': currentActive>5}">
                 <a>Done</a>
             </li>
+
         </ul>
     </div>
 </div>
