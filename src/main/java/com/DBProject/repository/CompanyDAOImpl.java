@@ -218,9 +218,12 @@ public class CompanyDAOImpl implements CompanyDAO {
     @Override
     public boolean setJobDeadline(String jafID, String jobDeadline) {
     	String sql = "update jobs set jaf_deadline=? where jid=?";
+//    	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+    	SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     	try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, jobDeadline);
+			java.util.Date jafDate = sdf2.parse(jobDeadline);
+			preparedStatement.setDate(1, new Date(jafDate.getTime()));
 			preparedStatement.setString(2, jafID);
 			int updated = preparedStatement.executeUpdate();
 			if (updated > 0) {
