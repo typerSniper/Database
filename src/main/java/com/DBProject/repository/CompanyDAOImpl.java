@@ -276,7 +276,6 @@ public class CompanyDAOImpl implements CompanyDAO {
 			while(rs.next()) {
 				jafs.add(getJaf(rs));
 			}
-			System.out.println(jafs);
 			return jafs;
 		}
 		catch (Exception e) {

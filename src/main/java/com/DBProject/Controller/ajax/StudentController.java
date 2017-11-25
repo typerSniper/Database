@@ -126,12 +126,6 @@ public class StudentController {
     @RequestMapping(value = "/student/get_all_jafs", method = RequestMethod.GET)
     @ResponseBody
     public GetJafsResponse getJafsResponse() {
-        Date getCurrentDate = new Date();
-        System.out.println(companyDAO.getAllJafs().stream()
-                .filter(t-> jafStageManager.getCurrentStage(t.getStage())==3).collect(Collectors.toList()));
-        System.out.println(Calendar.getInstance().getTime());
-companyDAO.getAllJafs().stream()
-                .filter(t-> jafStageManager.getCurrentStage(t.getStage())==3).forEach(t->System.out.println(t.getJafDeadline().after(Calendar.getInstance().getTime())));
         return new GetJafsResponse(companyDAO.getAllJafs().stream()
                 .filter(t-> jafStageManager.getCurrentStage(t.getStage())==3)
                 .filter(t->t.getJafDeadline().after(Calendar.getInstance().getTime()))
