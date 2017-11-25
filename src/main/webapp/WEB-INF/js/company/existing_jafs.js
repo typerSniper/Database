@@ -5,7 +5,7 @@ app.controller('CompanyExistingJafsController', function($http, $scope, $interva
 
     $scope.getExistingJaf = function(){
     	$rootScope.getCompanyjaf = null;
-		var url = "/comapny/get_jobs";
+		var url = "/company/get_jobs";
         $('#example').DataTable( {
     } );
         $http.get(url)
@@ -19,11 +19,11 @@ app.controller('CompanyExistingJafsController', function($http, $scope, $interva
     $scope.final_selections = function(index)
     {
     	$rootScope.getCompanyjaf = index;
-        $location.path("/comapny/selections");
+        $location.path("/company/selections");
     }
     $scope.publish_results = function(index)
     {
         $rootScope.getCompanyjaf = index;
-        $location.path("/comapny/publishresults");
+        $location.path("/company/publishresults");
     }
 });
