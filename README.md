@@ -1,5 +1,7 @@
-Although this project has been completed only partially, the time that has gone into modularising and creating an optimised client-server interaction
-can be useful to others. It's also a nice setup if you are starting to learn Spring and want to integrate it with AngularJS ;)
+Although this project has been completed only partially, the time that has gone into modularising and creating an optimised client-server interaction can be useful to others. It's also a nice setup if you are starting to learn Spring and want to integrate it with AngularJS ;). We use a combination of mvn and jetty for project management and server which can be installed easily. 
+
+Build : 'mvn clean install' {will install pertinent dependecies}
+Run : 'mvn jetty:run'
 
 Placement Cell App
 
